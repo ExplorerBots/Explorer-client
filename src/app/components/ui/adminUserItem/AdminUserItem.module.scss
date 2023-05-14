@@ -1,0 +1,52 @@
+@import '@/app/styles/_vars';
+
+.user {
+   border-radius: $borderRadius;
+   margin: 0 auto;
+   width: 95%;
+   // height: 100px;
+   background: #101010;
+   display: block;
+   list-style-type: none;
+   color: rgb(152, 152, 152);
+   display: flex;
+   justify-content: space-between;
+
+   .left_cont {
+      padding: 2px 5px 5px;
+      display: flex;
+      flex-direction: column;
+
+      .username {
+         font-weight: 800;
+         font-size: 18px;
+         color: #afafaf;
+         transition: .2s;
+         // width: 100px;
+
+         &:hover {
+            color: rgb(255, 109, 13)
+         }
+      }
+   }
+
+   .right_cont {
+      padding: 0 5px;
+      vertical-align: bottom;
+      text-align: right;
+      position: relative;
+
+      .profile_link {
+         position: absolute;
+         right: 7px;
+         bottom: 4px;
+         transition: .2s;
+
+         &:hover {
+            right: 2px;
+            color: rgb(255, 109, 13)
+         }
+      }
+   }
+
+}

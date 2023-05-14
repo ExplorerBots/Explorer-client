@@ -1,0 +1,7 @@
+@import '@/app/styles/_vars.scss';
+@import '@/app/styles/_mixins.scss';
+
+.footer {
+   height: 100px;
+   background: $bgBlock;
+}

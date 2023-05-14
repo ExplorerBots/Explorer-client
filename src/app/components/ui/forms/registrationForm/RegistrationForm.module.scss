@@ -1,0 +1,118 @@
+@import '@/app/styles/_vars';
+
+.screen {
+   height: 60vh;
+}
+
+.form {
+   background: $bgBlock;
+   width: 550px;
+   height: 250px;
+   margin: 100px auto 0;
+   border-radius: $borderRadius;
+   font-family: 'Exo 2', sans-serif;
+   font-weight: 500 !important;
+   font-size: 16px;
+
+   .form_field {
+      text-align: center;
+      height: 55px;
+      background: $bgInput;
+      width: 95%;
+      height: 35px;
+      display: flex;
+      border-radius: $borderRadius;
+      margin: 0 auto;
+      margin-bottom: 15px;
+   }
+
+   .prefix {
+      width: 20px;
+      height: 20px;
+      margin-top: 7px;
+      margin-left: 4px;
+      margin-right: 4px;
+      position: absolute;
+   }
+
+   .input {
+      font-size: 15px;
+      color: #fff;
+      background: $bgInput;
+      width: 100%;
+      padding-right: 10px;
+      padding-left: 27px;
+      border: none;
+      outline: none;
+      transition: .3s;
+      border-radius: $borderRadius;
+
+      &:focus {
+         border: 1px solid gray;
+      }
+   }
+}
+
+
+
+
+
+
+.title {
+   font-size: 18px;
+   letter-spacing: 1px;
+   padding-top: 15px;
+   color: hsl(240, 2%, 43%);
+}
+
+.title_container {
+   text-align: center;
+   height: 55px;
+}
+
+.svg {
+   width: 17px;
+   height: 17px;
+   padding-top: 3px;
+}
+
+
+.cont {
+   display: flex;
+   justify-content: space-between;
+}
+
+.btn {
+   background: $bgAverage;
+   color: gray;
+   border: none;
+   border-radius: $borderRadius;
+   width: 170px;
+   height: 30px;
+   transition: .3s;
+   cursor: pointer;
+   font-size: 14px;
+   margin-left: 20px;
+}
+
+.btn:hover {
+   background: $bgButton;
+}
+
+.answer {
+   color: hsl(240, 2%, 43%);
+   text-align: center;
+   margin-top: 5px;
+   margin-right: 20px;
+}
+
+.link {
+   cursor: pointer;
+   color: $colorOrange;
+   border-bottom: 1px rgb(121, 79, 1) solid;
+   transition: .2s;
+}
+
+.link:hover {
+   opacity: .6;
+}

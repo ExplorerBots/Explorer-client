@@ -1,0 +1,106 @@
+@import '@/app/styles/_vars.scss';
+
+
+.profile {
+   display: flex;
+   user-select: none;
+
+   .balance_container {
+      border: 1px $bgAverage solid;
+      display: flex;
+      border-radius: 3px;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      margin-right: 10px;
+
+      .balance {
+         color: $colorGray;
+         font-size: 13px;
+         user-select: all;
+
+         &::after {
+            content: '₽';
+            font-size: 14px;
+         }
+         margin-right: 5px;
+      }
+
+      .btn_replenish {
+         box-sizing: border-box;
+         line-height: 20px;
+         color: #fff;
+         background: $colorOrange;
+         width: 23px;
+         height: 23px;
+         font-size: 20px;
+         text-align: center;
+         border-radius: 3px;
+         transition: .2s;
+
+         &:hover {
+            opacity: .6;
+         }
+      }
+   }
+
+   .profile_container {
+      border-left: 1px solid $bgAverage;
+      padding-left: 10px;
+      align-items: center;
+      display: flex;
+      cursor: pointer;
+      transition: opacity 0.2s;
+
+      .info {
+         text-align: left;
+
+         .username {
+            color: #c9c8c8;
+            font-size: 17px;
+            margin: 0;
+         }
+
+         .role {
+            color: gray;
+            font-size: 15px;
+         }
+      }
+
+      >img {
+         width: 45px;
+         height: 45px;
+         border-radius: 50%;
+      }
+
+      &:hover {
+         opacity: 0.8;
+      }
+   }
+}
+
+.items_container {
+   position: absolute;
+   top: 75px;
+   // border-radius: $borderRadius;
+   border-radius: 3px;
+   background-color: $bgBlock;
+   color: rgb(152, 152, 152);
+   width: 160px;
+   box-shadow: 0 0 20px $bgMain;
+}
+
+
+.authorization_btn {
+   background: $colorGray;
+   border-radius: $borderRadius;
+   height: 30px;
+   border: none;
+   width: 140px;
+   cursor: pointer;
+   transition: .2s;
+}
+
+.authorization_btn:hover {
+   background: rgb(82, 80, 79);
+}

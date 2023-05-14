@@ -1,0 +1,33 @@
+@import './vars';
+
+.screen {
+   width: 100vw;
+   height: 100vh;
+}
+
+.container {
+   width: 310px;
+   background: $bgBlock;
+   border-radius: $borderRadius;
+   margin: 30px auto;
+
+   .title {
+      color: #fff;
+      text-align: center;
+      padding: 5px 0;
+   }
+
+   .link {
+      display: inline-block;
+      color: rgb(152, 152, 152);
+      width: 310px;
+      height: 45px;
+      padding: 10px 0 0 10px;
+      border-radius:$borderRadius;
+      font-size: 18px;
+
+      &:hover {
+         background: rgb(28, 28, 28);
+      }
+   }
+}

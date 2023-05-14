@@ -1,0 +1,109 @@
+@import '@/app/styles/_vars';
+
+.bot_panel {
+  display: inline-block;
+  background-color: rgb(25, 25, 25);
+  border-radius: $borderRadius;
+  color: rgb(152, 152, 152);
+  padding: 32px 32px 32px 32px;
+  /* transform: rotate(90deg);
+  transform-origin: right top; */
+}
+
+.rate,
+.name_and_logo_of_server {
+  display: flex;
+  align-items: center;
+}
+
+.rate,
+.name_and_logo_of_server,
+.ip_of_server,
+.bot_icon,
+.run_bot,
+.time_left {
+  display: flex;
+  justify-content: center;
+}
+
+.rate,
+.run_bot button {
+  font-size: 24px;
+}
+
+
+.time_left,
+.ip_of_server {
+  font-size: 14px;
+}
+
+.rate {
+  color: rgb(152, 152, 152);
+}
+
+.name_and_logo_of_server {
+  grid-gap: 10px;
+  margin-bottom: 20px;
+}
+
+.ip_of_server {
+  margin-top: -20px;
+  font-size: 16px;
+}
+
+.bot_icon {
+  margin-top: 10px;
+}
+
+.run_bot {
+  margin-top: 10px;
+}
+
+.time_left {
+  margin-top: -10px;
+  font-size: 16px;
+}
+
+.content {
+  padding: 0px 20px 0px 20px;
+}
+
+.logo_of_server img {
+  height: 40px;
+  width: 40px;
+
+}
+
+.name_of_server {
+  font-size: 20px
+}
+
+.ip_of_server span {
+  background-color: rgba(255, 255, 255, 0.071);
+  display: inline-block;
+  border: none;
+  border-radius: 2px;
+  padding: 0px 1px 2px 1px;
+  cursor: pointer;
+}
+
+.run_bot button {
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px 8px 12px;
+  background-color: rgb(255, 109, 13);
+  /*color: rgb(222, 222, 222); для light theme*/
+  color: rgb(25, 25, 25);
+  cursor: pointer;
+  transition: opacity 0.15s;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.run_bot button:hover {
+  opacity: 0.8;
+}
+
+.run_bot button:active {
+  opacity: 0.6;
+}

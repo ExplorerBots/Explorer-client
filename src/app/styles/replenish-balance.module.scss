@@ -1,0 +1,78 @@
+@import './vars';
+@import './mixins';
+
+.screen {
+   width: 100vw;
+   height: 100vh;
+}
+
+.bonus_container {
+   margin: 30px auto;
+
+   background: $bgBlock;
+   max-width: 1200px;
+   border-radius: $borderRadius;
+   padding: 30px;
+  
+
+   .content {
+      display: flex;
+      gap: 30px;
+
+      .noty_block {
+         padding: 20px 30px;
+         background: $bgAverage;
+         border-radius: $borderRadius;
+         color: $colorGray;
+         margin-bottom: 10px;
+         width: 100%;
+   
+         .noty_title {
+            font-weight: bold;
+            margin-bottom: 5px;
+         }
+   
+         .noty_description {
+            opacity: .8;
+         }
+      }
+   }
+}
+
+.container {
+   margin: 30px auto;
+
+   background: $bgBlock;
+   max-width: 600px;
+   height: 300px;
+   border-radius: $borderRadius;
+   padding: 30px;
+
+   .content {
+      .input_field {
+         position: relative;
+         top: 20px;
+
+         .input_label {
+            position: absolute;
+            top: -20px;
+            left: 2px;
+         }
+
+         .input_number {
+            border-radius: 3px;
+            height: 40px;
+            font-size: 20px;
+
+         }
+      }
+
+
+   }
+}
+
+@include desktop() {
+   .container {
+      max-width: 1000px;
+   }
+}
