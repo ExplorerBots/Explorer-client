@@ -1,35 +1,35 @@
-import { UserService } from '@/app/services/user.service'
-import { useAppDispatch } from '@/app/store/hooks'
-import { setUserData } from '@/app/store/slices/user'
-import { NextPage } from 'next'
-import { parseCookies } from 'nookies'
-import { useEffect } from 'react'
-import Footer from './footer/Footer'
-import Header from './header/Header'
-import styles from './Layout.module.scss'
+import { UserService } from '@/app/services/user.service';
+import { useAppDispatch } from '@/app/store/hooks';
+import { setUserData } from '@/app/store/slices/user';
+import { NextPage } from 'next';
+import { parseCookies } from 'nookies';
+import { useEffect } from 'react';
+import Footer from './footer/Footer';
+import Header from './header/Header';
+import styles from './Layout.module.scss';
 
 interface Props {
-   children: any
+   children: any;
 }
 
 const Layout: NextPage<Props> = ({ children }) => {
-   const dispatch = useAppDispatch()
+   const dispatch = useAppDispatch();
 
    useEffect(() => {
-      const { authToken } = parseCookies()
+      const { authToken } = parseCookies();
       if (authToken) {
-         const user = UserService.tokenDecode(authToken)
-         dispatch(setUserData(user))
+         const user = UserService.tokenDecode(authToken);
+         dispatch(setUserData(user));
       }
-   }, [])
+   }, []);
 
    return (
       <div className={styles.wrapper}>
          <Header />
-         {children}
-         <Footer/>
+         <div className={styles.page}>{children}</div>
+         <Footer />
       </div>
-   )
-}
+   );
+};
 
-export default Layout
+export default Layout;

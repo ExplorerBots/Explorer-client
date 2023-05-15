@@ -1,15 +1,11 @@
 @import './vars';
-
-.screen {
-   width: 100vw;
-   height: 100vh;
-}
+@import './mixins';
 
 .container {
    width: 310px;
    background: $bgBlock;
    border-radius: $borderRadius;
-   margin: 30px auto;
+   margin: 0 auto;
 
    .title {
       color: #fff;
@@ -23,7 +19,7 @@
       width: 310px;
       height: 45px;
       padding: 10px 0 0 10px;
-      border-radius:$borderRadius;
+      border-radius: $borderRadius;
       font-size: 18px;
 
       &:hover {

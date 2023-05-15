@@ -1,8 +1,17 @@
-import AuthorizeForm from '@/app/components/ui/forms/authorizeForm/AuthorizeForm'
-import { FC } from 'react'
+import AuthorizeForm from '@/app/components/ui/forms/authorizeForm/AuthorizeForm';
+import Head from 'next/head';
+import { FC } from 'react';
 
 const AuthorizePage: FC = () => {
-   return <AuthorizeForm />
-}
+   return (
+      <>
+         <Head>
+            <title>EBots - Авторизация</title>
+         </Head>
 
-export default AuthorizePage
+         <AuthorizeForm />
+      </>
+   );
+};
+
+export default AuthorizePage;

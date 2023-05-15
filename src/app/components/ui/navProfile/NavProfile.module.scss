@@ -1,6 +1,5 @@
 @import '@/app/styles/_vars.scss';
 
-
 .profile {
    display: flex;
    user-select: none;
@@ -36,10 +35,10 @@
          font-size: 20px;
          text-align: center;
          border-radius: 3px;
-         transition: .2s;
+         transition: 0.2s;
 
          &:hover {
-            opacity: .6;
+            opacity: 0.6;
          }
       }
    }
@@ -67,7 +66,7 @@
          }
       }
 
-      >img {
+      > img {
          width: 45px;
          height: 45px;
          border-radius: 50%;
@@ -90,7 +89,6 @@
    box-shadow: 0 0 20px $bgMain;
 }
 
-
 .authorization_btn {
    background: $colorGray;
    border-radius: $borderRadius;
@@ -98,9 +96,9 @@
    border: none;
    width: 140px;
    cursor: pointer;
-   transition: .2s;
+   transition: 0.2s;
 }
 
 .authorization_btn:hover {
-   background: rgb(82, 80, 79);
+   // background: rgb(82, 80, 79);
 }

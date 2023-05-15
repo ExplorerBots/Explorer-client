@@ -1,15 +1,15 @@
 @import './vars';
+@import './mixins';
 
 .container {
    width: 40vw;
-   height: calc(100vh - 140px);
-   background: $bgMain;
-   margin: 100px auto 0;
+   height: 100vh;
+   background: $bgBlock;
+   margin: 0 auto;
    border-radius: $borderRadius;
 
    display: flex;
    justify-content: space-between;
-
 
    .left_panel {
       margin-top: 10px;
@@ -29,10 +29,10 @@
             margin-top: 4px;
             margin-left: 5px;
             color: gray;
-            transition: .2s;
+            transition: 0.2s;
 
             &:hover {
-               color: rgb(255, 109, 13)
+               color: rgb(255, 109, 13);
             }
          }
 
@@ -50,12 +50,10 @@
          padding: 4px;
          padding-top: 0;
 
-
          .email {
             color: rgb(152, 152, 152);
          }
       }
-
    }
 
    .right_panel {
@@ -63,7 +61,6 @@
       margin-right: 10px;
       color: rgb(189, 189, 189);
       font-size: 18px;
-
 
       .role_container {
          display: flex;
@@ -77,10 +74,10 @@
             margin-top: 4px;
             margin-left: 5px;
             color: gray;
-            transition: .2s;
+            transition: 0.2s;
 
             &:hover {
-               color: rgb(255, 109, 13)
+               color: rgb(255, 109, 13);
             }
          }
       }
@@ -94,16 +91,15 @@
          padding-top: 0;
          justify-content: flex-end;
 
-
          .edit_balance {
             cursor: pointer;
             margin-top: 4px;
             margin-left: 5px;
             color: gray;
-            transition: .2s;
+            transition: 0.2s;
 
             &:hover {
-               color: rgb(255, 109, 13)
+               color: rgb(255, 109, 13);
             }
          }
       }

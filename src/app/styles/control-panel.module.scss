@@ -1,4 +1,7 @@
 @import './vars';
+@import './mixins';
+
+// @include screen();
 
 .page {
    margin-top: 50px;

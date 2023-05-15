@@ -12,7 +12,7 @@ interface Props {
 
 const ChangeRoleModal: FC<PropsWithChildren<Props>> = ({ id, role, setActive, reload }) => {
 
-   const select = useRef<HTMLSelectElement>()
+   const select = useRef<HTMLSelectElement | any>()
    const [selectedRole, setSelectedRole] = useState('')
 
    useEffect(() => {

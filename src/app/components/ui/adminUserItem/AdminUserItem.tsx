@@ -1,4 +1,4 @@
-import { IFullUser } from '@/app/interfaces/user.interface'
+import { IFullUser } from '@/app/interfaces/index'
 import { getRoleDescription } from '@/app/lib/role-description'
 import Link from 'next/link'
 import { FC, PropsWithChildren } from 'react'

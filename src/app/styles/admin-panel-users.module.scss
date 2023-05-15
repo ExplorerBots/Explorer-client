@@ -1,13 +1,12 @@
 @import './vars';
+@import './mixins';
 
 .container {
-   background: $bgMain;
+   background: $bgBlock;
    width: 40vw;
-   height: calc(100vh - 120px);
+   height: 100vh;
    margin: 0 auto;
-   margin-top: 90px;
    border-radius: $borderRadius;
-
 
    .users_list {
       display: flex;
@@ -55,7 +54,6 @@
             color: #fff;
             outline: none;
             padding-left: 5px;
-            // transition: .2s;
 
             &:focus {
                border: 1px solid rgb(152, 152, 152);

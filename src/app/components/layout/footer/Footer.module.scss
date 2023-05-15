@@ -2,6 +2,84 @@
 @import '@/app/styles/_mixins.scss';
 
 .footer {
-   height: 100px;
-   background: $bgBlock;
+   background: $bgMain;
+   justify-content: center;
+   display: flex;
+
+   .container {
+      border-top: 1px solid $bgAverage;
+      // justify-content: center;
+      display: flex;
+      padding: 30px;
+      width: 1200px;
+      gap: 30px;
+
+      .content_comment {
+         align-items: center;
+         p {
+            opacity: 0.5;
+            font-size: 13px;
+         }
+      }
+
+      .content_links {
+         display: flex;
+         align-items: center;
+         gap: 30px;
+
+         a {
+            color: gray;
+            font-weight: bolder;
+
+            &:hover {
+               color: $colorOrange;
+               opacity: 1;
+            }
+         }
+      }
+
+      .content_email {
+         display: flex;
+         align-items: center;
+         color: $colorGray;
+         opacity: 0.7;
+      }
+
+      .content_socials {
+         display: flex;
+         align-items: center;
+         gap: 15px;
+         border-left: 1px solid $bgAverage;
+         padding-left: 30px;
+
+         svg {
+            cursor: pointer;
+            fill: gray;
+         }
+
+         .vk {
+            &:hover {
+               fill: #4c75a3;
+            }
+         }
+
+         .discord {
+            &:hover {
+               fill: #7289da;
+            }
+         }
+
+         .telegram {
+            &:hover {
+               fill: #2aabee;
+            }
+         }
+
+         .youtube {
+            &:hover {
+               fill: #ff0000;
+            }
+         }
+      }
+   }
 }

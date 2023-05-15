@@ -20,7 +20,7 @@
       width: 95%;
       height: 35px;
       display: flex;
-      border-radius:$borderRadius;
+      border-radius: $borderRadius;
       margin: 0 auto;
       margin-bottom: 15px;
 
@@ -33,7 +33,7 @@
          padding-left: 27px;
          border: none;
          outline: none;
-         transition: .3s;
+         transition: 0.3s;
          border-radius: $borderRadius;
 
          &:focus {
@@ -50,10 +50,7 @@
          margin-right: 4px;
       }
    }
-
 }
-
-
 
 .title {
    font-size: 18px;
@@ -73,7 +70,6 @@
    padding-top: 3px;
 }
 
-
 .cont {
    display: flex;
    justify-content: space-between;
@@ -90,7 +86,7 @@
    border-radius: $borderRadius;
    width: 100px;
    height: 30px;
-   transition: .3s;
+   transition: 0.3s;
    cursor: pointer;
    font-size: 14px;
    margin-left: 20px;
@@ -110,10 +106,10 @@
 .link {
    cursor: pointer;
    color: $colorOrange;
-   transition: .2s;
+   transition: 0.2s;
    border-bottom: 1px rgb(121, 79, 1) solid;
 }
 
 .link:hover {
-   opacity: .6;
+   opacity: 0.6;
 }
