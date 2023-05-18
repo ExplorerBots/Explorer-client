@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import BlockTitle from '../../ui/blockTitle/BlockTitle';
-import styles from './styles.module.scss';
+import styles from './_styles.module.scss';
 
 const NavigationBar = () => {
    const { query } = useRouter();

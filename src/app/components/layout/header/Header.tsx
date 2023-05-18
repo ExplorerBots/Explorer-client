@@ -21,7 +21,7 @@ const Header: FC<PropsWithChildren> = () => {
          </div>
          <div className={styles.item}>
             <img className={styles.svg} src='/header/control.svg' alt="" />
-            <Link href='/control-panel'>Панель управления</Link>
+            <Link href='/control-panel/bots'>Панель управления</Link>
          </div>
          <div className={styles.item}>
             <img className={styles.svg} src='/header/help-circle.svg' alt="" />

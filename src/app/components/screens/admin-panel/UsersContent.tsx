@@ -2,7 +2,7 @@ import { IFullUser } from '@/app/interfaces';
 import { useEffect, useState } from 'react';
 import AdminUserItem from '../../ui/adminUserItem/AdminUserItem';
 import BackButton from '../../ui/buttons/BackButton/BackButton';
-import styles from './styles.module.scss';
+import styles from './_styles.module.scss';
 
 interface ISearchText {
    username: string;
