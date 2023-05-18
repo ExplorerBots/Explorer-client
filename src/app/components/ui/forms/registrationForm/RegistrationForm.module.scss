@@ -17,7 +17,7 @@
    .form_field {
       text-align: center;
       height: 55px;
-      background: $bgInput;
+      background: $bgInputBlock;
       width: 95%;
       height: 35px;
       display: flex;
@@ -38,13 +38,13 @@
    .input {
       font-size: 15px;
       color: #fff;
-      background: $bgInput;
+      background: $bgInputBlock;
       width: 100%;
       padding-right: 10px;
       padding-left: 27px;
       border: none;
       outline: none;
-      transition: .3s;
+      transition: 0.3s;
       border-radius: $borderRadius;
 
       &:focus {
@@ -52,11 +52,6 @@
       }
    }
 }
-
-
-
-
-
 
 .title {
    font-size: 18px;
@@ -76,7 +71,6 @@
    padding-top: 3px;
 }
 
-
 .cont {
    display: flex;
    justify-content: space-between;
@@ -89,7 +83,7 @@
    border-radius: $borderRadius;
    width: 170px;
    height: 30px;
-   transition: .3s;
+   transition: 0.3s;
    cursor: pointer;
    font-size: 14px;
    margin-left: 20px;
@@ -108,11 +102,11 @@
 
 .link {
    cursor: pointer;
-   color: $colorOrange;
-   border-bottom: 1px rgb(121, 79, 1) solid;
-   transition: .2s;
-}
+   color: $colorGray;
+   transition: 0.2s;
 
-.link:hover {
-   opacity: .6;
+   &:hover {
+      opacity: 1;
+      border-bottom: 1px gray solid;
+   }
 }

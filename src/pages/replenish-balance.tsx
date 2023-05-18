@@ -4,10 +4,8 @@ import Head from 'next/head';
 import { ChangeEvent, FC, PropsWithChildren, useState } from 'react';
 
 const ReplenishBalancePage: FC = () => {
-   const operationsHistory: any[] = [
-      { amount: 643, type: 'ЮMoney', date: '15.05.2023, 21:31:44' },
-      { amount: 733, type: 'ЮMoney', date: '15.05.2023, 21:31:44' },
-      { amount: 123, type: 'Выдача', date: '15.05.2023, 21:31:44' },
+   let operationsHistory: any[] = [
+      { amount: 350, type: 'ЮMoney', date: '15.05.2023, 21:31:44' },
    ];
 
    return (
@@ -103,20 +101,18 @@ const CentralMiddleBlock: FC<PropsWithChildren<{}>> = () => {
          <div className={styles.internal_container}>
             <p className={styles.title}>Пополнить баланс</p>
             <div className={styles.input_field}>
-               {/* <label className={styles.input_label}>Сумма пополнения</label> */}
                <input
                   type="number"
                   className={styles.input}
                   value={amount || ''}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                     setAmount(Number(e.target.value))
+                     setAmount(Math.round(Number(e.target.value)))
                   }
                   placeholder="Сумма пополнения"
                />
             </div>
 
             <div className={styles.input_field}>
-               {/* <label className={styles.input_label}>Промокод</label> */}
                <input
                   type="text"
                   className={styles.input}
@@ -151,7 +147,7 @@ const CentralLeftBlock: FC<PropsWithChildren<{}>> = () => {
             на твиче.
          </p>
          <p className={styles.text}>
-            И ты хочешь получать деньги с реферальной системы.
+            У нас есть для тебя партнерская программа
          </p>
          <a target="_blank" href="https://vk.com/write-217895304">
             <button className={styles.enter_button}>Напиши нам</button>

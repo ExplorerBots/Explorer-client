@@ -13,7 +13,7 @@ const NavProfile: FC = () => {
    // const userData = useAppSelector(state => state.user.data)
    const userData = {
       username: 'Sapok',
-      balance: 'Лимон',
+      balance: '350',
       role: 'ADMIN',
    };
    // const userData = false
