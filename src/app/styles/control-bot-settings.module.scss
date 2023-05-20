@@ -1,0 +1,33 @@
+@import './vars';
+@import './mixins';
+
+.settings_container {
+   margin: 0 auto;
+   background: $bgBlock;
+   max-width: 600px;
+   border-radius: $borderRadius;
+   padding: 30px;
+
+   .content {
+      display: flex;
+      gap: 30px;
+   }
+
+   .divider {
+      width: 100%;
+      position: relative;
+      height: 1px;
+      background: #4c4d4f;
+      margin: 20px 0 10px;
+
+      .divider_text {
+         background: $bgBlock;
+         padding: 0 7px 2px;
+         color: $colorGray;
+         position: absolute;
+         left: 50%;
+         font-size: 14px;
+         transform: translate(-50%) translateY(-50%);
+      }
+   }
+}

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Logo from '../../ui/logo/Logo';
+import Logo from '../../ui/general/logo/Logo';
 import styles from './Footer.module.scss';
 
 const Footer: React.FC = () => {

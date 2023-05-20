@@ -1,9 +1,9 @@
-import BackButton from '@/app/components/ui/buttons/BackButton/BackButton';
-import LoadingCircle from '@/app/components/ui/loadingCirclce/LoadingCircle';
-import ChangeRoleModal from '@/app/components/ui/modals/ChangeRoleModal/ChangeRoleModal';
-import ChangeUsernameModal from '@/app/components/ui/modals/ChangeUsernameModal/ChangeUsernameModal';
-import GiveBalanceModal from '@/app/components/ui/modals/GiveBalaceModal/GiveBalanceModal';
-import TakeBalanceModal from '@/app/components/ui/modals/TakeBalanceModal/TakeBalanceModal';
+import BackButton from '@/app/components/ui/general/buttons/BackButton/BackButton';
+import LoadingCircle from '@/app/components/ui/general/loadingCirclce/LoadingCircle';
+import ChangeRoleModal from '@/app/components/ui/general/modals/ChangeRoleModal/ChangeRoleModal';
+import ChangeUsernameModal from '@/app/components/ui/general/modals/ChangeUsernameModal/ChangeUsernameModal';
+import GiveBalanceModal from '@/app/components/ui/general/modals/GiveBalaceModal/GiveBalanceModal';
+import TakeBalanceModal from '@/app/components/ui/general/modals/TakeBalanceModal/TakeBalanceModal';
 import { IFullUser } from '@/app/interfaces/index';
 import { getRoleDescription } from '@/app/lib/role-description';
 import { AdminService } from '@/app/services/admin.service';

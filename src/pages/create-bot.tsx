@@ -1,4 +1,5 @@
-import BlockTitle from '@/app/components/ui/blockTitle/BlockTitle';
+import BlockTitle from '@/app/components/ui/general/blockTitle/BlockTitle';
+import Divider from '@/app/components/ui/general/divider/Divider';
 import styles from '@/app/styles/create-bot.module.scss';
 import Head from 'next/head';
 import { ChangeEvent, FC, PropsWithChildren, useRef, useState } from 'react';
@@ -171,14 +172,6 @@ const InputField: FC<
             }
             placeholder={placeholder}
          />
-      </div>
-   );
-};
-
-const Divider: FC<PropsWithChildren<{ text: string }>> = ({ text }) => {
-   return (
-      <div className={styles.divider}>
-         <div className={styles.divider_text}>{text}</div>
       </div>
    );
 };

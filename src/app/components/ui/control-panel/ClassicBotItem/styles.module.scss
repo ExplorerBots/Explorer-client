@@ -50,9 +50,20 @@
       justify-content: end;
       text-align: center;
 
-      .button_start {
-         height: 30px;
-         width: 100%;
+      .buttons {
+         display: flex;
+         gap: 5px;
+
+         .button_start {
+            height: 30px;
+            width: 100%;
+         }
+
+         .settings {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+         }
       }
 
       .days_left {

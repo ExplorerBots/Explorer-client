@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import BlockTitle from '../../ui/blockTitle/BlockTitle';
+import BlockTitle from '../../ui/general/blockTitle/BlockTitle';
 import styles from './_styles.module.scss';
 
 const NavigationBar = () => {

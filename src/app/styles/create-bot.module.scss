@@ -99,23 +99,6 @@
             width: 20px;
          }
 
-         .divider {
-            width: 100%;
-            position: relative;
-            height: 1px;
-            background: #4c4d4f;
-            margin: 20px 0 10px;
-
-            .divider_text {
-               background: $bgAverage;
-               padding: 0 7px 2px;
-               position: absolute;
-               left: 50%;
-               font-size: 14px;
-               transform: translate(-50%) translateY(-50%);
-            }
-         }
-
          .chests_image {
             left: -12px;
             top: -12px;

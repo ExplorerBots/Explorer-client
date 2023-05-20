@@ -1,4 +1,3 @@
-import BlockTitle from '@/app/components/ui/blockTitle/BlockTitle';
 import ClassicBotItem from '@/app/components/ui/control-panel/ClassicBotItem/ClassicBotItem';
 import PremiumBotItem from '@/app/components/ui/control-panel/PremiumBotItem/PremiumBotItem';
 import styles from '@/app/styles/control-panel.module.scss';
@@ -14,8 +13,7 @@ const ControlPanelPage: FC = () => {
          const onWheel = (e: any) => {
             e.preventDefault();
             el.scrollTo({
-               left: el.scrollLeft + e.deltaY * 4,
-               behavior: 'smooth',
+               left: el.scrollLeft + e.deltaY,
             });
          };
 
@@ -31,7 +29,6 @@ const ControlPanelPage: FC = () => {
          </Head>
 
          <div className={styles.bots_container}>
-            <BlockTitle text="Список ботов" />
             <div className={styles.content} ref={ref}>
                <ClassicBotItem
                   username="SapokTapok"
@@ -45,6 +42,13 @@ const ControlPanelPage: FC = () => {
                   botId={222}
                   server="HolyWorld"
                   status="offline"
+                  days_left={24}
+               />
+               <ClassicBotItem
+                  username="SapokTapok"
+                  botId={345}
+                  server="HolyWorld"
+                  status="online"
                   days_left={24}
                />
             </div>

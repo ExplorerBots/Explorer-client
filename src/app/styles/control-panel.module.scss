@@ -6,21 +6,23 @@
    border-radius: $borderRadius;
    background-color: $bgBlock;
    max-width: 1200px;
-   padding: 30px;
+   padding: 0 30px 30px 30px;
 
    .content {
       display: flex;
       flex-direction: row;
       gap: 30px;
-      // white-space: nowrap;
-      // overflow-x: auto;
+      padding: 30px 0;
+      // box-sizing: border-box;
+      overflow-x: auto;
 
       &::-webkit-scrollbar-thumb {
          background: $bgAverage;
+         border-radius: 5px;
       }
-
       &::-webkit-scrollbar-track {
          background: $bgMain;
+         border-radius: 5px;
       }
    }
 }

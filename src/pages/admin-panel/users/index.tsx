@@ -1,5 +1,5 @@
 import AdminUserItem from '@/app/components/ui/adminUserItem/AdminUserItem';
-import BackButton from '@/app/components/ui/buttons/BackButton/BackButton';
+import BackButton from '@/app/components/ui/general/buttons/BackButton/BackButton';
 import { IFullUser } from '@/app/interfaces/index';
 import styles from '@/app/styles/admin-panel-users.module.scss';
 import Head from 'next/head';

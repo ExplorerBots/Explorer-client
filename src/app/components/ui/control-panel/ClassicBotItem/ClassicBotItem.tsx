@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FC, PropsWithChildren } from 'react';
 import styles from './styles.module.scss';
@@ -13,8 +14,12 @@ const ClassicBotItem: FC<
 > = ({ username, botId, server, status, days_left }) => {
    const router = useRouter();
 
-   const clickHandler = (botId: number) => {
+   const clickEnterHandler = (botId: number) => {
       router.push(`/control-panel/bots/${botId}`);
+   };
+
+   const clickSettingsHandler = (botId: number) => {
+      router.push(`/control-panel/bots/${botId}/settings`);
    };
 
    return (
@@ -40,12 +45,25 @@ const ClassicBotItem: FC<
             </p>
          </div>
          <div className={styles.bottom}>
-            <button
-               onClick={() => clickHandler(botId)}
-               className={styles.button_start}
-            >
-               Управление
-            </button>
+            <div className={styles.buttons}>
+               <button
+                  onClick={() => clickEnterHandler(botId)}
+                  className={styles.button_start}
+               >
+                  Управление
+               </button>
+               <button
+                  onClick={() => clickSettingsHandler(botId)}
+                  className={styles.settings}
+               >
+                  <Image
+                     src="/svg/settings.svg"
+                     alt={''}
+                     width={20}
+                     height={20}
+                  />
+               </button>
+            </div>
             <p className={styles.days_left}>Осталось дней: {days_left}</p>
          </div>
       </div>

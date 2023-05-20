@@ -1,4 +1,4 @@
-import BlockTitle from '@/app/components/ui/blockTitle/BlockTitle';
+import BlockTitle from '@/app/components/ui/general/blockTitle/BlockTitle';
 import BonusBlock from '@/app/components/ui/replenish-balance/BonusBlock';
 import CentralLeftBlock from '@/app/components/ui/replenish-balance/CentralLeftBlock';
 import CentralMiddleBlock from '@/app/components/ui/replenish-balance/CentralMiddleBlock';
