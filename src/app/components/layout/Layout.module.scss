@@ -1,9 +1,17 @@
 .wrapper {
    width: 100vw;
+   height: 100vh;
 }
 
 .page {
    padding: 30px 0;
    width: 100vw;
    min-height: calc(100vh - 60px - 93px);
+}
+
+.preloader {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 100%;
 }

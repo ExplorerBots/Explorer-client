@@ -4,7 +4,7 @@ import '@/app/styles/globals.scss';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 
-export default function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
    return (
       <>
          <Provider store={store}>
@@ -14,4 +14,5 @@ export default function App({ Component, pageProps }: AppProps) {
          </Provider>
       </>
    );
-}
+};
+export default App;

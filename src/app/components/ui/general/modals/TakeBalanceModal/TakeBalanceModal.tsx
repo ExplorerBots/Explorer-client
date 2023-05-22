@@ -1,41 +1,60 @@
-import { AdminService } from '@/app/services/admin.service'
-import { FC, PropsWithChildren, useState } from 'react'
-import CrossButton from '../../buttons/CrossButton/CrossButton'
-import styles from './TakeBalanceModal.module.scss'
+import { AdminService } from '@/app/services/admin';
+import { FC, PropsWithChildren, useState } from 'react';
+import CrossButton from '../../buttons/CrossButton/CrossButton';
+import styles from './TakeBalanceModal.module.scss';
 
 interface Props {
-   id: number
-   setActive: (s: boolean) => void
-   reload: () => void
+   id: number;
+   setActive: (s: boolean) => void;
+   reload: () => void;
 }
 
-const TakeBalanceModal: FC<PropsWithChildren<Props>> = ({ id, setActive, reload }) => {
-   const [fieldBalance, setFieldBalance] = useState('')
+const TakeBalanceModal: FC<PropsWithChildren<Props>> = ({
+   id,
+   setActive,
+   reload,
+}) => {
+   const [fieldBalance, setFieldBalance] = useState('');
 
    const takeBalance = async () => {
       const dto = {
          id: id,
-         balanceDifference: +fieldBalance
-      }
+         balanceDifference: +fieldBalance,
+      };
 
-      await AdminService.takeBalance(dto)
-         .then(() => {
-            setActive(false)
-            reload()
-         })
-   }
+      await AdminService.takeBalance(dto).then(() => {
+         setActive(false);
+         reload();
+      });
+   };
 
-   return <>
-      <div className={styles.modal} onClick={() => setActive(false)}>
-         <div className={styles.modal_content} onClick={(e) => e.stopPropagation()}>
-            <CrossButton setActive={setActive} />
-            <div className={styles.title}>Украсть деньги с баланса</div>
-            <input className={styles.field} type="number" onChange={(e) => setFieldBalance(e.target.value)} />
-            <p className={styles.info}>Будет Украдено {fieldBalance ? fieldBalance : 0} ₽</p>
-            <button className={styles.submit_button} onClick={() => takeBalance()}>Украсть</button>
+   return (
+      <>
+         <div className={styles.modal} onClick={() => setActive(false)}>
+            <div
+               className={styles.modal_content}
+               onClick={(e) => e.stopPropagation()}
+            >
+               <CrossButton setActive={setActive} />
+               <div className={styles.title}>Украсть деньги с баланса</div>
+               <input
+                  className={styles.field}
+                  type="number"
+                  onChange={(e) => setFieldBalance(e.target.value)}
+               />
+               <p className={styles.info}>
+                  Будет Украдено {fieldBalance ? fieldBalance : 0} ₽
+               </p>
+               <button
+                  className={styles.submit_button}
+                  onClick={() => takeBalance()}
+               >
+                  Украсть
+               </button>
+            </div>
          </div>
-      </div>
-   </>
-}
+      </>
+   );
+};
 
-export default TakeBalanceModal
+export default TakeBalanceModal;

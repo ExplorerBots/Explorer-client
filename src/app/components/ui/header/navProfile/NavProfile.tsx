@@ -1,22 +1,17 @@
 import { getRoleDescription } from '@/app/lib/role-description';
-import { useAppDispatch } from '@/app/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 import { setUserData } from '@/app/store/slices/user';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { destroyCookie } from 'nookies';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import LinkItem from './linkItem/LinkItem';
 import styles from './NavProfile.module.scss';
 
 const NavProfile: FC = () => {
-   // const userData = useAppSelector(state => state.user.data)
-   const userData = {
-      username: 'Sapok',
-      balance: '350',
-      role: 'ADMIN',
-   };
-   // const userData = false
+   const userData = useAppSelector((state) => state.user.data);
+
    const dispatch = useAppDispatch();
    const router = useRouter();
    const [showProfile, setShowProfile] = useState<boolean>(false);
@@ -27,10 +22,6 @@ const NavProfile: FC = () => {
       router.push('/authorize');
       dispatch(setUserData(null));
    };
-
-   useEffect(() => {
-      console.log(showProfile);
-   }, [showProfile]);
 
    return (
       <div className={styles.profile}>
