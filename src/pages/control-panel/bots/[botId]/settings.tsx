@@ -1,9 +1,16 @@
 import BlockTitle from '@/app/components/ui/general/blockTitle/BlockTitle';
+import { withAuth } from '@/app/hoc/withAuth';
+import { useAppSelector } from '@/app/store/hooks';
 import styles from '@/app/styles/control-bot-settings.module.scss';
 import Head from 'next/head';
 import { FC, PropsWithChildren } from 'react';
 
 const ControlBotSettingsPage = () => {
+   const userSlice = useAppSelector((store) => store.user);
+
+   // if (userSlice.data) {
+   //    router.push('/authorize');
+   // }
    return (
       <>
          <Head>
@@ -33,4 +40,4 @@ const Divider: FC<PropsWithChildren<{ text: string; className?: string }>> = ({
       </div>
    );
 };
-export default ControlBotSettingsPage;
+export default withAuth(ControlBotSettingsPage);

@@ -1,9 +1,23 @@
-import { useAppSelector } from '../store/hooks';
-
-const user = useAppSelector((state) => state.user);
+import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
+import { useRouter } from 'next/router';
+import { destroyCookie } from 'nookies';
+import { AuthorizeUserDto } from '../interfaces';
+import { authorizeUser, removeUserData } from '../store/slices/user';
 export const useAuth = () => {
-   const data = user.data;
-   console.log(data);
+   const dispatch = useAppDispatch();
+   const userSlice = useAppSelector((state) => state.user.data);
+   const router = useRouter();
 
-   return data;
+   const logout = () => {
+      dispatch(removeUserData());
+      destroyCookie({}, 'authToken', { path: '/' });
+   };
+
+   const authorize = (data: AuthorizeUserDto) => {
+      dispatch(authorizeUser(data));
+   };
+
+   const registration = () => {};
+
+   return { logout, authorize, registration };
 };

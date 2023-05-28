@@ -5,9 +5,9 @@ import ChangeUsernameModal from '@/app/components/ui/general/modals/ChangeUserna
 import GiveBalanceModal from '@/app/components/ui/general/modals/GiveBalaceModal/GiveBalanceModal';
 import TakeBalanceModal from '@/app/components/ui/general/modals/TakeBalanceModal/TakeBalanceModal';
 import { IFullUser } from '@/app/interfaces/index';
-import { getRoleDescription } from '@/app/lib/role-description';
 import { AdminService } from '@/app/services/admin';
 import styles from '@/app/styles/admin-panel-user.module.scss';
+import { getRoleDescription } from '@/app/utils/role-description';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';

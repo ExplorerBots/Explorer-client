@@ -1,4 +1,4 @@
-@import '@/app/styles/_vars.scss';
+@import '@/app/assets/_vars.scss';
 
 .profile {
    display: flex;
@@ -80,9 +80,8 @@
 
 .items_container {
    position: absolute;
-   top: 75px;
+   top: 60px;
    z-index: 1;
-   border-radius: 3px;
    background-color: $bgBlock;
    color: rgb(152, 152, 152);
    width: 160px;

@@ -1,16 +1,17 @@
-import AdminUserItem from '@/app/components/ui/adminUserItem/AdminUserItem';
 import BackButton from '@/app/components/ui/general/buttons/BackButton/BackButton';
+import { withAuth } from '@/app/hoc/withAuth';
 import { IFullUser } from '@/app/interfaces/index';
 import styles from '@/app/styles/admin-panel-users.module.scss';
 import Head from 'next/head';
 import { FC, PropsWithChildren, useEffect, useState } from 'react';
 
 // export const getStaticProps = async (context: object) => {
-//   const users: IFullUser[] = await AdminService.getAllUsers()
-//   return {
-//     props: { users },
-//   }
-// }
+//    const users: IFullUser[] = await AdminService.getAllUsers();
+//    console.log(users);
+//    return {
+//       props: { users },
+//    };
+// };
 
 interface UsersProps {
    users: IFullUser[];
@@ -30,20 +31,7 @@ const filterUsers = (searchText: SearchText, listOfUsers: IFullUser[]) => {
    );
 };
 
-const AdminPanelUsers: FC<PropsWithChildren<UsersProps>> = () => {
-   const users = [
-      {
-         id: 12,
-         email: 'lerom2008',
-         username: 'SapokTapok',
-         password: '39457340978yert',
-         balance: 2341,
-         role: 'USER',
-         createdAt: '9345yydtiuy4587',
-         updatedAt: '3485983457',
-      },
-   ];
-
+const AdminPanelUsers: FC<PropsWithChildren<UsersProps>> = ({ users }) => {
    const [usersList, setUsersList] = useState(users);
    const [searchTerm, setSearchTerm] = useState({ username: '', email: '' });
 
@@ -91,13 +79,13 @@ const AdminPanelUsers: FC<PropsWithChildren<UsersProps>> = () => {
             </div>
 
             <ul className={styles.users_list}>
-               {usersList.map((user) => (
+               {/* {usersList.map((user) => (
                   <AdminUserItem user={user} key={user.id} />
-               ))}
+               ))} */}
             </ul>
          </div>
       </>
    );
 };
 
-export default AdminPanelUsers;
+export default withAuth(AdminPanelUsers);

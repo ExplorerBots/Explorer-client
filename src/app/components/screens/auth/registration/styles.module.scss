@@ -1,0 +1,132 @@
+@import '@/app/assets/_vars';
+
+.screen {
+   height: 60vh;
+}
+
+.form {
+   background: $bgBlock;
+   width: 550px;
+   margin: 0 auto;
+   border-radius: $borderRadius;
+   font-family: 'Exo 2', sans-serif;
+   font-weight: 500 !important;
+   font-size: 16px;
+   padding: 15px;
+
+   .fields {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 15px;
+   }
+
+   .form_field {
+      text-align: center;
+      height: 55px;
+      background: $bgInputBlock;
+      width: 100%;
+      height: 35px;
+      display: flex;
+      border-radius: $borderRadius;
+      margin: 0 auto;
+   }
+
+   .input_error {
+      font-size: 14px;
+      color: #f75c48;
+      border-radius: $borderRadius;
+      height: 5px;
+      position: relative;
+      bottom: 10px;
+   }
+
+   .prefix {
+      width: 20px;
+      height: 20px;
+      margin-top: 7px;
+      margin-left: 4px;
+      margin-right: 4px;
+      position: absolute;
+   }
+
+   .input {
+      font-size: 15px;
+      color: #fff;
+      background: $bgInputBlock;
+      width: 100%;
+      padding-right: 10px;
+      padding-left: 27px;
+      border: none;
+      outline: none;
+      transition: 0.3s;
+      border-radius: $borderRadius;
+
+      &:focus {
+         border: 1px solid gray;
+      }
+   }
+
+   .server_error {
+      padding: 10px;
+      color: #f75c48;
+      background: #2a1d15;
+      margin-top: 15px;
+      border-radius: $borderRadius;
+      border: 1px solid #e35441;
+   }
+}
+
+.title {
+   font-size: 18px;
+   letter-spacing: 1px;
+   color: hsl(240, 2%, 43%);
+}
+
+.title_container {
+   text-align: center;
+   margin-bottom: 15px;
+}
+
+.svg {
+   width: 17px;
+   height: 17px;
+   padding-top: 3px;
+}
+
+.cont {
+   display: flex;
+   justify-content: space-between;
+}
+
+.submit_btn {
+   background: $colorGray;
+   border: none;
+   border-radius: $borderRadius;
+   width: 170px;
+   height: 30px;
+   transition: 0.3s;
+   cursor: pointer;
+   font-size: 14px;
+}
+
+.submit_btn:hover {
+   opacity: 0.6;
+}
+
+.answer {
+   color: hsl(240, 2%, 43%);
+   text-align: center;
+   margin-top: 5px;
+}
+
+.link {
+   cursor: pointer;
+   color: $colorGray;
+   transition: 0.2s;
+
+   &:hover {
+      opacity: 1;
+      border-bottom: 1px gray solid;
+   }
+}

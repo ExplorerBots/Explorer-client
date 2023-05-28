@@ -1,60 +1,9 @@
-import ClassicBotItem from '@/app/components/ui/control-panel/ClassicBotItem/ClassicBotItem';
-import PremiumBotItem from '@/app/components/ui/control-panel/PremiumBotItem/PremiumBotItem';
-import styles from '@/app/styles/control-panel.module.scss';
-import Head from 'next/head';
-import { FC, useEffect, useRef } from 'react';
+import ControlPanelScreen from '@/app/components/screens/control-panel';
+import { withAuth } from '@/app/hoc/withAuth';
+import { FC } from 'react';
 
 const ControlPanelPage: FC = () => {
-   const ref = useRef<HTMLDivElement>(null);
-
-   useEffect(() => {
-      const el = ref.current;
-      if (el) {
-         const onWheel = (e: any) => {
-            e.preventDefault();
-            el.scrollTo({
-               left: el.scrollLeft + e.deltaY,
-            });
-         };
-
-         el.addEventListener('wheel', onWheel);
-         return () => el.removeEventListener('wheel', onWheel);
-      }
-   }, []);
-
-   return (
-      <>
-         <Head>
-            <title>EBots - Панель управления</title>
-         </Head>
-
-         <div className={styles.bots_container}>
-            <div className={styles.content} ref={ref}>
-               <ClassicBotItem
-                  username="SapokTapok"
-                  botId={345}
-                  server="HolyWorld"
-                  status="online"
-                  days_left={24}
-               />
-               <PremiumBotItem
-                  username="Penis"
-                  botId={222}
-                  server="HolyWorld"
-                  status="offline"
-                  days_left={24}
-               />
-               <ClassicBotItem
-                  username="SapokTapok"
-                  botId={345}
-                  server="HolyWorld"
-                  status="online"
-                  days_left={24}
-               />
-            </div>
-         </div>
-      </>
-   );
+   return <ControlPanelScreen />;
 };
 
-export default ControlPanelPage;
+export default withAuth(ControlPanelPage);

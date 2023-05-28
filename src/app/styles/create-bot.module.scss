@@ -1,5 +1,5 @@
-@import './vars';
-@import './mixins';
+@import '@/app/assets/_vars';
+@import '@/app/assets/_mixins';
 
 .info_container {
    margin: 0 auto;
@@ -60,13 +60,22 @@
             display: flex;
             flex-direction: column;
             width: 100%;
+            position: relative;
 
             input {
                background: $bgInput;
+               margin-top: 10px;
                border-radius: 3px;
                height: 35px;
                font-size: 17px;
-               margin-top: 10px;
+            }
+            .check_promo {
+               position: absolute;
+               right: 3px;
+               top: 13px;
+            }
+            .promo_notfound {
+               color: #f75c48;
             }
          }
 

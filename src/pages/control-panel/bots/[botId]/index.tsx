@@ -1,9 +1,16 @@
 import HotBarSlots from '@/app/components/ui/control-panel/control/HotBarSlots';
+import { withAuth } from '@/app/hoc/withAuth';
+import { useAppSelector } from '@/app/store/hooks';
 import styles from '@/app/styles/control-panel-bot.module.scss';
 import Image from 'next/image';
 import { FC, PropsWithChildren } from 'react';
 
 const BotControlPage = () => {
+   const userSlice = useAppSelector((store) => store.user);
+
+   // if (userSlice.data) {
+   //    router.push('/authorize');
+   // }
    return (
       <>
          <div className={styles.chat_container}>
@@ -27,7 +34,7 @@ const BotControlPage = () => {
                <Notify
                   type="red"
                   title="Смерть"
-                  description="Бота убил игрок Petya2324"
+                  description="Бота убил игрок Petya2324 "
                   timestamp="14:32:11"
                   sideImage="/svg/alert-circle.svg"
                />
@@ -177,4 +184,4 @@ const Notify: FC<
       </li>
    );
 };
-export default BotControlPage;
+export default withAuth(BotControlPage);

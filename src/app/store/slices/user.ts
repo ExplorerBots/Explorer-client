@@ -3,8 +3,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { RootState } from '..';
 import { AuthorizeUserDto, IUser, RegistrationUserDto } from '../../interfaces';
+import { UserService } from '../../services/user';
 import { UpdateUserDto } from './../../interfaces/index';
-import { UserService } from './../../services/user';
 
 interface UserState {
    data: IUser | null;
@@ -17,7 +17,7 @@ const initialState = {
    data: null,
    isLoading: false,
    isError: false,
-   errorMessage: '',
+   errorMessage: undefined,
 } as UserState;
 
 // = = = = = = = = = = = = = = = = = = = = = =
@@ -26,7 +26,9 @@ export const registrationUser = createAsyncThunk<IUser, RegistrationUserDto>(
    'user/registrationUser',
    async (dto: RegistrationUserDto, { rejectWithValue }) => {
       try {
-         return await UserService.registration(dto);
+         const response = await UserService.registration(dto);
+         // router.push('/control-panel/bots');
+         return response;
       } catch (err) {
          if (err instanceof AxiosError) {
             return rejectWithValue(err.response?.data);
@@ -66,7 +68,7 @@ const userSlice = createSlice({
       setUserData(state, action: PayloadAction<IUser | null>) {
          state.data = action.payload;
       },
-      removeUserData(state, action: PayloadAction<IUser>) {
+      removeUserData(state) {
          state.data = null;
       },
    },
@@ -88,6 +90,7 @@ const userSlice = createSlice({
          .addCase(registrationUser.rejected, (state: UserState, action) => {
             state.isError = true;
             state.isLoading = false;
+            // @ts-ignore
             state.errorMessage = action.payload?.message;
          })
 
@@ -108,6 +111,7 @@ const userSlice = createSlice({
          .addCase(authorizeUser.rejected, (state: UserState, action) => {
             state.isError = true;
             state.isLoading = false;
+            // @ts-ignore
             state.errorMessage = action.payload?.message;
          })
 
@@ -127,5 +131,5 @@ const userSlice = createSlice({
 });
 
 export const selectUserData = (state: RootState) => state.user.data;
-export const { setUserData } = userSlice.actions;
+export const { setUserData, removeUserData } = userSlice.actions;
 export const userReducer = userSlice.reducer;

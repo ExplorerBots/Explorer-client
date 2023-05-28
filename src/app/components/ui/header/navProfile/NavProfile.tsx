@@ -1,34 +1,39 @@
-import { getRoleDescription } from '@/app/lib/role-description';
+import { useAuth } from '@/app/hooks/useAuth';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
-import { setUserData } from '@/app/store/slices/user';
 import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { destroyCookie } from 'nookies';
 import { FC, useState } from 'react';
 import LinkItem from './linkItem/LinkItem';
 import styles from './NavProfile.module.scss';
 
 const NavProfile: FC = () => {
-   const userData = useAppSelector((state) => state.user.data);
+   const userSlice = useAppSelector((state) => state.user);
 
    const dispatch = useAppDispatch();
    const router = useRouter();
    const [showProfile, setShowProfile] = useState<boolean>(false);
-
-   const logout = () => {
-      destroyCookie(null, 'authToken');
-      setShowProfile(false);
-      router.push('/authorize');
-      dispatch(setUserData(null));
-   };
+   const { logout } = useAuth();
 
    return (
       <div className={styles.profile}>
-         {userData ? (
+         {userSlice.isLoading ? (
+            <Image
+               src="/svg/preloader.svg"
+               width={20}
+               height={20}
+               alt=""
+               loading="eager"
+               priority={true}
+               fetchPriority="high"
+            />
+         ) : userSlice.data ? (
             <>
                <div className={styles.balance_container}>
-                  <span className={styles.balance}>{userData.balance} </span>
+                  <span className={styles.balance}>
+                     {userSlice.data.balance}{' '}
+                  </span>
                   <Link
                      href="/replenish-balance"
                      className={styles.btn_replenish}
@@ -42,17 +47,16 @@ const NavProfile: FC = () => {
                   style={showProfile ? {} : {}}
                >
                   <div className={styles.info}>
-                     <p className={styles.username}>{userData.username}</p>
-                     <span className={styles.role}>
-                        {getRoleDescription(userData.role)}
-                     </span>
+                     <p className={styles.username}>
+                        {userSlice.data.username}
+                     </p>
                   </div>
                </div>
             </>
          ) : (
             <div className={styles.profile_authorization}>
                <button className={styles.authorization_btn}>
-                  <Link href="/authorize">Авторизоваться</Link>
+                  <Link href="/auth/authorize">Авторизоваться</Link>
                </button>
             </div>
          )}
@@ -66,15 +70,14 @@ const NavProfile: FC = () => {
                   transition={{ duration: 0.08 }}
                   exit={{ y: -20, opacity: 0 }}
                >
-                  {userData?.role === 'ADMIN' && (
+                  {userSlice.data?.role === 'ADMIN' && (
                      <LinkItem
-                        href="/admin-panel"
+                        href="/admin-panel?act=statistics"
                         title="Админ панель"
                         onclick={setShowProfile}
                         state={!showProfile}
                      />
                   )}
-                  {/* <LinkItem href='/profile' title='Профиль' onclick={setShowProfile} state={!showProfile} /> */}
                   <LinkItem
                      href="/replenish-balance"
                      title="Пополнить баланс"
@@ -82,9 +85,12 @@ const NavProfile: FC = () => {
                      state={!showProfile}
                   />
                   <LinkItem
-                     href="/authorize"
+                     href="/auth/authorize"
                      title="Выйти из аккаунта"
-                     onclick={logout}
+                     onclick={() => {
+                        logout();
+                        setShowProfile(false);
+                     }}
                   />
                </motion.div>
             )}

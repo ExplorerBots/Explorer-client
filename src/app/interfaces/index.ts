@@ -53,8 +53,22 @@ export interface IRegistrationFields {
    username: string;
    password: string;
 }
-
 export interface IAuthorizeFields {
    email: string;
    password: string;
+}
+
+export interface IBot {
+   botId: number;
+   isPremium: boolean;
+   username: string;
+   server: string;
+   status: 'online' | 'offline';
+   endDate: number;
+}
+
+export interface IOperation {
+   amount: number;
+   type: string;
+   date: number;
 }

@@ -1,18 +1,19 @@
-@import '@/app/styles/_vars';
+@import '@/app/assets/_vars';
 
 .user {
    border-radius: 4px;
    margin: 0 auto;
    width: 95%;
-   background: #101010;
+   background: $bgMain;
    display: block;
    list-style-type: none;
    color: rgb(152, 152, 152);
    display: flex;
    justify-content: space-between;
+   border: 1px solid $bgAverage;
+   padding: 5px;
 
    .left_cont {
-      padding: 2px 5px 5px;
       display: flex;
       flex-direction: column;
 
@@ -20,31 +21,29 @@
          font-weight: 800;
          font-size: 18px;
          color: #afafaf;
-         transition: 0.2s;
-         // width: 100px;
 
          &:hover {
-            color: rgb(255, 109, 13);
+            opacity: 1;
+            color: $colorOrange;
          }
       }
    }
 
    .right_cont {
-      padding: 0 5px;
-      vertical-align: bottom;
+      display: flex;
+      flex-direction: column;
       text-align: right;
-      position: relative;
 
       .profile_link {
-         position: absolute;
-         right: 7px;
-         bottom: 4px;
-         transition: 0.2s;
-
          &:hover {
             right: 2px;
-            color: rgb(255, 109, 13);
          }
+      }
+      .enter_button {
+         height: 20px;
+         line-height: 10px;
+         font-size: 14px;
+         width: 100px;
       }
    }
 }
