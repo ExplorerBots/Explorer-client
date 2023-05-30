@@ -1,3 +1,4 @@
+import { routes } from '@/app/constants';
 import { IRegistrationFields } from '@/app/interfaces';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 import { registrationUser } from '@/app/store/slices/user';
@@ -5,7 +6,6 @@ import { motion } from 'framer-motion';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import router from 'next/router';
 import { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import InputError from './components/InputError';
@@ -15,10 +15,6 @@ const RegistrationScreen: FC = () => {
    const dispatch = useAppDispatch();
    const userSlice = useAppSelector((store) => store.user);
    const [data, setData] = useState({ email: '', username: '', password: '' });
-
-   if (userSlice.data) {
-      router.push('/control-panel/bots');
-   }
 
    const {
       register,
@@ -181,7 +177,7 @@ const RegistrationScreen: FC = () => {
 
                   <p className={styles.answer}>
                      Есть аккаунт?{' '}
-                     <Link href="/auth/authorize" className={styles.link}>
+                     <Link href={routes.AUTHORIZE} className={styles.link}>
                         Авторизируйся
                      </Link>
                   </p>

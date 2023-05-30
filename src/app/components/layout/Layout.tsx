@@ -3,12 +3,17 @@ import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 import { updateUser } from '@/app/store/slices/user';
 import { NextPage } from 'next';
 import { parseCookies } from 'nookies';
-import { ReactNode, useEffect } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
+import NavBar from './components/NavBar';
 import Footer from './footer/Footer';
 import Header from './header/Header';
 import styles from './Layout.module.scss';
 
+export const NavBrContext = createContext(false);
+
 const Layout: NextPage<{ children: ReactNode }> = ({ children }) => {
+   const [showNavBar, setShowNavBar] = useState(false);
+
    const dispatch = useAppDispatch();
    const userSlice = useAppSelector((state) => state.user);
 
@@ -21,8 +26,9 @@ const Layout: NextPage<{ children: ReactNode }> = ({ children }) => {
    }, []);
 
    return (
-      <div className={styles.wrapper}>
-         <Header />
+      <div className={styles.wrapper} data-overflow={!showNavBar}>
+         <NavBar state={showNavBar} setState={setShowNavBar} />
+         <Header state={showNavBar} setState={setShowNavBar} />
          <div className={styles.page}>{children}</div>
          <Footer />
       </div>

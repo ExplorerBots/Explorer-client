@@ -1,3 +1,4 @@
+import { routes } from '@/app/constants';
 import { useAuth } from '@/app/hooks/useAuth';
 import { IAuthorizeFields } from '@/app/interfaces';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
@@ -143,7 +144,10 @@ const AuthorizeScreen = () => {
                         </Link>
                      </p>
                      <p className={styles.answer}>
-                        <Link href="/auth/registration" className={styles.link}>
+                        <Link
+                           href={routes.REGISTRATION}
+                           className={styles.link}
+                        >
                            {' '}
                            Регистрация
                         </Link>

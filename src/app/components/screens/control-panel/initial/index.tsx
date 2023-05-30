@@ -5,7 +5,7 @@ import ClassicBotItem from './components/ClassicBotItem';
 import PremiumBotItem from './components/PremiumBotItem';
 import styles from './styles.module.scss';
 
-const ControlPanelScreen: FC = () => {
+const ControlPanelInitalScreen: FC = () => {
    const ref = useRef<HTMLDivElement>(null);
    const botsSlice = useAppSelector((state) => state.bots);
    const dispatch = useAppDispatch();
@@ -72,4 +72,4 @@ const wheelControl = (ref: any) => {
    }
 };
 
-export default ControlPanelScreen;
+export default ControlPanelInitalScreen;

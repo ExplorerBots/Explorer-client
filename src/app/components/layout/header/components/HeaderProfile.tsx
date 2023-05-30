@@ -1,3 +1,4 @@
+import { routes } from '@/app/constants';
 import { useAuth } from '@/app/hooks/useAuth';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -5,8 +6,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
-import LinkItem from './linkItem/LinkItem';
-import styles from './NavProfile.module.scss';
+import styles from '../styles.module.scss';
+import LinkItem from './ProfileLinkItem';
 
 const NavProfile: FC = () => {
    const userSlice = useAppSelector((state) => state.user);
@@ -56,7 +57,7 @@ const NavProfile: FC = () => {
          ) : (
             <div className={styles.profile_authorization}>
                <button className={styles.authorization_btn}>
-                  <Link href="/auth/authorize">Авторизоваться</Link>
+                  <Link href={routes.AUTHORIZE}>Авторизоваться</Link>
                </button>
             </div>
          )}
@@ -64,7 +65,7 @@ const NavProfile: FC = () => {
          <AnimatePresence>
             {showProfile && (
                <motion.div
-                  className={styles.items_container}
+                  className={styles.profile_links_container}
                   initial={{ y: -20, opacity: 0 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.08 }}
@@ -85,7 +86,7 @@ const NavProfile: FC = () => {
                      state={!showProfile}
                   />
                   <LinkItem
-                     href="/auth/authorize"
+                     href={routes.AUTHORIZE}
                      title="Выйти из аккаунта"
                      onclick={() => {
                         logout();

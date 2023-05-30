@@ -1,33 +1,57 @@
 import Logo from '@/app/components/ui/general/logo/Logo';
-import NavProfile from '@/app/components/ui/header/navProfile/NavProfile';
+import { routes } from '@/app/constants';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, PropsWithChildren } from 'react';
-import styles from './Header.module.scss';
+import Burger from './components/Burger';
+import NavProfile from './components/HeaderProfile';
+import styles from './styles.module.scss';
 
-const Header: FC<PropsWithChildren> = () => {
+const Header: FC<
+   PropsWithChildren<{
+      state: boolean;
+      setState: (state: boolean) => void;
+   }>
+> = ({ state, setState }) => {
    const { pathname } = useRouter();
 
    return (
       <header className={styles.header}>
-         <div className={styles.container}>
+         <div className={styles.header_container}>
             <Logo />
-            <div className={styles.item}>
-               <img className={styles.svg} src="/header/user-plus.svg" alt="" />
-               <Link href="/create-bot">Создать бота</Link>
-            </div>
-            <div className={styles.item}>
-               <img className={styles.svg} src="/header/control.svg" alt="" />
-               <Link href="/control-panel/bots">Панель управления</Link>
-            </div>
-            <div className={styles.item}>
-               <img
+
+            <Link href="/create-bot" className={styles.header_link}>
+               <Image
+                  className={styles.svg}
+                  src="/header/user-plus.svg"
+                  alt=""
+                  width={25}
+                  height={25}
+               />
+               Создать бота
+            </Link>
+            <Link href="/control-panel/bots" className={styles.header_link}>
+               <Image
+                  className={styles.svg}
+                  src="/header/control.svg"
+                  alt=""
+                  width={25}
+                  height={25}
+               />
+               Панель управления
+            </Link>
+            <Link href={routes.HELP} className={styles.header_link}>
+               <Image
                   className={styles.svg}
                   src="/header/help-circle.svg"
                   alt=""
+                  width={25}
+                  height={25}
                />
-               <Link href="/help">Помощь</Link>
-            </div>
+               Помощь
+            </Link>
+            <Burger state={state} setState={setState} />
             <NavProfile />
          </div>
       </header>

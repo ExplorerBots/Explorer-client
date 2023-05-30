@@ -1,3 +1,4 @@
+import { routes } from '@/app/constants';
 import Link from 'next/link';
 import Logo from '../../ui/general/logo/Logo';
 import styles from './Footer.module.scss';
@@ -6,6 +7,49 @@ const Footer: React.FC = () => {
    return (
       <div className={styles.footer}>
          <div className={styles.container}>
+            {/* <div className={styles.left}>
+               <div className={styles.block}>
+                  <div className={styles.title}>НАВИГАЦИЯ</div>
+                  <Link href="/create-bot">Создать бота</Link>
+                  <Link href="/control-panel">Панель управления</Link>
+                  <Link href="/replenish-balance">Пополнить баланс</Link>
+                  <Link href="/help">Помощь</Link>
+               </div>
+               <div className={styles.block}>
+                  <div className={styles.title}>СВЯЗЬ С НАМИ</div>
+                  <a target="_blank" href="">
+                     Телеграм
+                  </a>
+                  <a target="_blank" href="">
+                     Вконтакте
+                  </a>
+                  <a target="_blank" href="">
+                     Дискорд
+                  </a>
+                  <a target="_blank" href="">
+                     Ютуб
+                  </a>
+               </div>
+               <div className={styles.block}>
+                  <div className={styles.title}>ДОКУМЕНТЫ</div>
+                  <Link href="/oferta">Договор оферты</Link>
+                  <Link href="/privacy-policy">
+                     Политика конфиденциальности
+                  </Link>
+               </div>
+            </div>
+
+            <div className={styles.right}>
+               <div className={styles.about_project}>
+                  <div className={styles.title}>О НАС</div>
+                  <div className={styles.text}>
+                     Ромашка, ромашка белый лепесток в волосах кудряшка воздуха
+                     глоток. Ромашка, ромашка белый лепесток в волосах кудряшка
+                     воздуха глоток. Ромашка, ромашка белые цветы где же ты!
+                  </div>
+               </div>
+            </div> */}
+
             <div className={styles.content_logo}>
                <Logo />
             </div>
@@ -17,10 +61,10 @@ const Footer: React.FC = () => {
             </div>
 
             <div className={styles.content_links}>
-               <Link href="/create-bot">Создать бота</Link>
-               <Link href="/control-panel">Управление</Link>
-               <Link href="/replenish-balance">Пополнить баланс</Link>
-               <Link href="/help">Помощь</Link>
+               <Link href={routes.CREATE_BOT}>Создать бота</Link>
+               <Link href={routes.CONTROL_PANEL}>Управление</Link>
+               <Link href={routes.REPLENISH_BALANCE}>Пополнить баланс</Link>
+               <Link href={routes.HELP}>Помощь</Link>
             </div>
 
             <div className={styles.content_email}>

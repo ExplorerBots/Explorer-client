@@ -1,5 +1,5 @@
-@import './vars';
-@import './mixins';
+@import '@/app/assets/_vars';
+@import '@/app/assets/_mixins';
 
 .settings_container {
    margin: 0 auto;
@@ -11,6 +11,15 @@
    .content {
       display: flex;
       gap: 30px;
+
+      .input_field {
+         .input {
+            background: $bgMain;
+            border: 1px solid $bgAverage;
+            width: 150px;
+            height: 30px;
+         }
+      }
    }
 
    .divider {

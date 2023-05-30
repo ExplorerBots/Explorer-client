@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { destroyCookie } from 'nookies';
 import { AuthorizeUserDto } from '../interfaces';
 import { authorizeUser, removeUserData } from '../store/slices/user';
+
 export const useAuth = () => {
    const dispatch = useAppDispatch();
    const userSlice = useAppSelector((state) => state.user.data);
@@ -17,7 +18,7 @@ export const useAuth = () => {
       dispatch(authorizeUser(data));
    };
 
-   const registration = () => {};
+   const registration = () => {}; //todo Доделать регистрацию в useAuth
 
    return { logout, authorize, registration };
 };

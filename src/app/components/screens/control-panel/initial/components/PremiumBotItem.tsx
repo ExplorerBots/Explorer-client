@@ -20,7 +20,7 @@ const PremiumBotItem: FC<
    };
 
    const clickSettingsHandler = (botId: number) => {
-      router.push(`/control-panel/bots/${botId}/settings`);
+      router.push(`/settings-bot/${botId}`);
    };
 
    return (
