@@ -72,3 +72,17 @@ export interface IOperation {
    type: string;
    date: number;
 }
+
+export interface IMessage {
+   type: 'message';
+   timestamp: string;
+   text: string;
+}
+
+export interface IChatNotify {
+   type: 'notify';
+   temperature: string;
+   title: string;
+   description: string;
+   timestamp: string;
+}

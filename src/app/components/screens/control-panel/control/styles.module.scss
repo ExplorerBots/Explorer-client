@@ -40,6 +40,7 @@
 
 .chat_container {
    margin: 0 auto;
+   // margin: 0 30px;
    border-radius: $borderRadius;
    background-color: $bgBlock;
    max-width: 600px;
@@ -162,6 +163,7 @@
          border: none;
          outline: none;
          padding: 10px;
+         font-size: 17px;
          word-break: break-all;
       }
       .chat_send {

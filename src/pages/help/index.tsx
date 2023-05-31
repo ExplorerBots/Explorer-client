@@ -1,15 +1,9 @@
+import HelpScreen from '@/app/components/screens/help';
 import { withAuth } from '@/app/hoc/withAuth';
-import Head from 'next/head';
 import { FC } from 'react';
 
 const HelpPage: FC = () => {
-   return (
-      <>
-         <Head>
-            <title>EBots - Помощь</title>
-         </Head>
-      </>
-   );
+   return <HelpScreen />;
 };
 
 export default withAuth(HelpPage);

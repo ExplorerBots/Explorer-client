@@ -95,7 +95,7 @@ const NavBar: FC<
                      </>
                   ) : (
                      <>
-                        {false ? (
+                        {userSlice.data ? (
                            <button
                               className={styles.account_button}
                               disabled={true}

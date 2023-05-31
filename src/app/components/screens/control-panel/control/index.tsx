@@ -1,12 +1,49 @@
-import HotBarSlots from '@/app/components/screens/control-panel/control/components/HotBarSlots';
+import { IChatNotify, IMessage } from '@/app/interfaces';
 import { useAppSelector } from '@/app/store/hooks';
 import Image from 'next/image';
-import Message from './components/Message';
-import Notify from './components/Notify';
+import { useEffect, useRef, useState } from 'react';
+import Chat from './components/Chat';
 import styles from './styles.module.scss';
 
 const BotControlScreen = () => {
    const userSlice = useAppSelector((store) => store.user);
+   const chatInputRef = useRef<HTMLInputElement>(null);
+   const [chatText, setChatText] = useState('');
+   const [dictionary, setDictionary] = useState<Array<IMessage | IChatNotify>>(
+      []
+   );
+
+   useEffect(() => {
+      setDictionary((prev) => [
+         ...prev,
+         {
+            type: 'notify',
+            temperature: 'red',
+            title: 'Подключение',
+            description: 'Успешное подключение к серверу',
+            timestamp: new Date().toLocaleTimeString(),
+         },
+      ]);
+   }, []);
+
+   const newMessage = () => {
+      if (chatText === '') return;
+      setDictionary((prev) => [
+         ...prev,
+         {
+            type: 'message',
+            timestamp: new Date().toLocaleTimeString(),
+            text: chatText,
+         },
+      ]);
+      setChatText('');
+   };
+
+   const keyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.code === 'Enter') {
+         newMessage();
+      }
+   };
 
    return (
       <>
@@ -23,33 +60,29 @@ const BotControlScreen = () => {
                   <button className={styles.button_leave}>Отключить</button>
                </div>
             </div>
-            <ul className={styles.chat}>
-               <Message timestamp="18:32:22" text="Кек я банан" />
-               <Notify
-                  type="red"
-                  title="Смерть"
-                  description="Бота убил игрок Petya2324 "
-                  timestamp="14:32:11"
-                  sideImage="/svg/alert-circle.svg"
-               />
-               <Message timestamp="18:32:22" text="Кек я банан" />
-               <Message
-                  timestamp="1   8:32:22"
-                  text="Кек я банан Кек я банан Кек я банан Кек я банан Кек я банан Кек я банан Кек я банан Кек я банан"
-               />
-            </ul>
+            <Chat dictionary={dictionary} />
             <div className={styles.footer}>
-               <div
+               <input
                   className={styles.text_input}
                   contentEditable={true}
                   placeholder="/god"
+                  value={chatText}
+                  onChange={(e) => {
+                     setChatText(e.currentTarget.value);
+                  }}
+                  onSubmit={newMessage}
+                  onKeyDown={keyDownHandler}
                />
-               <button type="button" className={styles.chat_send}>
+               <button
+                  type="submit"
+                  className={styles.chat_send}
+                  onClick={newMessage}
+               >
                   <Image src="/svg/send.svg" alt="" width={30} height={30} />
                </button>
             </div>
          </div>
-         <div className={styles.control_container}>
+         {/* <div className={styles.control_container}>
             <div className={styles.info}>
                <div className={styles.health}>
                   <Image
@@ -134,7 +167,7 @@ const BotControlScreen = () => {
                   classSlots={styles.slots}
                />
             </div>
-         </div>
+         </div> */}
       </>
    );
 };

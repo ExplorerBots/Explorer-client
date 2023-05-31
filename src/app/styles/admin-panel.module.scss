@@ -1,6 +1,5 @@
-@import './vars';
-@import './mixins';
-
+@import '@/app/assets/_vars';
+@import '@/app/assets/_mixins';
 .index_container {
    margin: 0 auto;
    display: flex;

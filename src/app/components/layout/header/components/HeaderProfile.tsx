@@ -22,8 +22,8 @@ const NavProfile: FC = () => {
          {userSlice.isLoading ? (
             <Image
                src="/svg/preloader.svg"
-               width={20}
-               height={20}
+               width={40}
+               height={40}
                alt=""
                loading="eager"
                priority={true}
