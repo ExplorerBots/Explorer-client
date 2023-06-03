@@ -6,3 +6,8 @@ export const routes = {
    AUTHORIZE: '/auth/authorize',
    REGISTRATION: '/auth/registration',
 };
+
+export const botPrice = {
+   PREMIUM_BOT_PRICE_PER_DAY: 3,
+   CLASSIC_BOT_PRICE_PER_DAY: 2,
+};

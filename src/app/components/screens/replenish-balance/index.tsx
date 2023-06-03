@@ -1,6 +1,9 @@
 import BlockTitle from '@/app/components/ui/general/blockTitle/BlockTitle';
-import { useAppSelector } from '@/app/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
+import { getOperations } from '@/app/store/slices/operations';
 import Head from 'next/head';
+import Image from 'next/image';
+import { useEffect } from 'react';
 import BonusBlock from './components/BonusBlock';
 import CentralLeftBlock from './components/CentralLeftBlock';
 import CentralMiddleBlock from './components/CentralMiddleBlock';
@@ -10,6 +13,11 @@ import styles from './styles.module.scss';
 const ReplenishBalanceScreen = () => {
    const userSlice = useAppSelector((store) => store.user);
    const operationsSlice = useAppSelector((state) => state.operations);
+   const dispatch = useAppDispatch();
+
+   useEffect(() => {
+      dispatch(getOperations());
+   }, []);
 
    return (
       <>
@@ -56,28 +64,37 @@ const ReplenishBalanceScreen = () => {
 
                <div className={styles.operations_history}>
                   {operationsSlice.data.length ? (
-                     <>
-                        <ul>
-                           {operationsSlice.data.map((operation, i) => (
-                              <li key={i}>
-                                 <div className={styles.operation_item}>
-                                    {operation.amount}
-                                 </div>
-                                 <div
-                                    className={styles.operation_item}
-                                    data-type="true"
-                                 >
-                                    {operation.type}
-                                 </div>
-                                 <div className={styles.operation_item}>
-                                    {new Date(operation.date).toLocaleString()}
-                                 </div>
-                              </li>
-                           ))}
-                        </ul>
-                     </>
+                     <ul>
+                        {operationsSlice.data.map((operation, i) => (
+                           <li key={i}>
+                              <div className={styles.operation_item}>
+                                 {operation.amount} ₽
+                              </div>
+                              <div
+                                 className={styles.operation_item}
+                                 data-type="true"
+                              >
+                                 {operation.type}
+                              </div>
+                              <div className={styles.operation_item}>
+                                 {new Date(operation.date).toLocaleString()}
+                              </div>
+                           </li>
+                        ))}
+                     </ul>
                   ) : (
-                     <p>Ты еще не пополнял баланс :) </p>
+                     <>
+                        {operationsSlice.isLoading ? (
+                           <Image
+                              src="/svg/preloader.svg"
+                              width={40}
+                              height={40}
+                              alt=""
+                           />
+                        ) : (
+                           <p>Ты еще не пополнял баланс :) </p>
+                        )}
+                     </>
                   )}
                </div>
             </div>

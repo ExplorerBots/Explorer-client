@@ -58,8 +58,12 @@ export interface IAuthorizeFields {
    password: string;
 }
 
+export interface ICreateBotFields {
+   username: string;
+}
+
 export interface IBot {
-   botId: number;
+   id: number;
    isPremium: boolean;
    username: string;
    server: string;
@@ -85,4 +89,13 @@ export interface IChatNotify {
    title: string;
    description: string;
    timestamp: string;
+}
+
+export interface IGetMyBotsDto {}
+
+export interface IBuyBot {
+   isPremium: boolean;
+   username: string;
+   server: string;
+   days: number;
 }

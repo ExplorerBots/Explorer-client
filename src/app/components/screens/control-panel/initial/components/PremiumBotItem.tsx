@@ -10,7 +10,7 @@ const PremiumBotItem: FC<
       botId: number;
       server: string;
       status: string;
-      endDate: number;
+      endDate: string;
    }>
 > = ({ username, botId, server, status, endDate }) => {
    const router = useRouter();
@@ -46,7 +46,15 @@ const PremiumBotItem: FC<
             <p className={styles.status}>
                <span className={styles.description}>Статус: </span>
                <span
-                  className={status === 'online' ? styles.green : styles.red}
+                  className={
+                     status === 'online'
+                        ? styles.green
+                        : status === 'offline'
+                        ? styles.red
+                        : status === 'expired'
+                        ? styles.orange
+                        : ''
+                  }
                >
                   {status}
                </span>
@@ -54,23 +62,34 @@ const PremiumBotItem: FC<
          </div>
          <div className={styles.bottom}>
             <div className={styles.buttons}>
-               <button
-                  onClick={() => clickEnterHandler(botId)}
-                  className={styles.button_start}
-               >
-                  Управление
-               </button>
-               <button
-                  onClick={() => clickSettingsHandler(botId)}
-                  className={styles.settings}
-               >
-                  <Image
-                     src="/svg/settings.svg"
-                     alt={''}
-                     width={20}
-                     height={20}
-                  />
-               </button>
+               {status === 'expired' ? (
+                  <button
+                     onClick={() => clickEnterHandler(botId)}
+                     className={styles.button_start}
+                  >
+                     Продлить
+                  </button>
+               ) : (
+                  <>
+                     <button
+                        onClick={() => clickEnterHandler(botId)}
+                        className={styles.button_start}
+                     >
+                        Управление
+                     </button>
+                     <button
+                        onClick={() => clickSettingsHandler(botId)}
+                        className={styles.settings}
+                     >
+                        <Image
+                           src="/svg/settings.svg"
+                           alt={''}
+                           width={20}
+                           height={20}
+                        />
+                     </button>
+                  </>
+               )}
             </div>
             <p className={styles.days_left}>
                Осталось дней: {getDaysLeft(endDate)}

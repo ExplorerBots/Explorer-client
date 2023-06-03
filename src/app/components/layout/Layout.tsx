@@ -2,7 +2,6 @@ import { UserService } from '@/app/services/user';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 import { updateUser } from '@/app/store/slices/user';
 import { NextPage } from 'next';
-import { parseCookies } from 'nookies';
 import { createContext, ReactNode, useEffect, useState } from 'react';
 import NavBar from './components/NavBar';
 import Footer from './footer/Footer';
@@ -18,7 +17,7 @@ const Layout: NextPage<{ children: ReactNode }> = ({ children }) => {
    const userSlice = useAppSelector((state) => state.user);
 
    useEffect(() => {
-      const { authToken } = parseCookies();
+      const authToken = window.localStorage.getItem('authToken');
       if (authToken) {
          const { email } = UserService.tokenDecode(authToken);
          dispatch(updateUser({ email }));

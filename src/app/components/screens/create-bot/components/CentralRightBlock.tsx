@@ -5,7 +5,7 @@ const CentralRightBlock = () => {
    const text = useRef<HTMLParagraphElement>(null);
 
    return (
-      <div className={styles.internal_container}>
+      <div className={styles.internal_container} data-side="right">
          {/* <Image
             className={styles.chests_image}
             src="/images/chests.png"

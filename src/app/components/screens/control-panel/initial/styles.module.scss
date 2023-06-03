@@ -14,6 +14,12 @@
       padding: 30px 0;
       overflow-x: scroll;
 
+      .loading {
+         display: flex;
+         width: 100%;
+         justify-content: center;
+      }
+
       .bots_null {
          display: flex;
          justify-content: center;
@@ -184,6 +190,14 @@
          opacity: 0.9;
       }
    }
+}
+
+.orange {
+   color: yellow;
+   font-weight: bold;
+   background: $bgBlock;
+   padding: 0 5px;
+   border-radius: 5px;
 }
 
 .green {

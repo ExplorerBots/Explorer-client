@@ -1,3 +1,7 @@
-export const getDaysLeft = (endDate: number) => {
-   return Math.floor((endDate - Date.now()) / 1000 / 60 / 60 / 24);
+export const getDaysLeft = (endDate: string): string | number => {
+   const currentTime = Date.now();
+   const endTime = new Date(endDate).getTime();
+   if (currentTime > endTime) return 'истекший';
+
+   return Math.floor((endTime - currentTime) / 1000 / 60 / 60 / 24);
 };

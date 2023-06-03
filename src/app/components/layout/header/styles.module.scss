@@ -81,6 +81,7 @@
 .profile {
    display: flex;
    user-select: none;
+   align-items: center;
 
    .balance_container {
       border: 1px $bgAverage solid;
@@ -156,9 +157,9 @@
    }
 }
 
-.profile_links_container {
+.dropdown {
    position: absolute;
-   top: 60px;
+   top: 5px;
    z-index: 1;
    background-color: $bgBlock;
    color: rgb(152, 152, 152);

@@ -105,9 +105,6 @@ const NavBar: FC<
                                  width={20}
                                  height={20}
                                  alt=""
-                                 loading="eager"
-                                 priority={true}
-                                 fetchPriority="high"
                               />
                            </button>
                         ) : (

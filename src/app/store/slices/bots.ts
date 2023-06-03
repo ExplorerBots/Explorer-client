@@ -5,75 +5,12 @@ import { RootState } from '..';
 interface BotState {
    data: IBot[];
    isLoading: boolean;
-   isError: boolean;
-   errorMessage: string | undefined;
 }
 
 const initialState = {
-   data: [
-      {
-         botId: 120,
-         isPremium: true,
-         username: 'petya',
-         server: 'HolyWorld',
-         status: 'online',
-         endDate: 1684950139475 + 86400000 * 30,
-      },
-      {
-         botId: 120,
-         isPremium: false,
-         username: 'petya',
-         server: 'HolyWorld',
-         status: 'offline',
-         endDate: 1684950139475 + 86400000 * 30,
-      },
-      {
-         botId: 120,
-         isPremium: false,
-         username: 'petya',
-         server: 'HolyWorld',
-         status: 'offline',
-         endDate: 1684950139475 + 86400000 * 30,
-      },
-      {
-         botId: 120,
-         isPremium: false,
-         username: 'petya',
-         server: 'HolyWorld',
-         status: 'offline',
-         endDate: 1684950139475 + 86400000 * 30,
-      },
-      {
-         botId: 120,
-         isPremium: false,
-         username: 'petya',
-         server: 'HolyWorld',
-         status: 'offline',
-         endDate: 1684950139475 + 86400000 * 30,
-      },
-      {
-         botId: 120,
-         isPremium: false,
-         username: 'petya',
-         server: 'HolyWorld',
-         status: 'offline',
-         endDate: 1684950139475 + 86400000 * 30,
-      },
-      {
-         botId: 120,
-         isPremium: false,
-         username: 'petya',
-         server: 'HolyWorld',
-         status: 'offline',
-         endDate: 1684950139475 + 86400000 * 30,
-      },
-   ],
+   data: [],
    isLoading: false,
-   isError: false,
-   errorMessage: '',
 } as BotState;
-
-// = = = = = = = = = = = = = = = = = = = = = =
 
 // = = = = = = = = = = = = = = = = = = = = = =
 
@@ -81,13 +18,18 @@ const botsSlice = createSlice({
    name: 'bots',
    initialState,
    reducers: {
+      loading(state: BotState, action: PayloadAction<boolean>) {
+         state.isLoading = action.payload;
+      },
       addBot(state: BotState, action: PayloadAction<IBot>) {
          state.data.push(action.payload);
       },
+      setBots(state: BotState, action: PayloadAction<IBot[]>) {
+         state.data = action.payload.slice().reverse();
+      },
    },
-   extraReducers: (builder) => {},
 });
 
 export const selectBotsData = (state: RootState) => state.bots.data;
-export const { addBot } = botsSlice.actions;
+export const { addBot, setBots, loading } = botsSlice.actions;
 export const botsReducer = botsSlice.reducer;

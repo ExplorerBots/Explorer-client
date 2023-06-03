@@ -1,7 +1,7 @@
 import BlockTitle from '@/app/components/ui/general/blockTitle/BlockTitle';
 import { useAppSelector } from '@/app/store/hooks';
 import Head from 'next/head';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import CentralLeftBlock from './components/CentralLeftBlock';
 import CentralMiddleBlock from './components/CentralMiddleBlock';
 import CentralRightBlock from './components/CentralRightBlock';
@@ -10,12 +10,6 @@ import styles from './styles.module.scss';
 
 const CreateBotScreen: FC = () => {
    const userSlice = useAppSelector((store) => store.user);
-   const [promoState, setPromoState] = useState({
-      promo: '',
-      isLoading: false,
-      isError: false,
-      errorMessage: '',
-   });
 
    return (
       <>

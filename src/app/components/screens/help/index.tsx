@@ -1,35 +1,29 @@
-import { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
-
-const socket = io('http://localhost:8080');
+import { useState } from 'react';
 
 const HelpScreen = () => {
    const [message, setMessage] = useState('');
    const [receivedMessage, setReceivedMessage] = useState('');
-   useEffect(() => {
-      socket.on('received_message', (data) => {
-         setReceivedMessage(data);
-         console.log(data);
-      });
-   }, []);
 
-   const sendMessage = async () => {
-      const response = await socket.emit('new_message', message);
-   };
+   // useEffect(() => {
+   //    socket.on('received_message', (data) => {
+   //       setReceivedMessage(data);
+   //    });
+   // }, []);
+
+   // const sendMessage = async () => {
+   //    socket.emit('new_message', message);
+   // };
 
    return (
       <>
-         <input
+         {/* <input
             value={message}
             type="text"
             placeholder="message"
-            onChange={(e) => {
-               setMessage(e.currentTarget.value);
-               console.log(message);
-            }}
+            onChange={(e) => setMessage(e.currentTarget.value)}
          />
          <button onClick={sendMessage}>Отправить</button>
-         <p>{receivedMessage}</p>
+         <p>{receivedMessage}</p> */}
       </>
    );
 };

@@ -9,7 +9,7 @@ interface ILinkItem {
    onclick: (value: SetStateAction<boolean>) => void;
 }
 
-const LinkItem: FC<PropsWithChildren<ILinkItem>> = ({
+const DropdownItem: FC<PropsWithChildren<ILinkItem>> = ({
    href,
    title,
    onclick,
@@ -28,4 +28,4 @@ const LinkItem: FC<PropsWithChildren<ILinkItem>> = ({
    );
 };
 
-export default LinkItem;
+export default DropdownItem;

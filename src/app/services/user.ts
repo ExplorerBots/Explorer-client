@@ -1,51 +1,58 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import { parseCookies, setCookie } from 'nookies';
-import { IUser, RegistrationUserDto } from '../interfaces';
+import { IBuyBot, IUser, RegistrationUserDto } from '../interfaces';
 import { AuthorizeUserDto, UpdateUserDto } from '../interfaces/index';
 
-const getAuthToken = () => {
-   const { authToken } = parseCookies(null, 'authToken');
-   return authToken;
-};
+// const authToken = window.localStorage.getItem('authToken');
 
 const instance = axios.create({
    baseURL: 'http://192.168.1.212:8080/api',
    headers: {
       options: {
          'Content-Type': 'application/json',
-         Authorization: `Bearer ${getAuthToken()}` || false,
       },
    },
 });
 
+instance.interceptors.request.use((config) => {
+   const token = window.localStorage.getItem('authToken');
+   if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+   }
+   return config;
+});
+
 export const UserService = {
+   async getOperations() {
+      const { data } = await instance.get('user/operations');
+      return data;
+   },
+   async buyBot(dto: IBuyBot) {
+      const { data } = await instance.post('user/buy-bot', dto);
+      window.localStorage.setItem('authToken', data.token);
+
+      return data;
+   },
    async registration(dto: RegistrationUserDto): Promise<IUser> {
       const { data } = await instance.post('/auth/registration', dto, {});
 
-      this.setCookieToken(data.token);
+      window.localStorage.setItem('authToken', data.token);
       return this.tokenDecode(data.token);
    },
    async authorize(dto: AuthorizeUserDto): Promise<IUser> {
       const { data } = await instance.post('/auth/authorize', dto, {});
 
-      this.setCookieToken(data.token);
+      window.localStorage.setItem('authToken', data.token);
       return this.tokenDecode(data.token);
    },
    async update(dto: UpdateUserDto): Promise<IUser> {
       const { data } = await instance.post('/auth/update', dto);
 
-      this.setCookieToken(data.token);
+      window.localStorage.setItem('authToken', data.token);
       return this.tokenDecode(data.token);
    },
 
    tokenDecode(token: string): IUser {
       return jwt_decode(token);
-   },
-   setCookieToken(token: string) {
-      setCookie(null, 'authToken', token, {
-         maxAge: 30 * 24 * 60 * 60,
-         path: '/',
-      });
    },
 };

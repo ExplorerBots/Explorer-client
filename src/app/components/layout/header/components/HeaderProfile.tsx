@@ -1,20 +1,19 @@
 import { routes } from '@/app/constants';
 import { useAuth } from '@/app/hooks/useAuth';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
-import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import styles from '../styles.module.scss';
-import LinkItem from './ProfileLinkItem';
+import Dropdown from './Dropdown';
 
 const NavProfile: FC = () => {
-   const userSlice = useAppSelector((state) => state.user);
+   const [dropdown, setDropdown] = useState<boolean>(false);
 
-   const dispatch = useAppDispatch();
+   const userSlice = useAppSelector((state) => state.user);
    const router = useRouter();
-   const [showProfile, setShowProfile] = useState<boolean>(false);
+   const dispatch = useAppDispatch();
    const { logout } = useAuth();
 
    return (
@@ -44,8 +43,9 @@ const NavProfile: FC = () => {
                </div>
                <div
                   className={styles.profile_container}
-                  onClick={() => setShowProfile(!showProfile)}
-                  style={showProfile ? {} : {}}
+                  onMouseUp={() => {
+                     !dropdown ? setDropdown(true) : {};
+                  }}
                >
                   <div className={styles.info}>
                      <p className={styles.username}>
@@ -62,40 +62,7 @@ const NavProfile: FC = () => {
             </div>
          )}
 
-         <AnimatePresence>
-            {showProfile && (
-               <motion.div
-                  className={styles.profile_links_container}
-                  initial={{ y: -20, opacity: 0 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.08 }}
-                  exit={{ y: -20, opacity: 0 }}
-               >
-                  {userSlice.data?.role === 'ADMIN' && (
-                     <LinkItem
-                        href="/admin-panel?act=statistics"
-                        title="Админ панель"
-                        onclick={setShowProfile}
-                        state={!showProfile}
-                     />
-                  )}
-                  <LinkItem
-                     href="/replenish-balance"
-                     title="Пополнить баланс"
-                     onclick={setShowProfile}
-                     state={!showProfile}
-                  />
-                  <LinkItem
-                     href={routes.AUTHORIZE}
-                     title="Выйти из аккаунта"
-                     onclick={() => {
-                        logout();
-                        setShowProfile(false);
-                     }}
-                  />
-               </motion.div>
-            )}
-         </AnimatePresence>
+         <Dropdown dropdown={dropdown} setDropdown={setDropdown} />
       </div>
    );
 };

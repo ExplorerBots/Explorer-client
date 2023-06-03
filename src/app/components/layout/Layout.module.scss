@@ -139,3 +139,9 @@
    justify-content: center;
    height: 100%;
 }
+
+@include lg() {
+   .page {
+      min-height: calc(100vh - 60px);
+   }
+}

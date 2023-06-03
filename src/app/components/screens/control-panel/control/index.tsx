@@ -39,12 +39,6 @@ const BotControlScreen = () => {
       setChatText('');
    };
 
-   const keyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.code === 'Enter') {
-         newMessage();
-      }
-   };
-
    return (
       <>
          <div className={styles.chat_container}>
@@ -71,7 +65,7 @@ const BotControlScreen = () => {
                      setChatText(e.currentTarget.value);
                   }}
                   onSubmit={newMessage}
-                  onKeyDown={keyDownHandler}
+                  onKeyDown={(e) => e.code === 'Enter' && newMessage()}
                />
                <button
                   type="submit"
