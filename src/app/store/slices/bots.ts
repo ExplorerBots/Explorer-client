@@ -1,5 +1,7 @@
 import { IBot } from '@/app/interfaces';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { UserService } from '@/app/services/user';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
 import { RootState } from '..';
 
 interface BotState {
@@ -11,6 +13,19 @@ const initialState = {
    data: [],
    isLoading: false,
 } as BotState;
+
+export const getMyBots = createAsyncThunk<IBot[]>(
+   'user/getMyBots',
+   async (_, { rejectWithValue }) => {
+      try {
+         return await UserService.myBots();
+      } catch (err) {
+         if (err instanceof AxiosError) {
+            return rejectWithValue(err.response?.data);
+         }
+      }
+   }
+);
 
 // = = = = = = = = = = = = = = = = = = = = = =
 
@@ -25,8 +40,24 @@ const botsSlice = createSlice({
          state.data.push(action.payload);
       },
       setBots(state: BotState, action: PayloadAction<IBot[]>) {
-         state.data = action.payload.slice().reverse();
+         state.data = action.payload; //slice().reverse();
       },
+   },
+   extraReducers: (builder) => {
+      builder
+         .addCase(getMyBots.pending.type, (state: BotState) => {
+            state.isLoading = true;
+         })
+         .addCase(
+            getMyBots.fulfilled,
+            (state: BotState, action: PayloadAction<IBot[]>) => {
+               state.isLoading = false;
+               state.data = action.payload; //slice().reverse();
+            }
+         )
+         .addCase(getMyBots.rejected, (state: BotState) => {
+            state.isLoading = false;
+         });
    },
 });
 

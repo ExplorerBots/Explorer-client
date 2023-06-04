@@ -92,6 +92,11 @@
       padding-bottom: 30px;
       overflow-y: auto;
 
+      .empty_message {
+         opacity: 0.7;
+         margin: 170px auto;
+         transform: translate(0, -50%);
+      }
       .message {
          .timestamp {
             font-weight: bold;
@@ -155,6 +160,11 @@
       border-top: 1px solid $bgMax;
       padding-top: 10px;
 
+      .connect_button {
+         margin: 0 auto;
+         width: 150px;
+         height: 35px;
+      }
       .text_input {
          width: 100%;
          border-radius: $borderRadius;

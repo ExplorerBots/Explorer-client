@@ -80,7 +80,10 @@ const CentralMiddleBlock = () => {
             placeholder="Никнейм"
          />
          <Divider text="Сервер бота" />
-         <Select options={['HolyWorld']} setValue={setServer} />
+         <Select
+            options={['HolyWorld', 'ProstoCraft', 'FunTime', 'MST']}
+            setValue={setServer}
+         />
          <Divider text="Тип бота" />
          <Select options={['Premium', 'Classic']} setValue={setType} />
          <Divider text="Срок аренды" />

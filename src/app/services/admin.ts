@@ -12,7 +12,7 @@ const getAuthToken = () => {
 };
 
 const instance = axios.create({
-   baseURL: 'http://192.168.1.212:8080/api',
+   baseURL: 'http://26.67.250.2:8080/api',
    headers: { Authorization: `Bearer ${getAuthToken()}` },
 });
 

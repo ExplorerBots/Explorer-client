@@ -6,7 +6,7 @@ import { AuthorizeUserDto, UpdateUserDto } from '../interfaces/index';
 // const authToken = window.localStorage.getItem('authToken');
 
 const instance = axios.create({
-   baseURL: 'http://192.168.1.212:8080/api',
+   baseURL: 'http://26.67.250.2:8080/api',
    headers: {
       options: {
          'Content-Type': 'application/json',
@@ -23,6 +23,10 @@ instance.interceptors.request.use((config) => {
 });
 
 export const UserService = {
+   async myBots() {
+      const { data } = await instance.get('user/my-bots');
+      return data;
+   },
    async getOperations() {
       const { data } = await instance.get('user/operations');
       return data;
