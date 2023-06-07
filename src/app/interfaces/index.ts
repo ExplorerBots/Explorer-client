@@ -85,7 +85,7 @@ export interface IMessage {
 
 export interface IChatNotify {
    type: 'notify';
-   temperature: string;
+   temperature: 'success' | 'error' | 'warning';
    title: string;
    description: string;
    timestamp: string;

@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useRef } from 'react';
-import ChatContainer from './components/ChatContainer';
+import ChatContainer from './components/chat/ChatContainer';
 import { CurrentBotContext } from './context/CurrentBotContext';
 import { SocketContext } from './context/SocketContext';
 
@@ -18,10 +18,6 @@ const BotControlScreen = () => {
    const { currentBot } = useContext(CurrentBotContext);
 
    useEffect(() => {
-      if (bot) {
-         setCurrentBot(bot);
-      }
-
       if (socket) {
          if (currentBot) {
             socket.on('server-connected', (data) => {
@@ -45,18 +41,7 @@ const BotControlScreen = () => {
             });
          }
       }
-   }, [socket]);
-
-   // useEffect(() => {
-   //    if (socket) {
-   //       socket.on('server-connected', (data) => {
-   //          if (currentBot) {
-   //             currentBot.status = 'online';
-   //             console.log(currentBot);
-   //          }
-   //       });
-   //    }
-   // }, [socket]);
+   }, [socket, currentBot]);
 
    return <ChatContainer />;
 };

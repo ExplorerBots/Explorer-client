@@ -1,7 +1,7 @@
 import { IChatNotify, IMessage } from '@/app/interfaces';
 import { FC, PropsWithChildren, useContext } from 'react';
-import { CurrentBotContext } from '../context/CurrentBotContext';
-import styles from '../styles.module.scss';
+import { CurrentBotContext } from '../../context/CurrentBotContext';
+import styles from '../../styles.module.scss';
 import Message from './Message';
 import Notify from './Notify';
 
@@ -31,7 +31,6 @@ const Chat: FC<
                         title={word.title}
                         description={word.description}
                         timestamp={word.timestamp}
-                        sideImage="/svg/alert-circle.svg"
                      />
                   )
                )}

@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from 'react';
-import styles from '../styles.module.scss';
+import styles from '../../styles.module.scss';
 
 const Message: FC<
    PropsWithChildren<{

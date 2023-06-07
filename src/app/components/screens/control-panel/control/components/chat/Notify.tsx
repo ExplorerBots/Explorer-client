@@ -1,20 +1,30 @@
 import Image from 'next/image';
 import { FC, PropsWithChildren } from 'react';
-import styles from '../styles.module.scss';
+import styles from '../../styles.module.scss';
 
 const Notify: FC<
    PropsWithChildren<{
-      type: string;
+      type: 'success' | 'error' | 'warning';
       title: string;
       description: string;
       timestamp: string;
-      sideImage: string;
    }>
-> = ({ type, title, description, sideImage, timestamp }) => {
+> = ({ type, title, description, timestamp }) => {
    return (
       <li className={styles.notify} data-notify={type}>
          <div className={styles.side}>
-            <Image src={sideImage} alt="" width={24} height={24} />
+            {type === 'success' ? (
+               <></>
+            ) : type === 'error' ? (
+               <Image
+                  src={'/svg/alert-circle.svg'}
+                  alt=""
+                  width={24}
+                  height={24}
+               />
+            ) : (
+               type === 'warning' && <></>
+            )}
          </div>
          <div className={styles.content}>
             <div className={styles.title}>{title}</div>

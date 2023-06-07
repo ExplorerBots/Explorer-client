@@ -50,15 +50,10 @@ const CentralMiddleBlock = () => {
          .then((data) => {
             window.localStorage.setItem('authToken', data.token);
             dispatch(setUserData(UserService.tokenDecode(data.token)));
-            toast('Успешная покупка бота!', {
-               style: { background: '#152519', color: '#4dc86a' },
-            });
+            toast.success('Успешная покупка бота!', {});
          })
          .catch((err) => {
-            toast('Недостаточно денег на балансе!', {
-               style: { background: '#281616', color: '#e25353' },
-            });
-            // router.push('/replenish-balance');
+            toast.error('Недостаточно денег на балансе!', {});
          })
          .finally(() => setLoading(false));
    };

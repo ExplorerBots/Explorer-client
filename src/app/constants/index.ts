@@ -5,6 +5,7 @@ export const routes = {
    REPLENISH_BALANCE: '/replenish-balance',
    AUTHORIZE: '/auth/authorize',
    REGISTRATION: '/auth/registration',
+   SETTINGS: '/settings-bot/',
 };
 
 export const botPrice = {
