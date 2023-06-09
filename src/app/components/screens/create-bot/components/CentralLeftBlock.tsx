@@ -1,8 +1,13 @@
-import { useRef } from 'react';
+import axios from 'axios';
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 import styles from '../styles.module.scss';
 
 const CentralLeftBlock = () => {
    const text = useRef<HTMLParagraphElement>(null);
+   const [srcImage, setSrcImage] = useState<string | null>(null);
+
+   useEffect(() => {}, []);
 
    return (
       <div className={styles.internal_container} data-side="left">
@@ -13,7 +18,7 @@ const CentralLeftBlock = () => {
             width={390}
             height={380}
          /> */}
-         {/* <span className={styles.text_animation} ref={text}></span> */}
+         {srcImage && <Image src={srcImage} alt="" width={390} height={380} />}
       </div>
    );
 };

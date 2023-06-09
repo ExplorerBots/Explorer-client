@@ -1,8 +1,8 @@
 import BackButton from '@/app/components/ui/general/buttons/BackButton/BackButton';
 import { IFullUser } from '@/app/interfaces';
 import { PropsWithChildren, useEffect, useState } from 'react';
-import styles from '../styles.module.scss';
-import AdminUserItem from './users/AdminUserItem';
+import styles from '../../styles.module.scss';
+import AdminUserItem from './AdminUserItem';
 
 interface ISearchText {
    username: string;

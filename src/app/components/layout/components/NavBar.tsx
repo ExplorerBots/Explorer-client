@@ -18,6 +18,14 @@ const NavBar: FC<
          {state ? (
             <div className={styles.nav_bar}>
                <div className={styles.link_container}>
+                  {userSlice?.data && (
+                     <>
+                        <div className={styles.username}>
+                           {userSlice.data.username}
+                        </div>
+                        <div className={styles.divider}></div>
+                     </>
+                  )}
                   <div className={styles.link}>
                      <Link href="/create-bot" onClick={() => setState(false)}>
                         <Image

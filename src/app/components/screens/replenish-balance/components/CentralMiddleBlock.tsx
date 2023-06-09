@@ -19,7 +19,7 @@ const CentralMiddleBlock = () => {
 
    return (
       <>
-         <div className={styles.internal_container}>
+         <div className={styles.internal_container} data-side="middle">
             <p className={styles.title}>Пополнить баланс</p>
             <div className={styles.input_field}>
                <input

@@ -12,3 +12,8 @@ export const botPrice = {
    PREMIUM_BOT_PRICE_PER_DAY: 3,
    CLASSIC_BOT_PRICE_PER_DAY: 2,
 };
+
+export const links = {
+   BACKEND: 'http://192.168.1.5:8080/api',
+   SERVER: 'http://192.168.1.5:7070',
+};

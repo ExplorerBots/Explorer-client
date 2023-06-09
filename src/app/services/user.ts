@@ -1,12 +1,11 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+import { links } from '../constants';
 import { IBuyBot, IUser, RegistrationUserDto } from '../interfaces';
 import { AuthorizeUserDto, UpdateUserDto } from '../interfaces/index';
 
-// const authToken = window.localStorage.getItem('authToken');
-
 const instance = axios.create({
-   baseURL: 'http://26.67.250.2:8080/api',
+   baseURL: links.BACKEND,
    headers: {
       options: {
          'Content-Type': 'application/json',

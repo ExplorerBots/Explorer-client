@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { parseCookies } from 'nookies';
+import { links } from '../constants';
 import {
    BalanceDifferenceDto,
    ChangeRoleDto,
@@ -12,7 +13,7 @@ const getAuthToken = () => {
 };
 
 const instance = axios.create({
-   baseURL: 'http://26.67.250.2:8080/api',
+   baseURL: links.BACKEND,
    headers: { Authorization: `Bearer ${getAuthToken()}` },
 });
 

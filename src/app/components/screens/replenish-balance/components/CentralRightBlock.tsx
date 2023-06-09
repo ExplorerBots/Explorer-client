@@ -2,7 +2,7 @@ import styles from '../styles.module.scss';
 
 const CentralRightBlock = () => {
    return (
-      <div className={styles.internal_container}>
+      <div className={styles.internal_container} data-side="right">
          <p className={styles.title}>Проблемы с пополнением баланса?</p>
          <p className={styles.text}>
             У тебя нет банковской карты, или выбранный способ оплаты не тебе не

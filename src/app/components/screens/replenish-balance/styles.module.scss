@@ -154,4 +154,19 @@
       display: flex;
       gap: 30px;
    }
+
+   @media (max-width: 767px) {
+      .content {
+         flex-direction: column;
+         .internal_container {
+            display: none;
+         }
+         .internal_container[data-side='middle'] {
+            display: block;
+         }
+         .internal_container[data-side='right'] {
+            display: block;
+         }
+      }
+   }
 }

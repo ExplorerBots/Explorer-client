@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import NavigationBar from './components/NavigationBar';
-import UsersContent from './components/UsersContent';
+import UsersContent from './components/users/UsersContent';
 import styles from './styles.module.scss';
 
 const AdminPanelScreen = () => {
@@ -24,7 +24,7 @@ const AdminPanelScreen = () => {
                ) : query.act === 'promos' ? (
                   <p>Промокоды</p>
                ) : (
-                  <p>Админ панель</p>
+                  <></>
                )}
             </div>
          </div>
