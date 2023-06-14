@@ -1,33 +1,23 @@
 import Preloader from '@/app/components/ui/general/preloader/Preloader';
 import { IChatNotify, IMessage } from '@/app/interfaces';
-import { useContext, useEffect, useState } from 'react';
+import { FC, PropsWithChildren, useContext } from 'react';
 import { CurrentBotContext } from '../../context/CurrentBotContext';
-import { SocketContext } from '../../context/SocketContext';
 import styles from '../../styles.module.scss';
-import Chat from './Chat';
-import Footer from './Footer';
-import Header from './Header';
+import Message from './Message';
+import Notify from './Notify';
 
-const ChatContainer = () => {
-   const [dictionary, setDictionary] = useState<(IMessage | IChatNotify)[]>([]);
+interface Props {
+   dictionary: (IMessage | IChatNotify)[];
+   setDictionary: (e: any) => void;
+}
+
+const ChatContainer: FC<PropsWithChildren<Props>> = ({
+   dictionary,
+   setDictionary,
+}) => {
+   // const [dictionary, setDictionary] = useState<(IMessage | IChatNotify)[]>([]);
 
    const { currentBot } = useContext(CurrentBotContext);
-   const { socket } = useContext(SocketContext);
-
-   useEffect(() => {
-      if (socket) {
-         socket.on('chat-message', (data) => {
-            setDictionary((prev) => [
-               ...prev,
-               {
-                  type: 'message',
-                  timestamp: new Date(data.timestamp).toLocaleTimeString(),
-                  text: data.message,
-               },
-            ]);
-         });
-      }
-   }, [socket]);
 
    return (
       <div className={styles.chat_container}>
@@ -37,9 +27,31 @@ const ChatContainer = () => {
             </div>
          )}
          <>
-            <Header />
-            <Chat dictionary={dictionary} />
-            <Footer />
+            <ul className={styles.chat}>
+               {currentBot?.status === 'online' || dictionary.length ? (
+                  <>
+                     {dictionary.map((word, i) =>
+                        word.type === 'message' ? (
+                           <Message
+                              key={i}
+                              timestamp={word.timestamp}
+                              text={word.text}
+                           />
+                        ) : (
+                           <Notify
+                              key={i}
+                              type={word.temperature}
+                              title={word.title}
+                              description={word.description}
+                              timestamp={word.timestamp}
+                           />
+                        )
+                     )}
+                  </>
+               ) : (
+                  <p className={styles.empty_message}>Бот отключен..</p>
+               )}
+            </ul>
          </>
       </div>
    );

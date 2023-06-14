@@ -16,8 +16,9 @@ const Sidebar: FC<
          <Title />
 
          <div className={styles.items_container}>
-            {tabs.map((item) => (
+            {tabs.map((item, i) => (
                <Item
+                  key={i}
                   id={item.id}
                   onClick={onClick}
                   selected={selectedId === item.id ? true : false}

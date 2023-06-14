@@ -2,7 +2,6 @@ import { IControlSideBarItem } from '@/app/interfaces';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useRef, useState } from 'react';
-import ChatContainer from './components/chat/ChatContainer';
 import MainContainer from './components/main/MainContainer';
 import Sidebar from './components/sidebar/Sidebar';
 import { CurrentBotContext } from './context/CurrentBotContext';
@@ -72,8 +71,8 @@ const BotControlScreen = () => {
             selectedId={selectedTabId}
             onClick={setSelectedTabId}
          />
-         <MainContainer />
-         <ChatContainer />;
+         <MainContainer selectedId={selectedTabId} />
+         {/* <ChatContainer />; */}
       </div>
    );
 };
