@@ -99,3 +99,10 @@ export interface IBuyBot {
    server: string;
    days: number;
 }
+
+export interface IControlSideBarItem {
+   divider?: boolean;
+   id: number;
+   src: string;
+   text: string;
+}

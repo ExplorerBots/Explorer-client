@@ -27,7 +27,9 @@ const Header = () => {
    };
    return (
       <div className={styles.header}>
-         <div className={styles.avatar}></div>
+         <div className={styles.avatar}>
+            <img src="https://minotar.net/helm/sdfgsdfgkhbsdtg/37" alt="" />
+         </div>
          <div className={styles.left_side}>
             <p className={styles.username}>
                {currentBot?.username}{' '}

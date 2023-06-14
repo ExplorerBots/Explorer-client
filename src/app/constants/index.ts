@@ -14,6 +14,6 @@ export const botPrice = {
 };
 
 export const links = {
-   BACKEND: 'http://192.168.1.5:8080/api',
-   SERVER: 'http://192.168.1.5:7070',
+   BACKEND: 'http://192.168.1.212:8080/api',
+   SERVER: 'http://192.168.1.212:7070',
 };

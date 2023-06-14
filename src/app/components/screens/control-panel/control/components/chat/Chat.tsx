@@ -13,9 +13,7 @@ const Chat: FC<
    const { currentBot } = useContext(CurrentBotContext);
    return (
       <ul className={styles.chat}>
-         {currentBot?.status !== 'online' ? (
-            <p className={styles.empty_message}>Бот отключен..</p>
-         ) : (
+         {currentBot?.status === 'online' || dictionary.length ? (
             <>
                {dictionary.map((word, i) =>
                   word.type === 'message' ? (
@@ -35,6 +33,8 @@ const Chat: FC<
                   )
                )}
             </>
+         ) : (
+            <p className={styles.empty_message}>Бот отключен..</p>
          )}
       </ul>
    );

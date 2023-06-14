@@ -89,6 +89,12 @@
       display: flex;
       gap: 30px;
    }
+
+   @media (max-width: 425px) {
+      .content {
+         flex-direction: column;
+      }
+   }
 }
 
 .last_container {
