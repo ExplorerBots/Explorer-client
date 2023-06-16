@@ -2,7 +2,9 @@ import { IChatNotify, IMessage } from '@/app/interfaces';
 import { FC, PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { SocketContext } from '../../context/SocketContext';
 import styles from '../../styles.module.scss';
+import AutoclickerContainer from '../autoclicker/AutoclickerContainer';
 import ChatContainer from '../chat/ChatContainer';
+import InventoryContainer from '../inventory/InventoryContainer';
 import Footer from './Footer';
 import Header from './Header';
 
@@ -27,6 +29,24 @@ const MainContainer: FC<PropsWithChildren<Props>> = ({ selectedId }) => {
                },
             ]);
          });
+
+         socket.on(
+            'set-last-messages',
+            (messages: { message: string; timestamp: Date }[]) => {
+               const resultMessages: IMessage[] = [];
+               messages.map((message) => {
+                  resultMessages.push({
+                     type: 'message',
+                     timestamp: new Date(
+                        message.timestamp
+                     ).toLocaleTimeString(),
+                     text: message.message,
+                  });
+               });
+
+               setDictionary(resultMessages);
+            }
+         );
       }
    }, [socket]);
 
@@ -38,8 +58,12 @@ const MainContainer: FC<PropsWithChildren<Props>> = ({ selectedId }) => {
                dictionary={dictionary}
                setDictionary={setDictionary}
             />
+         ) : selectedId === 2 ? (
+            <InventoryContainer />
+         ) : selectedId === 3 ? (
+            <AutoclickerContainer />
          ) : (
-            selectedId === 2 && <p>привет</p>
+            <></>
          )}
 
          <Footer selectedId={selectedId} />

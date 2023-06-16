@@ -41,7 +41,6 @@
 .inner_container {
    display: flex;
    justify-content: center;
-   // gap: 30px;
 
    .sidebar {
       width: 160px;
@@ -116,13 +115,8 @@
       }
    }
 
-   // .main_container {
-
-   // }
-
    .main_container {
       position: relative;
-      // margin: 0 auto;
       border-radius: $borderRadius;
       background-color: $bgBlock;
       width: 600px;
@@ -253,6 +247,14 @@
             width: 150px;
             height: 35px;
          }
+
+         .connect_button_loader {
+            margin: 0 auto;
+            width: 150px;
+            height: 35px;
+            opacity: 0.6;
+         }
+
          .text_input {
             width: 100%;
             border-radius: $borderRadius;
@@ -271,6 +273,144 @@
 
             svg {
                fill: $bgMax;
+            }
+         }
+      }
+
+      .inventory_container {
+         margin-top: 15px;
+         display: flex;
+         justify-content: center;
+
+         .inventory {
+            background: $bgAverage;
+            border-radius: 5px;
+            // width: 431px;
+            // height: 431px;
+            padding: 10px 6px 10px 10px;
+
+            .slot {
+               width: 45px;
+               height: 45px;
+               background: $bgMain;
+               border-radius: 3px;
+               position: relative;
+               cursor: pointer;
+               border: 3px solid $bgBlock;
+
+               .slot_image {
+                  &:before {
+                     left: -5px;
+                     top: -5px;
+                     width: 48px;
+                     height: 48px;
+                     position: absolute;
+                     content: '';
+                     background: url('/png/sprite.png') no-repeat;
+                     background-position: 48px 48px;
+                     background-position: -0 -1152px;
+                     z-index: 1;
+                     opacity: 0.75;
+                     scale: 0.95;
+                  }
+               }
+
+               .count {
+                  z-index: 2;
+                  position: absolute;
+                  right: 2px;
+                  bottom: 0;
+                  color: gray;
+                  font-weight: bold;
+                  user-select: none;
+               }
+            }
+
+            .up {
+               display: flex;
+               gap: 4px;
+
+               .armor {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 4px;
+               }
+
+               .steve {
+                  width: 120px;
+                  height: 192px;
+                  border-radius: 4px;
+                  background: $bgMain;
+                  border: 2px solid $bgBlock;
+               }
+
+               .offhand {
+                  position: relative;
+                  display: flex;
+                  width: 45px;
+
+                  .slot {
+                     position: absolute;
+                     bottom: 0;
+                  }
+               }
+
+               .crafting {
+                  margin-left: 10px;
+                  .title {
+                     color: $bgMain;
+                     letter-spacing: 1px;
+                     font-weight: bold;
+                     margin-bottom: 2px;
+                  }
+
+                  .crafting_container {
+                     display: flex;
+                     gap: 4px;
+
+                     .crafting_slots {
+                        flex-direction: column;
+                        display: flex;
+                        gap: 4px;
+
+                        .side {
+                           display: flex;
+                           gap: 4px;
+                        }
+                     }
+
+                     .arrow {
+                        display: flex;
+                        align-items: center;
+                     }
+
+                     .crafting_result {
+                        display: flex;
+                        align-items: center;
+                     }
+                  }
+               }
+
+               margin-bottom: 10px;
+            }
+
+            .down {
+               .main {
+                  display: grid;
+                  grid-template-columns: repeat(9, calc(100% / 9));
+                  grid-template-rows: repeat(3, 1fr);
+                  margin-bottom: 6px;
+
+                  .slot {
+                     margin-right: 4px;
+                     margin-bottom: 4px;
+                  }
+               }
+               .hotbar {
+                  display: flex;
+
+                  gap: 4px;
+               }
             }
          }
       }

@@ -12,11 +12,17 @@ const Footer: FC<PropsWithChildren<Props>> = ({ selectedId }) => {
    const { socket } = useContext(SocketContext);
    const { currentBot } = useContext(CurrentBotContext);
    const [chatText, setChatText] = useState('');
+   const [connectButtonLoaderActive, setConnectButtonLoaderActive] =
+      useState<boolean>(false);
 
    const ConnectButtonHandler = () => {
       if (socket) {
          socket.emit('connect-to-server', {
             botId: currentBot?.id,
+         });
+         setConnectButtonLoaderActive(true);
+         socket.on('server-connected', () => {
+            setConnectButtonLoaderActive(false);
          });
       }
    };
@@ -41,18 +47,31 @@ const Footer: FC<PropsWithChildren<Props>> = ({ selectedId }) => {
          {selectedId === 1 ? (
             <div className={styles.footer}>
                {currentBot?.status !== 'online' ? (
-                  <button
-                     className={styles.connect_button}
-                     onClick={ConnectButtonHandler}
-                  >
-                     Подключиться
-                  </button>
+                  <>
+                     {connectButtonLoaderActive ? (
+                        <button className={styles.connect_button_loader}>
+                           <Image
+                              src="/svg/preloader.svg"
+                              width={25}
+                              height={25}
+                              alt=""
+                           />
+                        </button>
+                     ) : (
+                        <button
+                           className={styles.connect_button}
+                           onClick={ConnectButtonHandler}
+                        >
+                           Подключиться
+                        </button>
+                     )}
+                  </>
                ) : (
                   <>
                      <input
                         className={styles.text_input}
                         contentEditable={true}
-                        placeholder="/god"
+                        placeholder="/help"
                         value={chatText}
                         onChange={(e) => {
                            setChatText(e.currentTarget.value);

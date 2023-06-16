@@ -9,7 +9,7 @@ const Message: FC<
 > = ({ timestamp, text }) => {
    return (
       <li className={styles.message}>
-         <span className={styles.timestamp}>{timestamp} </span>
+         <span className={styles.timestamp}>[{timestamp}] </span>
          {text}
       </li>
    );

@@ -37,7 +37,7 @@ const PremiumBotItem: FC<
             </p>
             <p className={styles.id}>
                {' '}
-               <span className={styles.description}>Id: </span>
+               <span className={styles.description}>Айди: </span>
                {botId}
             </p>
             <p className={styles.server}>

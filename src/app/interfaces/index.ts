@@ -106,3 +106,14 @@ export interface IControlSideBarItem {
    src: string;
    text: string;
 }
+
+export interface IItem {
+   type: number;
+   count: number;
+   metadata: number;
+   nbt: any;
+   name: string;
+   displayName: string;
+   stackSize: number;
+   slot: number;
+}

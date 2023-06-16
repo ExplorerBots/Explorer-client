@@ -68,7 +68,12 @@ const Header = () => {
                      className={styles.button_leave}
                      onClick={DisconnectButtonHandler}
                   >
-                     Отключить
+                     <Image
+                        src="/svg/power.svg"
+                        alt=""
+                        width={20}
+                        height={20}
+                     />
                   </button>
                </>
             )}
