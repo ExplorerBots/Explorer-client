@@ -38,8 +38,6 @@ const InventoryContainer = () => {
             setTakenItem(null);
          }
       }
-      // }
-      // if (movedItem.type === 0) {
    };
 
    const handleTakeItem = (item: IItem) => {
@@ -50,6 +48,15 @@ const InventoryContainer = () => {
       if (takenItem === item) {
          setTakenItem(null);
          return;
+      }
+   };
+
+   const handleThrowItem = () => {
+      if (!takenItem) return;
+
+      if (socket) {
+         socket.emit('throw-items', takenItem);
+         setTakenItem(null);
       }
    };
 
@@ -133,8 +140,6 @@ const InventoryContainer = () => {
                   style={{
                      borderRadius: '2px',
                      userSelect: 'none',
-                     // pointerEvents: 'none',
-                     // cursor: 'grab',
                   }}
                />
             )}
@@ -144,8 +149,17 @@ const InventoryContainer = () => {
       ));
    };
 
+   const handleOnThrowZoneEnter = (e: any) => {
+      if (takenItem) {
+         e.currentTarget.dataset.active = 'true';
+      }
+   };
+   const handleOnThrowZoneLeave = (e: any) => {
+      e.currentTarget.dataset.active = 'false';
+   };
+
    return (
-      <div className={styles.inventory_container}>
+      <div className={styles.inventory_container} onClick={handleThrowItem}>
          {takenItem && takenItem.type !== 0 && (
             <div
                className={styles.taken_item}
@@ -171,8 +185,12 @@ const InventoryContainer = () => {
                </div>
             </div>
          )}
-
-         <div className={styles.inventory}>
+         <div
+            className={styles.throw_items_zone}
+            onMouseEnter={(e) => handleOnThrowZoneEnter(e)}
+            onMouseLeave={(e) => handleOnThrowZoneLeave(e)}
+         />
+         <div className={styles.inventory} onClick={(e) => e.stopPropagation()}>
             <div className={styles.up}>
                <div className={styles.armor}>{drawSlots(armorSlots)}</div>
                <div className={styles.steve}>
@@ -219,6 +237,11 @@ const InventoryContainer = () => {
                <div className={styles.hotbar}>{drawSlots(hotbarSlots)}</div>
             </div>
          </div>
+         <div
+            className={styles.throw_items_zone}
+            onMouseEnter={(e) => handleOnThrowZoneEnter(e)}
+            onMouseLeave={(e) => handleOnThrowZoneLeave(e)}
+         />
       </div>
    );
 };

@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
+import HotbarContainer from './components/hotbar/HotbarContainer';
 import MainContainer from './components/main/MainContainer';
 import Sidebar from './components/sidebar/Sidebar';
 import { CurrentBotContext } from './context/CurrentBotContext';
@@ -44,7 +45,7 @@ const BotControlScreen = () => {
    const { socket } = useContext(SocketContext);
    const { currentBot } = useContext(CurrentBotContext);
    const { setItems } = useContext(ItemsContext);
-   const [selectedTabId, setSelectedTabId] = useState<number>(tabs[1].id);
+   const [selectedTabId, setSelectedTabId] = useState<number>(tabs[0].id);
    // const []
    const [requested, setRequested] = useState<boolean>(false);
 
@@ -54,6 +55,8 @@ const BotControlScreen = () => {
 
       socket.emit('get-last-messages', () => {});
       socket.emit('get-items', () => {});
+      socket.emit('get-quick-bar-slot');
+      socket.emit('get-info');
 
       if (requested) return;
       setRequested(true);
@@ -90,49 +93,17 @@ const BotControlScreen = () => {
    }, [socket, currentBot]);
 
    return (
-      <div className={styles.inner_container}>
-         <Sidebar
-            tabs={tabs}
-            selectedId={selectedTabId}
-            onClick={setSelectedTabId}
-         />
-         <MainContainer selectedId={selectedTabId} />
-         {/* <div className={styles.control_container}></div>
-         <div className={styles.info}>
-            <div className={styles.health}>
-               <Image src="/assets/heart.png" height={20} width={20} alt="" />
-               <Image src="/assets/heart.png" height={20} width={20} alt="" />
-               <Image src="/assets/heart.png" height={20} width={20} alt="" />
-               <Image src="/assets/heart.png" height={20} width={20} alt="" />
-               <Image src="/assets/heart.png" height={20} width={20} alt="" />
-               <Image src="/assets/heart.png" height={20} width={20} alt="" />
-               <Image src="/assets/heart.png" height={20} width={20} alt="" />
-               <Image src="/assets/heart.png" height={20} width={20} alt="" />
-               <Image src="/assets/heart.png" height={20} width={20} alt="" />
-               <Image src="/assets/heart.png" height={20} width={20} alt="" />
-            </div>
-            <div className={styles.feed}>
-               <Image src="/assets/feed.png" height={20} width={20} alt="" />
-               <Image src="/assets/feed.png" height={20} width={20} alt="" />
-               <Image src="/assets/feed.png" height={20} width={20} alt="" />
-               <Image src="/assets/feed.png" height={20} width={20} alt="" />
-               <Image src="/assets/feed.png" height={20} width={20} alt="" />
-               <Image src="/assets/feed.png" height={20} width={20} alt="" />
-               <Image src="/assets/feed.png" height={20} width={20} alt="" />
-               <Image src="/assets/feed.png" height={20} width={20} alt="" />
-               <Image src="/assets/feed.png" height={20} width={20} alt="" />
-               <Image src="/assets/feed.png" height={20} width={20} alt="" />
-            </div>
-         </div>
-         <div className={styles.hotbar}>
-            <HotBarSlots
-               slot={1}
-               classSlot={styles.slot}
-               classSlotImage={styles.slot_image}
-               classSlots={styles.slots}
+      <>
+         <div className={styles.inner_container}>
+            <Sidebar
+               tabs={tabs}
+               selectedId={selectedTabId}
+               onClick={setSelectedTabId}
             />
-         </div> */}
-      </div>
+            <MainContainer selectedId={selectedTabId} />
+         </div>
+         <HotbarContainer />
+      </>
    );
 };
 

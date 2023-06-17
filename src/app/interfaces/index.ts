@@ -117,3 +117,9 @@ export interface IItem {
    stackSize: number;
    slot: number;
 }
+
+export interface IBotInfo {
+   health: number;
+   food: number;
+   experience: number;
+}
