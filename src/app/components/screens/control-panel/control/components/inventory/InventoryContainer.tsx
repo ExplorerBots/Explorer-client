@@ -5,19 +5,72 @@ import { ItemsContext } from '../../context/ItemsContext';
 import { SocketContext } from '../../context/SocketContext';
 import styles from '../../styles.module.scss';
 
+const nullItem = (slot: number): IItem => {
+   return {
+      count: 0,
+      metadata: 0,
+      nbt: '',
+      name: '',
+      displayName: '',
+      stackSize: 0,
+      slot: slot,
+      type: 0,
+   };
+};
+
 const InventoryContainer = () => {
    const { socket } = useContext(SocketContext);
    const { items } = useContext(ItemsContext);
 
    const [displayedItems, setDisplayedItems] = useState<IItem[]>([]);
+   const [takenItem, setTakenItem] = useState<IItem | null>(null);
+   const [position, setPosition] = useState({ x: 0, y: 0 });
 
+   const handleMoveItem = (movedItem: IItem) => {
+      if (!takenItem) return;
+
+      if (takenItem.slot !== movedItem.slot) {
+         if (socket) {
+            socket.emit('move-item', {
+               sourceSlot: takenItem.slot,
+               destSlot: movedItem.slot,
+            });
+            setTakenItem(null);
+         }
+      }
+      // }
+      // if (movedItem.type === 0) {
+   };
+
+   const handleTakeItem = (item: IItem) => {
+      if (item.type > 0) {
+         setTakenItem(item);
+      }
+
+      if (takenItem === item) {
+         setTakenItem(null);
+         return;
+      }
+   };
+
+   useEffect(() => {
+      const handleMouseMove = (event: any) => {
+         setPosition({ x: event.clientX, y: event.clientY });
+      };
+
+      window.addEventListener('mousemove', handleMouseMove);
+
+      return () => {
+         window.removeEventListener('mousemove', handleMouseMove);
+      };
+   }, []);
    useEffect(() => {
       if (!items) return;
 
       const resultItems: IItem[] = [];
 
       for (let i = 0; i <= 45; i++) {
-         const findedItem = items.find((item) => item.slot === i);
+         const findedItem = items.find((item) => item?.slot === i);
 
          if (findedItem) {
             resultItems.push(findedItem);
@@ -36,23 +89,18 @@ const InventoryContainer = () => {
       }
       setDisplayedItems(resultItems);
    }, [items]);
-
    const hotbarSlots: IItem[] = displayedItems.filter(
       (item) => item.slot >= 36 && item.slot <= 44
    );
-
    const mainSlots: IItem[] = displayedItems.filter(
       (item) => item.slot >= 9 && item.slot <= 35
    );
-
    const armorSlots: IItem[] = displayedItems.filter(
       (item) => item.slot >= 5 && item.slot <= 8
    );
-
    const offhandSlot: IItem[] = displayedItems.filter(
       (item) => item.slot === 45
    );
-
    const craftingSlotsUp: IItem[] = displayedItems.filter(
       (item) => item.slot >= 1 && item.slot <= 2
    );
@@ -64,16 +112,66 @@ const InventoryContainer = () => {
    );
 
    const drawSlots = (arr: IItem[]) => {
-      return arr.map((slot, i) => (
-         <div className={styles.slot} key={i}>
-            <i className={styles.slot_image}></i>
-            <div className={styles.count}>{slot.count > 1 && slot.count}</div>
+      return arr.map((item, i) => (
+         <div
+            className={styles.slot}
+            key={i}
+            onClick={() => {
+               handleMoveItem(item);
+            }}
+            onMouseDown={() => {
+               handleTakeItem(item);
+            }}
+            data-taken={item.slot === takenItem?.slot ? 'true' : 'false'}
+         >
+            {item.name && (
+               <Image
+                  src={`/MINECRAFT/${item.name}.png`}
+                  alt={item.name}
+                  width={37}
+                  height={37}
+                  style={{
+                     borderRadius: '2px',
+                     userSelect: 'none',
+                     // pointerEvents: 'none',
+                     // cursor: 'grab',
+                  }}
+               />
+            )}
+
+            <div className={styles.count}>{item.count > 1 && item.count}</div>
          </div>
       ));
    };
 
    return (
       <div className={styles.inventory_container}>
+         {takenItem && takenItem.type !== 0 && (
+            <div
+               className={styles.taken_item}
+               style={{
+                  top: position.y - 17,
+                  left: position.x - 17,
+               }}
+            >
+               <div className={styles.taken_item_image}>
+                  <Image
+                     src={`/MINECRAFT/${takenItem.name}.png`}
+                     alt={takenItem.name}
+                     width={37}
+                     height={37}
+                     style={{
+                        borderRadius: '2px',
+                        userSelect: 'none',
+                     }}
+                  />
+               </div>
+               <div className={styles.count}>
+                  {takenItem.count > 1 && takenItem.count}
+               </div>
+            </div>
+         )}
+
          <div className={styles.inventory}>
             <div className={styles.up}>
                <div className={styles.armor}>{drawSlots(armorSlots)}</div>
