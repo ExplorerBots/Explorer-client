@@ -27,7 +27,7 @@ const BotControlScreen = () => {
 
    const { botId } = router.query;
    const bot = botsSlice.data.find((bot) => bot.id === Number(botId));
-   const [selectedTabId, setSelectedTabId] = useState<number>(tabs[1].id);
+   const [selectedTabId, setSelectedTabId] = useState<number>(tabs[0].id);
    const [requested, setRequested] = useState<boolean>(false);
 
    useEffect(() => {
@@ -38,6 +38,7 @@ const BotControlScreen = () => {
       socket.emit('get-items', () => {});
       socket.emit('get-quick-bar-slot');
       socket.emit('get-info');
+      socket.emit('get-current-window');
 
       if (requested) return;
       setRequested(true);
@@ -80,7 +81,6 @@ const BotControlScreen = () => {
 
       socket.on('set-current-window', (window: ICurrentWindow) => {
          setCurrentWindow(window);
-         console.log('currentWindow', window);
       });
    }, [socket, currentBot]);
 

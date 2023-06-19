@@ -2,12 +2,16 @@ import { IItem } from '@/app/interfaces';
 import Image from 'next/image';
 import { useContext, useEffect, useState } from 'react';
 import { ItemsContext } from '../../../context/ItemsContext';
+import { SelectedItemContext } from '../../../context/SelectedItemContext';
+import { SocketContext } from '../../../context/SocketContext';
 import styles from '../../../styles.module.scss';
 import { genFormattedItems } from '../../../utils/genFormattedItems';
 import { drawSlots } from '../drawSlots';
 
 const Inventory = () => {
    const { items } = useContext(ItemsContext);
+   const { selectedItem } = useContext(SelectedItemContext);
+   const { socket } = useContext(SocketContext);
 
    const [formattedItems, setFormattedItems] = useState<IItem[] | null>(null);
    useEffect(() => genFormattedItems(items, setFormattedItems), [items]);
@@ -16,21 +20,21 @@ const Inventory = () => {
       <div className={styles.inventory} onClick={(e) => e.stopPropagation()}>
          <div className={styles.up}>
             <div className={styles.armor}>
-               {drawSlots(5, 8, formattedItems)}
+               {drawSlots(5, 8, formattedItems, socket, selectedItem)}
             </div>
             <div className={styles.steve}></div>
             <div className={styles.offhand}>
-               {drawSlots(45, 45, formattedItems)}
+               {drawSlots(45, 45, formattedItems, socket, selectedItem)}
             </div>
             <div className={styles.crafting}>
                <div className={styles.title}>Crafting</div>
                <div className={styles.crafting_container}>
                   <div className={styles.crafting_slots}>
                      <div className={styles.side}>
-                        {drawSlots(1, 2, formattedItems)}
+                        {drawSlots(1, 2, formattedItems, socket, selectedItem)}
                      </div>
                      <div className={styles.side}>
-                        {drawSlots(3, 4, formattedItems)}
+                        {drawSlots(3, 4, formattedItems, socket, selectedItem)}
                      </div>
                   </div>
                   <div className={styles.arrow}>
@@ -42,17 +46,17 @@ const Inventory = () => {
                      />
                   </div>
                   <div className={styles.crafting_result}>
-                     {drawSlots(0, 0, formattedItems)}
+                     {drawSlots(0, 0, formattedItems, socket, selectedItem)}
                   </div>
                </div>
             </div>
          </div>
          <div className={styles.down}>
             <div className={styles.main}>
-               {drawSlots(9, 35, formattedItems)}
+               {drawSlots(9, 35, formattedItems, socket, selectedItem)}
             </div>
             <div className={styles.hotbar}>
-               {drawSlots(36, 44, formattedItems)}
+               {drawSlots(36, 44, formattedItems, socket, selectedItem)}
             </div>
          </div>
       </div>

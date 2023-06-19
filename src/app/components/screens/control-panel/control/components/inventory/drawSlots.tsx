@@ -1,19 +1,16 @@
 import { IItem } from '@/app/interfaces';
 import Image from 'next/image';
-import { useContext } from 'react';
-import { SelectedItemContext } from '../../context/SelectedItemContext';
-import { SocketContext } from '../../context/SocketContext';
+import { Socket } from 'socket.io-client';
 import styles from '../../styles.module.scss';
 
 export const drawSlots = (
    from: number,
    to: number,
-   formattedItems: IItem[] | null
+   formattedItems: IItem[] | null,
+   socket: Socket | null,
+   selectedItem: IItem | null
 ) => {
    if (!formattedItems) return;
-
-   const { socket } = useContext(SocketContext);
-   const { selectedItem } = useContext(SelectedItemContext);
 
    const filteredItems = formattedItems.filter(
       (item, i) => item?.slot >= from && item?.slot <= to

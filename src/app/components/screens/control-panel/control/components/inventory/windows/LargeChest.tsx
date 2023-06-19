@@ -2,6 +2,7 @@ import { IItem } from '@/app/interfaces';
 import Image from 'next/image';
 import { useContext, useEffect, useState } from 'react';
 import { CurrentWinowContext } from '../../../context/CurrentWindowContext';
+import { SelectedItemContext } from '../../../context/SelectedItemContext';
 import { SocketContext } from '../../../context/SocketContext';
 import styles from '../../../styles.module.scss';
 import { genFormattedItems } from '../../../utils/genFormattedItems';
@@ -10,6 +11,7 @@ import { drawSlots } from '../drawSlots';
 const LargeChest = () => {
    const { currentWindow } = useContext(CurrentWinowContext);
    const { socket } = useContext(SocketContext);
+   const { selectedItem } = useContext(SelectedItemContext);
 
    const [title, setTitle] = useState<{ text: string; color: string } | null>(
       null
@@ -36,16 +38,16 @@ const LargeChest = () => {
          <div className={styles.chest}>
             <div className={styles.title}>{title?.text}</div>
             <div className={styles.main}>
-               {drawSlots(0, 53, formattedItems)}
+               {drawSlots(0, 53, formattedItems, socket, selectedItem)}
             </div>
          </div>
          <div className={styles.inventory}>
             <div className={styles.title}>Inventory</div>
             <div className={styles.main}>
-               {drawSlots(54, 80, formattedItems)}
+               {drawSlots(54, 80, formattedItems, socket, selectedItem)}
             </div>
             <div className={styles.hotbar}>
-               {drawSlots(81, 89, formattedItems)}
+               {drawSlots(81, 89, formattedItems, socket, selectedItem)}
             </div>
          </div>
       </div>
