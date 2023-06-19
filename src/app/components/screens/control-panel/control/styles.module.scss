@@ -282,13 +282,74 @@
          display: flex;
          justify-content: center;
 
+         .small_chest {
+            padding: 10px;
+            background: $bgAverage;
+            border-radius: 5px;
+            position: relative;
+
+            .window_close {
+               position: absolute;
+               right: 17px;
+               width: 20px;
+               height: 20px;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+            }
+
+            .title {
+               padding-bottom: 10px;
+               color: gray;
+               font-weight: bold;
+            }
+
+            .chest {
+               .main {
+                  display: grid;
+                  grid-template-columns: repeat(9, calc(100% / 9));
+                  grid-template-rows: repeat(3, 1fr);
+
+                  .slot {
+                     margin-right: 4px;
+                     margin-bottom: 4px;
+                  }
+               }
+            }
+
+            .inventory {
+               .main {
+                  display: grid;
+                  grid-template-columns: repeat(9, calc(100% / 9));
+                  grid-template-rows: repeat(3, 1fr);
+                  margin-bottom: 6px;
+
+                  .slot {
+                     margin-right: 4px;
+                     margin-bottom: 4px;
+                  }
+               }
+               .hotbar {
+                  display: grid;
+                  grid-template-columns: repeat(9, calc(100% / 9));
+               }
+            }
+         }
+
          .taken_item {
             position: fixed;
             z-index: 3;
             pointer-events: none;
+         }
 
-            .taken_item_image {
-            }
+         .tooltip {
+            pointer-events: none;
+            z-index: 3;
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            background: black;
+            border-radius: 4px;
          }
 
          .count {
@@ -303,32 +364,11 @@
             text-shadow: $bgMain 1px 2px;
          }
 
-         .inventory {
+         > .inventory {
             background: $bgAverage;
             border-radius: 5px;
             // width: 431px;
             padding: 10px 6px 10px 10px;
-
-            .slot {
-               width: 45px;
-               height: 45px;
-               background: $bgMain;
-               border-radius: 3px;
-               position: relative;
-               cursor: pointer;
-               border: 3px solid $bgBlock;
-               display: flex;
-               justify-content: center;
-               align-items: center;
-
-               .slot[data-taken='true'] {
-                  opacity: 0.5;
-               }
-
-               &:hover {
-                  opacity: 0.7;
-               }
-            }
 
             .up {
                display: flex;
@@ -415,6 +455,26 @@
 
                   gap: 4px;
                }
+            }
+         }
+
+         .slot {
+            width: 45px;
+            height: 45px;
+            background: $bgMain;
+            border-radius: 3px;
+            position: relative;
+            cursor: pointer;
+            border: 3px solid $bgBlock;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:hover {
+               opacity: 0.7;
+            }
+            &[data-taken='true'] {
+               opacity: 0.5;
             }
          }
 
@@ -528,6 +588,62 @@
             user-select: none;
             pointer-events: none;
             text-shadow: $bgMain 1px 2px;
+         }
+      }
+   }
+   @media (max-width: 500px) {
+      padding: 10px;
+      .hotbar {
+         .slot {
+            width: 40px;
+            height: 40px;
+            img {
+               width: 35px;
+               height: 35px;
+            }
+         }
+      }
+   }
+   @media (max-width: 450px) {
+      padding: 10 5 5px;
+      .hotbar {
+         .slot {
+            width: 37px;
+            height: 37px;
+            img {
+               width: 32px;
+               height: 32px;
+            }
+         }
+      }
+   }
+   @media (max-width: 400px) {
+      padding: 10 5 5px;
+      .hotbar {
+         gap: 0;
+
+         .slot {
+            width: 35px;
+            height: 35px;
+            img {
+               width: 30px;
+               height: 30px;
+            }
+         }
+      }
+   }
+   @media (max-width: 400px) {
+      padding: 7 5 5px;
+      .hotbar {
+         gap: 0;
+
+         .slot {
+            width: 33px;
+            height: 33px;
+            img {
+               width: 28px;
+               height: 28px;
+            }
          }
       }
    }

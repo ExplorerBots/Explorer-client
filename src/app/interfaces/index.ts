@@ -123,3 +123,17 @@ export interface IBotInfo {
    food: number;
    experience: number;
 }
+
+export interface ICurrentWindow {
+   slots: IItem[];
+   title: string;
+   type: string;
+   selectedItem: IItem;
+   craftingResultSlot: number;
+   hotbarStart: number;
+   id: number;
+   inventoryEnd: number;
+   inventoryStart: number;
+   requiresConfirmation: boolean;
+   events: any;
+}

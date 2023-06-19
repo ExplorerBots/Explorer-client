@@ -1,4 +1,4 @@
-import { IControlSideBarItem } from '@/app/interfaces';
+import { ICurrentWindow } from '@/app/interfaces';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useRef, useState } from 'react';
@@ -7,46 +7,27 @@ import HotbarContainer from './components/hotbar/HotbarContainer';
 import MainContainer from './components/main/MainContainer';
 import Sidebar from './components/sidebar/Sidebar';
 import { CurrentBotContext } from './context/CurrentBotContext';
+import { CurrentWinowContext } from './context/CurrentWindowContext';
 import { ItemsContext } from './context/ItemsContext';
 import { SocketContext } from './context/SocketContext';
+import { tabs } from './data';
 import styles from './styles.module.scss';
 
 const BotControlScreen = () => {
-   const tabs: IControlSideBarItem[] = [
-      {
-         divider: true,
-         id: 1,
-         src: '/controlSidebar/message-circle.svg',
-         text: 'Чат',
-      },
-      {
-         id: 2,
-         src: '/controlSidebar/package.svg',
-         text: 'Инвентарь',
-      },
-      {
-         divider: true,
-         id: 3,
-         src: '/controlSidebar/mouse-pointer.svg',
-         text: 'Автокликер',
-      },
-      { id: 4, src: '/controlSidebar/droplet.svg', text: 'Авто-еда' },
-      { id: 5, src: '/controlSidebar/book.svg', text: 'Чаровник' },
-   ];
-
    const botsSlice = useAppSelector((store) => store.bots);
    const chatInputRef = useRef<HTMLInputElement>(null);
-   const { setCurrentBot } = useContext(CurrentBotContext);
    const router = useRouter();
    const dispatch = useAppDispatch();
 
-   const { botId } = router.query;
-   const bot = botsSlice.data.find((bot) => bot.id === Number(botId));
+   const { setCurrentBot } = useContext(CurrentBotContext);
    const { socket } = useContext(SocketContext);
    const { currentBot } = useContext(CurrentBotContext);
    const { setItems } = useContext(ItemsContext);
-   const [selectedTabId, setSelectedTabId] = useState<number>(tabs[0].id);
-   // const []
+   const { currentWindow, setCurrentWindow } = useContext(CurrentWinowContext);
+
+   const { botId } = router.query;
+   const bot = botsSlice.data.find((bot) => bot.id === Number(botId));
+   const [selectedTabId, setSelectedTabId] = useState<number>(tabs[1].id);
    const [requested, setRequested] = useState<boolean>(false);
 
    useEffect(() => {
@@ -78,6 +59,7 @@ const BotControlScreen = () => {
          });
          toast.warning('Бот был кикнут с сервера!');
       });
+
       socket.on('logout', (data) => {
          console.log('logout');
          setCurrentBot({
@@ -89,6 +71,16 @@ const BotControlScreen = () => {
 
       socket.on('set-items', (items) => {
          setItems(items);
+      });
+
+      socket.on('window-open', (window) => {
+         setSelectedTabId(2);
+         console.log(window);
+      });
+
+      socket.on('set-current-window', (window: ICurrentWindow) => {
+         setCurrentWindow(window);
+         console.log('currentWindow', window);
       });
    }, [socket, currentBot]);
 

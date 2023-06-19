@@ -2,7 +2,7 @@ import { IItem } from '@/app/interfaces';
 import { createContext } from 'react';
 
 interface IItemsContext {
-   items: IItem[];
+   items: (IItem | null)[];
    setItems: (items: IItem[]) => void;
 }
 

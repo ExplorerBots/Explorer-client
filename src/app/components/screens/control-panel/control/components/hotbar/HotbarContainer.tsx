@@ -6,11 +6,12 @@ import { useContext, useEffect, useState } from 'react';
 import { ItemsContext } from '../../context/ItemsContext';
 import { SocketContext } from '../../context/SocketContext';
 import styles from '../../styles.module.scss';
+import { genFormattedItems } from '../../utils/genFormattedItems';
 
 const HotbarContainer = () => {
    const { socket } = useContext(SocketContext);
    const { items } = useContext(ItemsContext);
-   const [displayedItems, setDisplayedItems] = useState<IItem[]>([]);
+   const [formattedItems, setFormattedItems] = useState<IItem[]>([]);
    const [quickBarSlot, setQuickbarSlot] = useState<number>(0);
    const [botInfo, setBotInfo] = useState<IBotInfo>({
       health: 1,
@@ -18,42 +19,20 @@ const HotbarContainer = () => {
       experience: 1,
    });
 
-   const hotbarSlots: IItem[] = displayedItems.filter(
+   useEffect(() => genFormattedItems(items, setFormattedItems), [items]);
+
+   const hotbarSlots: IItem[] = formattedItems.filter(
       (item) => item.slot >= 36 && item.slot <= 44
    );
 
    const handleQuickSlotClick = (slot: number) => {
       if (!socket) return;
-      if (slot === quickBarSlot) return;
-
-      socket.emit('set-quick-bar-slot', slot);
-   };
-
-   useEffect(() => {
-      if (!items) return;
-
-      const resultItems: IItem[] = [];
-
-      for (let i = 0; i <= 45; i++) {
-         const findedItem = items.find((item) => item?.slot === i);
-
-         if (findedItem) {
-            resultItems.push(findedItem);
-         } else {
-            resultItems.push({
-               type: 0,
-               count: 0,
-               metadata: 0,
-               nbt: '',
-               name: '',
-               displayName: '',
-               stackSize: 0,
-               slot: i,
-            });
-         }
+      if (slot === quickBarSlot) {
+         socket.emit('use-item');
+      } else {
+         socket.emit('set-quick-bar-slot', slot);
       }
-      setDisplayedItems(resultItems);
-   }, [items]);
+   };
 
    useEffect(() => {
       if (!socket) return;
@@ -72,19 +51,19 @@ const HotbarContainer = () => {
          <div className={styles.info}>
             <div className={styles.health}>
                <span className={styles.health_count}>
-                  {botInfo.health.toFixed()}
+                  {botInfo?.health?.toFixed()}
                </span>{' '}
                health
             </div>
             <div className={styles.xp}>
                <span className={styles.xp_count}>
-                  {botInfo.experience.toFixed()}
+                  {botInfo?.experience?.toFixed()}
                </span>{' '}
                experience
             </div>
             <div className={styles.food}>
                <span className={styles.food_count}>
-                  {botInfo.food.toFixed()}
+                  {botInfo?.food?.toFixed()}
                </span>{' '}
                food
             </div>
@@ -92,7 +71,9 @@ const HotbarContainer = () => {
          <div className={styles.hotbar}>
             {hotbarSlots.map((item, i) => (
                <div
-                  onClick={() => handleQuickSlotClick(getQuickSlot(item.slot))}
+                  onClick={() => {
+                     handleQuickSlotClick(getQuickSlot(item.slot));
+                  }}
                   className={styles.slot}
                   key={i}
                   data-quick-slot={

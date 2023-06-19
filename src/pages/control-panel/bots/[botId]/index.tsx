@@ -1,10 +1,12 @@
 import BotControlScreen from '@/app/components/screens/control-panel/control';
 import { CurrentBotContext } from '@/app/components/screens/control-panel/control/context/CurrentBotContext';
+import { CurrentWinowContext } from '@/app/components/screens/control-panel/control/context/CurrentWindowContext';
 import { ItemsContext } from '@/app/components/screens/control-panel/control/context/ItemsContext';
+import { SelectedItemContext } from '@/app/components/screens/control-panel/control/context/SelectedItemContext';
 import { SocketContext } from '@/app/components/screens/control-panel/control/context/SocketContext';
 import { links } from '@/app/constants';
 import { withAuth } from '@/app/hoc/withAuth';
-import { IBot, IItem } from '@/app/interfaces';
+import { IBot, ICurrentWindow, IItem } from '@/app/interfaces';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 import { getMyBots } from '@/app/store/slices/bots';
 import { useRouter } from 'next/router';
@@ -15,6 +17,10 @@ const BotControlPage = () => {
    const [items, setItems] = useState<IItem[]>([]);
    const [socket, setSocket] = useState<Socket | null>(null);
    const [currentBot, setCurrentBot] = useState<IBot | null>(null);
+   const [currentWindow, setCurrentWindow] = useState<ICurrentWindow | null>(
+      null
+   );
+   const [selectedItem, setSelectedItem] = useState<IItem | null>(null);
    const [initComplete, setInitComplete] = useState<boolean>(false);
 
    const router = useRouter();
@@ -53,9 +59,17 @@ const BotControlPage = () => {
    return (
       <SocketContext.Provider value={{ socket, setSocket }}>
          <CurrentBotContext.Provider value={{ currentBot, setCurrentBot }}>
-            <ItemsContext.Provider value={{ items, setItems }}>
-               <BotControlScreen />
-            </ItemsContext.Provider>
+            <CurrentWinowContext.Provider
+               value={{ currentWindow, setCurrentWindow }}
+            >
+               <ItemsContext.Provider value={{ items, setItems }}>
+                  <SelectedItemContext.Provider
+                     value={{ selectedItem, setSelectedItem }}
+                  >
+                     <BotControlScreen />
+                  </SelectedItemContext.Provider>
+               </ItemsContext.Provider>
+            </CurrentWinowContext.Provider>
          </CurrentBotContext.Provider>
       </SocketContext.Provider>
    );
