@@ -6,11 +6,13 @@ import { useContext, useEffect, useState } from 'react';
 import { ItemsContext } from '../../context/ItemsContext';
 import { SocketContext } from '../../context/SocketContext';
 import styles from '../../styles.module.scss';
-import { genFormattedItems } from '../../utils/genFormattedItems';
+import { genFormattedItems, nullItem } from '../../utils/genFormattedItems';
+import Blur from '../ui/Blur';
 
 const HotbarContainer = () => {
    const { socket } = useContext(SocketContext);
    const { items } = useContext(ItemsContext);
+
    const [formattedItems, setFormattedItems] = useState<IItem[]>([]);
    const [quickBarSlot, setQuickbarSlot] = useState<number>(0);
    const [botInfo, setBotInfo] = useState<IBotInfo>({
@@ -20,6 +22,14 @@ const HotbarContainer = () => {
    });
 
    useEffect(() => genFormattedItems(items, setFormattedItems), [items]);
+
+   useEffect(() => {
+      if (!formattedItems?.length) {
+         for (let i = 0; i <= 45; i++) {
+            formattedItems.push(nullItem(i));
+         }
+      }
+   }, [formattedItems]);
 
    const hotbarSlots: IItem[] = formattedItems.filter(
       (item) => item.slot >= 36 && item.slot <= 44
@@ -48,6 +58,7 @@ const HotbarContainer = () => {
 
    return (
       <div className={styles.hotbar_container}>
+         <Blur />
          <div className={styles.info}>
             <div className={styles.health}>
                <span className={styles.health_count}>

@@ -5,6 +5,7 @@ import { ItemsContext } from '../../context/ItemsContext';
 import { SelectedItemContext } from '../../context/SelectedItemContext';
 import { SocketContext } from '../../context/SocketContext';
 import styles from '../../styles.module.scss';
+import Blur from '../ui/Blur';
 import Inventory from './windows/Inventory';
 import LargeChest from './windows/LargeChest';
 import NineFiveWindow from './windows/NineFiveWindow';
@@ -36,6 +37,7 @@ const InventoryContainer = () => {
          className={styles.inventory_container}
          onContextMenu={(e) => e.preventDefault()}
       >
+         <Blur />
          {selectedItem && selectedItem.type !== 0 && (
             <div
                className={styles.taken_item}

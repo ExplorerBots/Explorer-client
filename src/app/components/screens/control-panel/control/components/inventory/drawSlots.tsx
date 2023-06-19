@@ -2,6 +2,7 @@ import { IItem } from '@/app/interfaces';
 import Image from 'next/image';
 import { Socket } from 'socket.io-client';
 import styles from '../../styles.module.scss';
+import { nullItem } from '../../utils/genFormattedItems';
 
 export const drawSlots = (
    from: number,
@@ -11,7 +12,11 @@ export const drawSlots = (
    selectedItem: IItem | null
 ) => {
    if (!formattedItems) return;
-
+   if (!formattedItems?.length) {
+      for (let i = 0; i <= 45; i++) {
+         formattedItems.push(nullItem(i));
+      }
+   }
    const filteredItems = formattedItems.filter(
       (item, i) => item?.slot >= from && item?.slot <= to
    );
