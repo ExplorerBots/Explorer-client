@@ -37,7 +37,6 @@ const ChatContainer: FC<PropsWithChildren<Props>> = ({
       if (firstScroll) {
          chatElement.scrollTo({
             top: chatElement.scrollHeight,
-            behavior: 'smooth',
          });
          setFirstScroll(false);
       }

@@ -67,7 +67,7 @@ export interface IBot {
    isPremium: boolean;
    username: string;
    server: string;
-   status: 'online' | 'offline';
+   status: 'online' | 'offline' | 'expired';
    endDate: number;
 }
 

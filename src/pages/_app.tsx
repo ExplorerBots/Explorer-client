@@ -23,6 +23,7 @@ const App = ({ Component, pageProps }: AppProps) => {
    }, []);
    return (
       <Provider store={store}>
+         <div id="modal_portal" />
          <Layout>
             <ToastContainer
                position="top-right"

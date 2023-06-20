@@ -1,0 +1,45 @@
+@import '@/app/assets/_vars';
+
+.modal {
+   background: rgba(0, 0, 0, 0.5);
+   backdrop-filter: blur(2px);
+   position: fixed;
+   left: 0;
+   right: 0;
+   top: 0;
+   bottom: 0;
+   z-index: 3;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   .modal_content {
+      background: $bgMain;
+      padding: 15px;
+      color: $colorGray;
+
+      min-width: 450px;
+      border-radius: 5px;
+
+      .modal_header {
+         .modal_title {
+            font-size: 17px;
+         }
+         margin-bottom: 15px;
+      }
+      .modal_body {
+         padding-bottom: 15px;
+      }
+      .modal_footer {
+         display: flex;
+         gap: 10px;
+
+         .modal_submit_button {
+            background: $--ep-color-success;
+         }
+         .modal_close_button {
+            background: $--ep-color-danger;
+         }
+      }
+   }
+}

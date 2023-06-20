@@ -1,38 +1,47 @@
+import { routes } from '@/app/constants';
+import { IBot } from '@/app/interfaces';
 import { getDaysLeft } from '@/app/utils/get-days-left';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { FC, PropsWithChildren } from 'react';
 import styles from '../styles.module.scss';
 
-const ClassicBotItem: FC<
-   PropsWithChildren<{
-      username: string;
-      botId: number;
-      server: string;
-      status: string;
-      endDate: string;
-   }>
-> = ({ username, botId, server, status, endDate }) => {
-   const router = useRouter();
+interface IBotCardProps {
+   username: string;
+   botId: number;
+   server: string;
+   status: string;
+   endDate: number;
+   isPremium: boolean;
+   setCurrentExpired: (bot: IBot) => void;
+}
 
-   const clickEnterHandler = (botId: number) => {
-      router.push(`/control-panel/bots/${botId}`);
-   };
-   const clickSettingsHandler = (botId: number) => {
-      router.push(`/settings-bot/${botId}`);
-   };
-
+const BotCard: FC<PropsWithChildren<IBotCardProps>> = ({
+   username,
+   botId,
+   server,
+   status,
+   endDate,
+   isPremium,
+   setCurrentExpired,
+}) => {
    return (
-      <div className={styles.classic_bot}>
+      <div className={styles.bot_card}>
+         {isPremium && (
+            <div className={styles.premium_crown}>
+               <Image src="/images/crown.png" alt="" width={60} height={40} />
+            </div>
+         )}
          <div className={styles.header}>
-            <div className={styles.type}>Classic</div>
+            <div className={styles.type} data-premium={isPremium}>
+               {isPremium ? 'Premium' : 'Classic'}
+            </div>
          </div>
          <div className={styles.center}>
             <p className={styles.username}>
                <span className={styles.description}>Бот: </span> {username}
             </p>
             <p className={styles.id}>
-               {' '}
                <span className={styles.description}>Айди: </span>
                {botId}
             </p>
@@ -59,23 +68,34 @@ const ClassicBotItem: FC<
          <div className={styles.bottom}>
             <div className={styles.buttons}>
                {status === 'expired' ? (
-                  <button
-                     onClick={() => clickEnterHandler(botId)}
-                     className={styles.button_start}
-                  >
-                     Продлить
-                  </button>
-               ) : (
                   <>
                      <button
-                        onClick={() => clickEnterHandler(botId)}
-                        className={styles.button_start}
+                        className={styles.expired_button}
+                        onClick={() =>
+                           setCurrentExpired({
+                              username,
+                              id: botId,
+                              server,
+                              status,
+                              endDate,
+                              isPremium,
+                           })
+                        }
+                     >
+                        Продлить
+                     </button>
+                  </>
+               ) : (
+                  <>
+                     <Link
+                        className={styles.control_link}
+                        href={routes.CONTROL_PANEL + botId}
                      >
                         Управление
-                     </button>
-                     <button
-                        onClick={() => clickSettingsHandler(botId)}
-                        className={styles.settings}
+                     </Link>
+                     <Link
+                        className={styles.settings_link}
+                        href={routes.SETTINGS + botId}
                      >
                         <Image
                            src="/svg/settings.svg"
@@ -83,16 +103,16 @@ const ClassicBotItem: FC<
                            width={20}
                            height={20}
                         />
-                     </button>
+                     </Link>
                   </>
                )}
             </div>
             <p className={styles.days_left}>
-               Осталось дней: {getDaysLeft(endDate)}
+               Осталось дней: {getDaysLeft(String(endDate))}
             </p>
          </div>
       </div>
    );
 };
 
-export default ClassicBotItem;
+export default BotCard;
