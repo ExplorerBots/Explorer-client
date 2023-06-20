@@ -1,4 +1,3 @@
-import { ICurrentWindow } from '@/app/interfaces';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useRef, useState } from 'react';
@@ -35,7 +34,7 @@ const BotControlScreen = () => {
       if (!currentBot) return;
 
       socket.emit('get-last-messages', () => {});
-      socket.emit('get-items', () => {});
+      socket.emit('get-inventory-items', () => {});
       socket.emit('get-quick-bar-slot');
       socket.emit('get-info');
       socket.emit('get-current-window');
@@ -70,7 +69,7 @@ const BotControlScreen = () => {
          toast.success('Выход с сервера!');
       });
 
-      socket.on('set-items', (items) => {
+      socket.on('set-inventory-items', (items) => {
          setItems(items);
       });
 
@@ -79,7 +78,8 @@ const BotControlScreen = () => {
          console.log(window);
       });
 
-      socket.on('set-current-window', (window: ICurrentWindow) => {
+      socket.on('set-current-window', (window) => {
+         if (window) setSelectedTabId(2);
          setCurrentWindow(window);
       });
    }, [socket, currentBot]);

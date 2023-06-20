@@ -1,11 +1,12 @@
 import { IItem } from '@/app/interfaces';
-import Image from 'next/image';
 import { useContext, useEffect, useState } from 'react';
 import { CurrentWinowContext } from '../../../context/CurrentWindowContext';
 import { SelectedItemContext } from '../../../context/SelectedItemContext';
 import { SocketContext } from '../../../context/SocketContext';
 import styles from '../../../styles.module.scss';
 import { genFormattedItems } from '../../../utils/genFormattedItems';
+import WindowCloseButton from '../../ui/WindowCloseButton';
+import WindowReloadButton from '../../ui/WindowReloadButton';
 import { drawSlots } from '../drawSlots';
 
 const NineFiveWindow = () => {
@@ -31,14 +32,14 @@ const NineFiveWindow = () => {
 
    return (
       <div className={styles.small_chest}>
-         <button
-            className={styles.window_close}
-            onClick={() => socket && socket.emit('close-window')}
-         >
-            <Image src="/svg/cross.svg" alt="" width={20} height={20} />
-         </button>
          <div className={styles.chest}>
-            <div className={styles.title}>{title?.text}</div>
+            <div className={styles.window_header}>
+               <div className={styles.title}>{title?.text}</div>
+               <div className={styles.buttons}>
+                  <WindowReloadButton />
+                  <WindowCloseButton />
+               </div>
+            </div>
             <div className={styles.main}>
                {drawSlots(0, 44, formattedItems, socket, selectedItem)}
             </div>
