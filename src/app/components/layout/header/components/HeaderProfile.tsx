@@ -35,7 +35,7 @@ const NavProfile: FC = () => {
                      {userSlice.data.balance}{' '}
                   </span>
                   <Link
-                     href="/replenish-balance"
+                     href={routes.REPLENISH_BALANCE}
                      className={styles.btn_replenish}
                   >
                      +

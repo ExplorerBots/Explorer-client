@@ -3,8 +3,9 @@ import { routes } from '@/app/constants';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren, useState } from 'react';
 import Burger from './components/Burger';
+import CreateBotModal from './components/CreateBotModal';
 import NavProfile from './components/HeaderProfile';
 import styles from './styles.module.scss';
 
@@ -16,12 +17,14 @@ const Header: FC<
 > = ({ state, setState }) => {
    const { pathname } = useRouter();
 
+   const [active, setActive] = useState<boolean>(false);
+
    return (
       <header className={styles.header}>
          <div className={styles.header_container}>
             <Logo />
 
-            <Link href="/create-bot" className={styles.header_link}>
+            <div onClick={() => setActive(true)} className={styles.header_link}>
                <Image
                   className={styles.svg}
                   src="/header/user-plus.svg"
@@ -30,8 +33,8 @@ const Header: FC<
                   height={25}
                />
                Создать бота
-            </Link>
-            <Link href="/control-panel/bots" className={styles.header_link}>
+            </div>
+            <Link href={routes.CONTROL_PANEL} className={styles.header_link}>
                <Image
                   className={styles.svg}
                   src="/header/control.svg"
@@ -54,6 +57,7 @@ const Header: FC<
             <Burger state={state} setState={setState} />
             <NavProfile />
          </div>
+         <CreateBotModal active={active} setActive={setActive} />
       </header>
    );
 };

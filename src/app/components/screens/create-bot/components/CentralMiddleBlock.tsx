@@ -1,8 +1,9 @@
 import Divider from '@/app/components/ui/general/divider/Divider';
 import Select from '@/app/components/ui/general/select/Select';
 import { botPrice } from '@/app/constants';
-import { ICreateBotFields } from '@/app/interfaces';
-import { UserService } from '@/app/services/user';
+import { ICreateBotFields, IPartnerPromocode } from '@/app/interfaces';
+import { botsService } from '@/app/services/bots.service';
+import { UserService } from '@/app/services/user.service';
 import { useAppDispatch } from '@/app/store/hooks';
 import { setUserData } from '@/app/store/slices/user';
 import Image from 'next/image';
@@ -13,6 +14,7 @@ import { toast } from 'react-toastify';
 import styles from '../styles.module.scss';
 import InputField from './InputField';
 import InputRange from './InputRange';
+import PromoInput from './PromoInput';
 
 const CentralMiddleBlock = () => {
    const dispatch = useAppDispatch();
@@ -30,6 +32,10 @@ const CentralMiddleBlock = () => {
    const [days, setDays] = useState<number>(20);
    const [totalPrice, setTotalPrice] = useState<number>(0);
    const [loading, setLoading] = useState<boolean>(false);
+   const [promo, setPromo] = useState<string>('');
+   const [activePromo, setActivePromo] = useState<IPartnerPromocode | null>(
+      null
+   );
 
    useEffect(() => {
       if (type === 'Premium') {
@@ -41,12 +47,13 @@ const CentralMiddleBlock = () => {
 
    const buyBot: SubmitHandler<ICreateBotFields> = async (data) => {
       setLoading(true);
-      const res = await UserService.buyBot({
-         username,
-         isPremium: type === 'Premium' ? true : false,
-         server,
-         days,
-      })
+      const res = await botsService
+         .buyBot({
+            username,
+            isPremium: type === 'Premium' ? true : false,
+            server,
+            days,
+         })
          .then((data) => {
             window.localStorage.setItem('authToken', data.token);
             dispatch(setUserData(UserService.tokenDecode(data.token)));
@@ -83,8 +90,8 @@ const CentralMiddleBlock = () => {
          <Select options={['Premium', 'Classic']} setValue={setType} />
          <Divider text="Срок аренды" />
          <InputRange value={days} onChange={setDays} />
-         {/* <Divider text="Промокод" />
-         <PromoInput value={promo} onChange={setPromo} placeholder="Промокод" /> */}
+         <Divider text="Промокод" />
+         <PromoInput value={promo} onChange={setPromo} placeholder="Промокод" />
          <div className={styles.input_price}>
             <p>Итого: {totalPrice} ₽</p>
             <p>Срок: {days} дней</p>

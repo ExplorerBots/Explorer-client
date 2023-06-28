@@ -1,4 +1,4 @@
-import { AdminService } from '@/app/services/admin';
+import { adminService } from '@/app/services/admin.service';
 import { FC, PropsWithChildren, useState } from 'react';
 import CrossButton from '../../buttons/CrossButton/CrossButton';
 import styles from './GiveBalanceModal.module.scss';
@@ -22,7 +22,7 @@ const GiveBalanceModal: FC<PropsWithChildren<Props>> = ({
          balanceDifference: +fieldBalance,
       };
 
-      await AdminService.giveBalance(dto).then(() => {
+      await adminService.giveBalance(dto).then(() => {
          setActive(false);
          reload();
       });

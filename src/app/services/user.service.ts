@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import { links } from '../constants';
-import { IBuyBot, IUser, RegistrationUserDto } from '../interfaces';
+import { IUser, RegistrationUserDto } from '../interfaces';
 import { AuthorizeUserDto, UpdateUserDto } from '../interfaces/index';
 
 const instance = axios.create({
@@ -22,20 +22,11 @@ instance.interceptors.request.use((config) => {
 });
 
 export const UserService = {
-   async myBots() {
-      const { data } = await instance.get('user/my-bots');
-      return data;
-   },
    async getOperations() {
       const { data } = await instance.get('user/operations');
       return data;
    },
-   async buyBot(dto: IBuyBot) {
-      const { data } = await instance.post('user/buy-bot', dto);
-      window.localStorage.setItem('authToken', data.token);
 
-      return data;
-   },
    async registration(dto: RegistrationUserDto): Promise<IUser> {
       const { data } = await instance.post('/auth/registration', dto, {});
 

@@ -21,6 +21,12 @@ const InventoryContainer = () => {
    const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
    useEffect(() => {
+      if (currentWindow) {
+         setSelectedItem(currentWindow?.selectedItem);
+      }
+   }, [currentWindow?.selectedItem]);
+
+   useEffect(() => {
       const handleMouseMove = (event: any) => {
          setCursorPosition({ x: event.clientX, y: event.clientY });
       };

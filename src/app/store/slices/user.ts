@@ -1,9 +1,10 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
 import { RootState } from '..';
 import { AuthorizeUserDto, IUser, RegistrationUserDto } from '../../interfaces';
-import { UserService } from '../../services/user';
+import { UserService } from '../../services/user.service';
 import { UpdateUserDto } from './../../interfaces/index';
 
 interface UserState {
@@ -27,7 +28,7 @@ export const registrationUser = createAsyncThunk<IUser, RegistrationUserDto>(
    async (dto: RegistrationUserDto, { rejectWithValue }) => {
       try {
          const response = await UserService.registration(dto);
-         // router.push('/control-panel/bots');
+         toast.success('Успешная регистрация!');
          return response;
       } catch (err) {
          if (err instanceof AxiosError) {
@@ -43,7 +44,9 @@ export const authorizeUser = createAsyncThunk<IUser, AuthorizeUserDto>(
    'user/authorizeUser',
    async (dto: AuthorizeUserDto, { rejectWithValue }) => {
       try {
-         return await UserService.authorize(dto);
+         const response = await UserService.authorize(dto);
+         toast.success('Успешная авторизация!');
+         return response;
       } catch (err) {
          if (err instanceof AxiosError) {
             return rejectWithValue(err.response?.data);

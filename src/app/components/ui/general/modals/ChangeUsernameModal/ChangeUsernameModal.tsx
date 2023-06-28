@@ -1,4 +1,4 @@
-import { AdminService } from '@/app/services/admin';
+import { adminService } from '@/app/services/admin.service';
 import { FC, PropsWithChildren, useState } from 'react';
 import CrossButton from '../../buttons/CrossButton/CrossButton';
 import styles from './ChangeUsernameModal.module.scss';
@@ -24,7 +24,7 @@ const ChangeUsernameModal: FC<PropsWithChildren<Props>> = ({
          username: fieldUsername,
       };
 
-      const res = await AdminService.changeUsername(dto).then(() => {
+      const res = await adminService.changeUsername(dto).then(() => {
          setActive(false);
          reload();
       });

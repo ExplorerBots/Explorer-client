@@ -1,5 +1,5 @@
 import { IBot } from '@/app/interfaces';
-import { UserService } from '@/app/services/user';
+import { botsService } from '@/app/services/bots.service';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { RootState } from '..';
@@ -11,14 +11,14 @@ interface BotState {
 
 const initialState = {
    data: [],
-   isLoading: false,
+   isLoading: true,
 } as BotState;
 
 export const getMyBots = createAsyncThunk<IBot[]>(
-   'user/getMyBots',
+   'bots/getMyBots',
    async (_, { rejectWithValue }) => {
       try {
-         return await UserService.myBots();
+         return await botsService.myBots();
       } catch (err) {
          if (err instanceof AxiosError) {
             return rejectWithValue(err.response?.data);

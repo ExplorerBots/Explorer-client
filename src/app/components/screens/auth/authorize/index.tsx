@@ -6,7 +6,8 @@ import { motion } from 'framer-motion';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import InputError from './components/InputError';
 import styles from './styles.module.scss';
@@ -16,6 +17,13 @@ const AuthorizeScreen = () => {
    const dispatch = useAppDispatch();
    const userSlice = useAppSelector((store) => store.user);
    const { authorize } = useAuth();
+   const router = useRouter();
+
+   useEffect(() => {
+      if (userSlice.data) {
+         router.push(routes.CONTROL_PANEL);
+      }
+   }, [userSlice.data]);
 
    const {
       register,
@@ -136,7 +144,7 @@ const AuthorizeScreen = () => {
                   <div className={styles.cont_right}>
                      <p className={styles.answer}>
                         <Link
-                           href="/auth/restore-password"
+                           href={routes.RESTORE_PASSWORD}
                            className={styles.link}
                         >
                            {' '}

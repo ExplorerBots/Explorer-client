@@ -4,7 +4,7 @@ import NavigationBar from './components/NavigationBar';
 import UsersContent from './components/users/UsersContent';
 import styles from './styles.module.scss';
 
-const AdminPanelScreen = () => {
+const APS = () => {
    const { query } = useRouter();
 
    return (
@@ -31,4 +31,4 @@ const AdminPanelScreen = () => {
       </>
    );
 };
-export default AdminPanelScreen;
+export default APS;

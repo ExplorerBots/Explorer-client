@@ -1,22 +1,64 @@
 import { motion } from 'framer-motion';
-import { FC, PropsWithChildren } from 'react';
+import Image from 'next/image';
+import { FC, PropsWithChildren, useCallback, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './styles.module.scss';
 
 interface IDefaultModalProps {
    active: boolean;
+   loading: boolean;
    title: string;
-   onSubmit: () => void;
-   onClose: () => void;
+
+   // handleSubmit: (func: () => void) => void;
+
+   onSubmit?: (data?: any) => void;
+   onClose?: () => void;
+   success?: boolean;
+   successText?: string;
+   error?: boolean;
+   errorText?: string;
+   submitDisable?: boolean;
+   showSubmitButton?: boolean;
+   showCloseButton?: boolean;
+   submitButtonText?: string;
+   submitButtonId?: string;
+   closeButtonText?: string;
+   closeDisable?: boolean;
 }
 
 const DefaultModal: FC<PropsWithChildren<IDefaultModalProps>> = ({
    active,
+   loading,
    title,
-   onSubmit,
-   onClose,
+   onSubmit = () => {},
+   onClose = () => {},
    children,
+   success = false,
+   successText,
+   error = false,
+   errorText,
+   submitDisable = false,
+   closeDisable = false,
+   showSubmitButton = true,
+   showCloseButton = true,
+   submitButtonText = 'Подтвердить',
+   closeButtonText = 'Закрыть',
+   submitButtonId,
 }) => {
+   const escFunction = useCallback((event: any) => {
+      if (event.key === 'Escape') {
+         onClose();
+      }
+   }, []);
+
+   useEffect(() => {
+      document.addEventListener('keydown', escFunction, false);
+
+      return () => {
+         document.removeEventListener('keydown', escFunction, false);
+      };
+   }, [escFunction]);
+
    if (!active) return null;
    if (typeof window === 'object') {
       const portalContainer = document.getElementById('modal_portal');
@@ -36,20 +78,64 @@ const DefaultModal: FC<PropsWithChildren<IDefaultModalProps>> = ({
                   <div className={styles.modal_header}>
                      <div className={styles.modal_title}>{title}</div>
                   </div>
-                  <div className={styles.modal_body}>{children}</div>
+                  {success ? (
+                     <div className={styles.modal_result}>
+                        <Image
+                           src="/svg/confirm-icon.svg"
+                           alt=""
+                           width={100}
+                           height={100}
+                           className={styles.image}
+                        />
+                        <div className={styles.text}>{successText}</div>
+                     </div>
+                  ) : error ? (
+                     <div className={styles.modal_result}>
+                        <Image
+                           src="/svg/close-red-icon.svg"
+                           alt=""
+                           width={100}
+                           height={100}
+                           className={styles.image}
+                        />
+                        <div className={styles.text}>{errorText}</div>
+                     </div>
+                  ) : (
+                     <div className={styles.modal_body}>{children}</div>
+                  )}
                   <div className={styles.modal_footer}>
-                     <button
-                        onClick={onSubmit}
-                        className={styles.modal_submit_button}
-                     >
-                        Подтвердить
-                     </button>
-                     <button
-                        onClick={onClose}
-                        className={styles.modal_close_button}
-                     >
-                        Закрыть
-                     </button>
+                     {showSubmitButton && (
+                        <button
+                           onClick={onSubmit}
+                           className={styles.modal_submit_button}
+                           data-loading={loading}
+                           disabled={loading || submitDisable}
+                           type="submit"
+                           form={submitButtonId}
+                        >
+                           {loading ? (
+                              <Image
+                                 src="/svg/preloader.svg"
+                                 alt=""
+                                 width={20}
+                                 height={20}
+                              ></Image>
+                           ) : (
+                              submitButtonText
+                           )}
+                        </button>
+                     )}
+
+                     {showCloseButton && (
+                        <button
+                           onClick={onClose}
+                           className={styles.modal_close_button}
+                           disabled={closeDisable}
+                           data-full-width={!showSubmitButton}
+                        >
+                           {closeButtonText}
+                        </button>
+                     )}
                   </div>
                </div>
             </motion.div>,

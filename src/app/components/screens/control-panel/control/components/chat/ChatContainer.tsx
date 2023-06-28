@@ -35,14 +35,15 @@ const ChatContainer: FC<PropsWithChildren<Props>> = ({
       if (!chatElement) return;
 
       if (firstScroll) {
-         chatElement.scrollTo({
-            top: chatElement.scrollHeight,
-         });
-         setFirstScroll(false);
+         if (dictionary.length) {
+            chatElement.scrollTo({
+               top: chatElement.scrollHeight,
+            });
+            setFirstScroll(false);
+         }
       }
 
       const scrolled = chatElement.scrollHeight - (chatElement.scrollTop + 500);
-      console.log(scrolled);
       if (scrolled < 50) {
          chatElement.scrollTo({
             top: chatElement.scrollHeight,
@@ -95,33 +96,19 @@ const ChatContainer: FC<PropsWithChildren<Props>> = ({
                <Preloader width={100} height={100} />
             </div>
          )}
-         {showScrollToBottomButton && (
-            <button
-               className={styles.chat_scroll_button}
-               onClick={handleScrollToBottomClick}
-            >
-               <Image
-                  src="/svg/chevron-down.svg"
-                  alt=""
-                  width={30}
-                  height={30}
-               />
-            </button>
-         )}
-         <ul
-            className={styles.chat}
-            ref={chatRef}
-            // onScroll={handleScroll}
+         <button
+            className={styles.chat_scroll_button}
+            onClick={handleScrollToBottomClick}
+            data-active={showScrollToBottomButton}
          >
+            <Image src="/svg/chevron-down.svg" alt="" width={30} height={30} />
+         </button>
+         <ul className={styles.chat} ref={chatRef}>
             {currentBot?.status === 'online' || dictionary.length ? (
                <>
                   {dictionary.map((word, i) =>
                      word.type === 'message' ? (
-                        <Message
-                           key={i}
-                           timestamp={word.timestamp}
-                           text={word.text}
-                        />
+                        <Message key={i} message={word} />
                      ) : (
                         <Notify
                            key={i}

@@ -8,6 +8,7 @@ import Sidebar from './components/sidebar/Sidebar';
 import { CurrentBotContext } from './context/CurrentBotContext';
 import { CurrentWinowContext } from './context/CurrentWindowContext';
 import { ItemsContext } from './context/ItemsContext';
+import { SelectedItemContext } from './context/SelectedItemContext';
 import { SocketContext } from './context/SocketContext';
 import { tabs } from './data';
 import styles from './styles.module.scss';
@@ -23,6 +24,7 @@ const BotControlScreen = () => {
    const { currentBot } = useContext(CurrentBotContext);
    const { setItems } = useContext(ItemsContext);
    const { currentWindow, setCurrentWindow } = useContext(CurrentWinowContext);
+   const { setSelectedItem } = useContext(SelectedItemContext);
 
    const { botId } = router.query;
    const bot = botsSlice.data.find((bot) => bot.id === Number(botId));
@@ -81,6 +83,14 @@ const BotControlScreen = () => {
       socket.on('set-current-window', (window) => {
          if (window) setSelectedTabId(2);
          setCurrentWindow(window);
+      });
+
+      socket.on('set-inventory-selected-item', (selectedItem) => {
+         setSelectedItem(selectedItem);
+      });
+
+      socket.on('map-packet', (packet) => {
+         console.log(packet);
       });
    }, [socket, currentBot]);
 

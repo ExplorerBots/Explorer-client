@@ -1,11 +1,14 @@
 export const routes = {
-   CONTROL_PANEL: '/control-panel/bots/',
-   CREATE_BOT: '/create-bot/',
-   HELP: '/help/',
-   REPLENISH_BALANCE: '/replenish-balance/',
+   CONTROL_PANEL: '/bot/control-panel/',
+   CREATE_BOT: '/bot/create/',
+   SETTINGS: '/bot/settings/',
+   ADMIN_PANEL: '/user/admin-panel/',
+   PARTNER: '/user/partner/',
    AUTHORIZE: '/auth/authorize/',
    REGISTRATION: '/auth/registration/',
-   SETTINGS: '/settings-bot/',
+   RESTORE_PASSWORD: '/auth/restore-password/',
+   REPLENISH_BALANCE: '/replenish-balance/',
+   HELP: '/help/',
 };
 
 export const botPrice = {
@@ -16,4 +19,6 @@ export const botPrice = {
 export const links = {
    BACKEND: 'http://192.168.1.212:8080/api',
    SERVER: 'http://192.168.1.212:7070',
+   // BACKEND: 'http://26.67.250.2:8080/api',
+   // SERVER: 'http://26.67.250.2:7070',
 };

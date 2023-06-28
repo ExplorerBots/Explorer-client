@@ -174,11 +174,20 @@
             position: absolute;
             z-index: 1;
             bottom: 10px;
-            right: 10px;
+            right: 20px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            opacity: 0;
+
+            &[data-active='true'] {
+               opacity: 0.4;
+
+               &:hover {
+                  opacity: 1;
+               }
+            }
          }
          .chat {
             height: 400px;
@@ -188,6 +197,19 @@
             padding: 5px 0;
             overflow-y: auto;
             position: relative;
+            padding-right: 5px;
+
+            &::-webkit-scrollbar {
+               width: 10px;
+               background: $bgBlock;
+            }
+
+            &::-webkit-scrollbar-thumb {
+               background: $bgMax;
+               width: 15px;
+               height: 30px;
+               border-radius: 1px;
+            }
 
             .empty_message {
                opacity: 0.7;
@@ -195,12 +217,12 @@
                transform: translate(0, -50%);
             }
             .message {
-               .timestamp {
-                  font-weight: bold;
-                  color: gray;
-                  font-size: 13px;
-                  margin-right: 5px;
-               }
+               // .timestamp {
+               //    font-weight: bold;
+               //    color: gray;
+               //    font-size: 13px;
+               //    margin-right: 5px;
+               // }
                padding: 2px 5px;
                background: #1e1d22;
                border-radius: 3px;
@@ -208,7 +230,11 @@
                border: 1px solid $bgAverage;
                line-height: 20px;
                display: flex;
-               align-items: center;
+               display: inline;
+
+               .message_letter {
+                  display: inline;
+               }
             }
 
             .notify {
@@ -299,7 +325,6 @@
          position: relative;
          padding-top: 15px;
          width: 100%;
-         height: 300px;
 
          .autoclicker_block {
             background: $bgAverage;
@@ -447,6 +472,10 @@
                   display: flex;
                   flex-direction: column;
                   gap: 4px;
+
+                  .slot[data-slot='5'] {
+                     background-image: url('/public/MINECRAFT/empty_armor_slot_helmet.png');
+                  }
                }
 
                .steve {
@@ -542,9 +571,6 @@
             &:hover {
                opacity: 0.7;
             }
-            &[data-taken='true'] {
-               opacity: 0.5;
-            }
          }
 
          .throw_items_zone {
@@ -587,10 +613,6 @@
    max-width: 790px;
    padding: 15px;
    border-radius: 5px;
-
-   .blur {
-      height: 127px;
-   }
 
    .info {
       display: flex;
@@ -744,11 +766,11 @@
 
 .blur {
    position: absolute;
+   z-index: 3;
    left: 0;
-   z-index: 1;
    top: 0;
-   width: 100%;
-   height: 100%;
+   right: 0;
+   bottom: 0;
    backdrop-filter: blur(5px);
    border-radius: 5px;
 }

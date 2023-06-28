@@ -38,23 +38,6 @@ p {
    color: $colorGray;
 }
 
-select {
-   width: 100%;
-   background: $bgInput;
-   border: none;
-   height: 35px;
-   color: gray;
-   font-size: 16px;
-   outline: none;
-   transition: 0.2s;
-   border-radius: 3px;
-   margin-top: 10px;
-
-   &:focus {
-      border: 1px solid gray;
-   }
-}
-
 button {
    cursor: pointer;
    background: $colorGray;
@@ -76,17 +59,61 @@ li {
    color: $colorGray;
 }
 
-input {
-   border: none;
+select {
    outline: none;
    transition: 0.2s;
    color: $colorGray;
+   padding: 4px 0;
    background: $bgInput;
-   padding: 5px;
+   width: 100%;
+   font-size: 17px;
+   border-radius: 5px;
+   border: 2px solid $bgBlock;
+   font-size: 17px;
+   border-radius: 5px;
+
+   &:focus {
+      border: 2px solid $bgMax;
+   }
+
+   option {
+      color: gray;
+   }
 }
 
-input:focus {
-   border: 1px solid gray;
+input {
+   outline: none;
+   transition: 0.2s;
+   color: $colorGray;
+   padding: 5px;
+   background: $bgInput;
+   width: 100%;
+   border-radius: 5px;
+   border: 2px solid $bgBlock;
+   font-size: 17px;
+   border-radius: 5px;
+
+   &[disabled] {
+      opacity: 0.8;
+   }
+
+   &:focus {
+      border: 2px solid $bgMax;
+   }
+
+   &[type='range'] {
+      -webkit-appearance: none !important;
+      background: $bgBlock;
+      height: 7px;
+      border: none;
+   }
+   &[type='range']::-webkit-slider-thumb {
+      -webkit-appearance: none !important;
+      background: gray;
+      height: 15px;
+      border-radius: 3px;
+      width: 20px;
+   }
 }
 
 input::-webkit-outer-spin-button,
@@ -97,6 +124,10 @@ input::-webkit-inner-spin-button {
 a {
    color: inherit;
    text-decoration: none;
+}
+
+div {
+   color: $colorGray;
 }
 
 ::-webkit-scrollbar {

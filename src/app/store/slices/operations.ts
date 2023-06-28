@@ -1,4 +1,4 @@
-import { UserService } from '@/app/services/user';
+import { UserService } from '@/app/services/user.service';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { RootState } from '..';
@@ -14,7 +14,7 @@ const initialState = {
       // { amount: 100, type: 'ЮMoney', date: 1684958015088 },
       // { amount: 1000, type: 'Ручная выдача', date: 1684989125088 },
    ],
-   isLoading: false,
+   isLoading: true,
 } as OperationsState;
 //
 export const getOperations = createAsyncThunk(

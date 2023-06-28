@@ -29,15 +29,31 @@ const Dropdown: FC<
                ref={dropdownRef}
             >
                {userSlice.data?.role === 'ADMIN' && (
+                  <>
+                     <DropdownItem
+                        href={routes.ADMIN_PANEL + '?act=statistics'}
+                        title="Админ панель"
+                        onclick={() => setDropdown(false)}
+                        state={!dropdown}
+                     />
+                     <DropdownItem
+                        href={routes.PARTNER}
+                        title="Партнерка"
+                        onclick={() => setDropdown(false)}
+                        state={!dropdown}
+                     />
+                  </>
+               )}
+               {userSlice.data?.role === 'PARTNER' && (
                   <DropdownItem
-                     href="/admin-panel?act=statistics"
-                     title="Админ панель"
+                     href={routes.PARTNER}
+                     title="Партнерка"
                      onclick={() => setDropdown(false)}
                      state={!dropdown}
                   />
                )}
                <DropdownItem
-                  href="/replenish-balance"
+                  href={routes.REPLENISH_BALANCE}
                   title="Пополнить баланс"
                   onclick={() => setDropdown(false)}
                   state={!dropdown}

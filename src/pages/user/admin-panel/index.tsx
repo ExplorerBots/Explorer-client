@@ -1,4 +1,4 @@
-import AdminPanelScreen from '@/app/components/screens/admin-panel';
+import AdminPanelScreen from '@/app/components/screens/user/admin-panel';
 import { withAuth } from '@/app/hoc/withAuth';
 import { FC } from 'react';
 

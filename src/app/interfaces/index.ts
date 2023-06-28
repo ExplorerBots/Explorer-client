@@ -4,9 +4,12 @@ export interface IFullUser {
    username: string;
    password: string;
    balance: number;
-   role: string;
+   role: 'ADMIN' | 'USER' | 'PARTNER';
+   bots: IBot;
+   // payments
+   partner: IPartner;
+   promocodeActivations: IPromocodeActivation[];
    createdAt: string;
-   updatedAt: string;
 }
 
 export type RegistrationUserDto = {
@@ -79,8 +82,15 @@ export interface IOperation {
 
 export interface IMessage {
    type: 'message';
-   timestamp: string;
-   text: string;
+   extra: {
+      bold: boolean;
+      italic: boolean;
+      underlined: boolean;
+      strikethrough: boolean;
+      obfuscated: boolean;
+      color: string;
+      text: string;
+   }[];
 }
 
 export interface IChatNotify {
@@ -98,6 +108,7 @@ export interface IBuyBot {
    username: string;
    server: string;
    days: number;
+   promocode?: IPartnerPromocode;
 }
 
 export interface IControlSideBarItem {
@@ -136,4 +147,49 @@ export interface ICurrentWindow {
    inventoryStart: number;
    requiresConfirmation: boolean;
    events: any;
+}
+
+export interface IExtendBot {
+   readonly botId: number;
+   readonly extensionPeriod: number;
+}
+
+export interface IPartner {
+   id: number;
+   userId: number;
+   income: number;
+   activations: number;
+   createdAt: string;
+   links: IPartnerLink[];
+   promocodes: IPartnerPromocode[];
+}
+
+export interface IPromocodeActivation {
+   id: number;
+   promocodeId: number;
+   userId: number;
+   createdAt: string;
+}
+
+export interface IPartnerPromocode {
+   id: number;
+   partnerId: number;
+   type: 'discount' | 'days';
+   value: number;
+   code: string;
+   createdAt: string;
+   activations: IPromocodeActivation[];
+}
+
+export interface IPartnerLink {
+   id: number;
+   partnerId: number;
+   link: string;
+   service: string;
+}
+
+export interface GetUsersDto {
+   username?: string;
+   email?: string;
+   limit: number;
 }

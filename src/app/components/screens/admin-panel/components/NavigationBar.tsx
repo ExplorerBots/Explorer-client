@@ -1,3 +1,4 @@
+import { routes } from '@/app/constants';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import BlockTitle from '../../../ui/general/blockTitle/BlockTitle';
@@ -21,7 +22,7 @@ const NavigationBar = () => {
                      ? styles.tab_item_active
                      : styles.tab_item
                }
-               href="/admin-panel?act=statistics"
+               href={routes.ADMIN_PANEL + '?act=statistics'}
             >
                Статистика
             </Link>
@@ -33,7 +34,7 @@ const NavigationBar = () => {
                      ? styles.tab_item_active
                      : styles.tab_item
                }
-               href="/admin-panel?act=users"
+               href={routes.ADMIN_PANEL + '?act=users'}
             >
                Пользователи
             </Link>
@@ -41,11 +42,11 @@ const NavigationBar = () => {
             <Link
                onClick={() => handleClick()}
                className={
-                  query.act === 'promos'
+                  query.act === 'promocodes'
                      ? styles.tab_item_active
                      : styles.tab_item
                }
-               href="/admin-panel?act=promos"
+               href={routes.ADMIN_PANEL + '?act=promocodes'}
             >
                Промокоды
             </Link>

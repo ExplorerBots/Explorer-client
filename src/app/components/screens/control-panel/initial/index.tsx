@@ -1,11 +1,15 @@
 import DefaultModal from '@/app/components/ui/modals/defaultModal/DefaultModal';
 import { botPrice } from '@/app/constants';
 import { IBot } from '@/app/interfaces';
+import { botsService } from '@/app/services/bots.service';
+import { UserService } from '@/app/services/user.service';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 import { getMyBots } from '@/app/store/slices/bots';
+import { setUserData } from '@/app/store/slices/user';
 import Head from 'next/head';
 import Image from 'next/image';
 import { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 import BotCard from './components/BotCard';
 import styles from './styles.module.scss';
 
@@ -14,29 +18,49 @@ const ControlPanelInitalScreen: FC = () => {
    const botsSlice = useAppSelector((state) => state.bots);
    const dispatch = useAppDispatch();
 
-   const [currentExpiredBot, setCurrentExpiredBot] = useState<IBot | null>(
-      null
-   );
-   const [currentExpiredPeriod, setCurrentExpiredPeriod] = useState<number>(5);
-   const [currentExpiredTotalPrice, setCurrentExpiredTotalPrice] =
-      useState<number>(0);
+   const [extendBot, setExtendBot] = useState<IBot | null>(null);
+   const [extendPeriod, setExtendPeriod] = useState<number>(5);
+   const [extendTotalPrice, setExtendTotalPrice] = useState<number>(0);
+   const [extendLoading, setExtendLoading] = useState<boolean>(false);
+   const [extendSuccess, setExtendSuccess] = useState<boolean>(false);
+   const [extendError, setExtendError] = useState<boolean>(false);
 
-   const OnSubmitExpiredModal = () => {};
+   const OnSubmitExpiredModal = async () => {
+      if (!extendBot) return;
+
+      setExtendLoading(true);
+      const res = await botsService
+         .extendBot({
+            botId: extendBot?.id,
+            extensionPeriod: extendPeriod,
+         })
+         .then((data) => {
+            window.localStorage.setItem('authToken', data.token);
+            dispatch(setUserData(UserService.tokenDecode(data.token)));
+            dispatch(getMyBots());
+            toast.success('Успешное продление бота!', {});
+            setExtendSuccess(true);
+         })
+         .catch((err) => {
+            toast.error('Недостаточно денег на балансе!', {});
+            setExtendError(true);
+         })
+         .finally(() => setExtendLoading(false));
+   };
    const OnCloseExpiredModal = () => {
-      setCurrentExpiredBot(null);
+      setExtendBot(null);
+      setExtendSuccess(false);
+      setExtendError(false);
+      setExtendLoading(false);
    };
 
    useEffect(() => {
-      if (currentExpiredBot?.isPremium) {
-         setCurrentExpiredTotalPrice(
-            currentExpiredPeriod * botPrice.PREMIUM_BOT_PRICE_PER_DAY
-         );
+      if (extendBot?.isPremium) {
+         setExtendTotalPrice(extendPeriod * botPrice.PREMIUM_BOT_PRICE_PER_DAY);
       } else {
-         setCurrentExpiredTotalPrice(
-            currentExpiredPeriod * botPrice.CLASSIC_BOT_PRICE_PER_DAY
-         );
+         setExtendTotalPrice(extendPeriod * botPrice.CLASSIC_BOT_PRICE_PER_DAY);
       }
-   }, [currentExpiredPeriod, currentExpiredBot?.isPremium]);
+   }, [extendPeriod, extendBot?.isPremium]);
 
    useEffect(() => {
       wheelControl(ref);
@@ -66,7 +90,7 @@ const ControlPanelInitalScreen: FC = () => {
                         botsSlice.data?.map((bot, i) => (
                            <BotCard
                               key={i}
-                              setCurrentExpired={setCurrentExpiredBot}
+                              setCurrentExpired={setExtendBot}
                               isPremium={bot.isPremium}
                               username={bot.username}
                               botId={bot.id}
@@ -89,24 +113,29 @@ const ControlPanelInitalScreen: FC = () => {
          </div>
          <DefaultModal
             title="Продление бота"
-            active={!!currentExpiredBot}
+            active={!!extendBot}
             onSubmit={OnSubmitExpiredModal}
             onClose={OnCloseExpiredModal}
+            loading={extendLoading}
+            showSubmitButton={extendSuccess || extendError ? false : true}
+            error={extendError}
+            errorText="Не достаточно средств на балансе!"
+            success={extendSuccess}
+            successText="Успешное продление бота!"
          >
             <div className={styles.modal_body}>
                <div className={styles.modal_bot_info}>
-                  <div className={styles.id}>Айди: {currentExpiredBot?.id}</div>
+                  <div className={styles.id}>Айди: {extendBot?.id}</div>
                   <div className={styles.username}>
-                     Ник: {currentExpiredBot?.username}
+                     Ник: {extendBot?.username}
                   </div>
                   <div className={styles.type}>
-                     Тип: {currentExpiredBot?.isPremium ? 'Premium' : 'Classic'}
+                     Тип: {extendBot?.isPremium ? 'Premium' : 'Classic'}
                   </div>
                   <div className={styles.server}>
-                     Сервер: {currentExpiredBot?.server}
+                     Сервер: {extendBot?.server}
                   </div>
                </div>
-
                <div className={styles.modal_period}>
                   <input
                      min={5}
@@ -114,16 +143,15 @@ const ControlPanelInitalScreen: FC = () => {
                      step={5}
                      type="range"
                      className={styles.input_range}
-                     value={currentExpiredPeriod || ''}
+                     value={extendPeriod || ''}
                      onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                        setCurrentExpiredPeriod(Number(e.target.value))
+                        setExtendPeriod(Number(e.target.value))
                      }
                   />
                </div>
-
                <div className={styles.modal_results}>
-                  <p>Итого: {currentExpiredTotalPrice} ₽</p>
-                  <p>Срок: {currentExpiredPeriod} дней</p>
+                  <p>Итого: {extendTotalPrice} ₽</p>
+                  <p>Срок: {extendPeriod} дней</p>
                </div>
             </div>
          </DefaultModal>

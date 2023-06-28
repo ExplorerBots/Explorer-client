@@ -159,7 +159,7 @@
 
 .dropdown {
    position: absolute;
-   top: 5px;
+   top: 70px;
    z-index: 1;
    background-color: $bgBlock;
    color: rgb(152, 152, 152);
@@ -196,6 +196,61 @@
       background: #323232;
       opacity: 1;
       color: #dad8d8;
+   }
+}
+
+.modal_body {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+
+   .modal_field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      width: 320px;
+      background: $bgAverage;
+      padding: 7px;
+      border-radius: 5px;
+      border: 1px solid $bgMax;
+      position: relative;
+
+      .input_text {
+         &[data-error='true'] {
+            border: 1px solid #f75c48;
+         }
+      }
+
+      .input_error {
+         color: #f75c48;
+         font-size: 15px;
+         position: relative;
+         bottom: 3px;
+         left: 2px;
+         height: 13px;
+      }
+
+      .input_success {
+         color: $--ep-color-success;
+         font-size: 15px;
+         position: relative;
+         bottom: 3px;
+         height: 13px;
+      }
+
+      .check_promo {
+         position: absolute;
+         right: 11px;
+         top: 36px;
+         height: 28px;
+         line-height: 10px;
+      }
+   }
+
+   .result {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 5px;
    }
 }
 

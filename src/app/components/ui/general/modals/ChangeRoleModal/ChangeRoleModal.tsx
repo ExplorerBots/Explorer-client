@@ -1,4 +1,4 @@
-import { AdminService } from '@/app/services/admin';
+import { adminService } from '@/app/services/admin.service';
 import { FC, PropsWithChildren, useEffect, useRef, useState } from 'react';
 import CrossButton from '../../buttons/CrossButton/CrossButton';
 import styles from './ChangeRoleModal.module.scss';
@@ -33,7 +33,7 @@ const ChangeRoleModal: FC<PropsWithChildren<Props>> = ({
          role: selectedRole,
       };
 
-      const res = await AdminService.changeRole(dto).then(() => {
+      const res = await adminService.changeRole(dto).then(() => {
          setActive(false);
          reload();
       });

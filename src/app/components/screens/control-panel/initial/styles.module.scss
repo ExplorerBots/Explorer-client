@@ -146,13 +146,16 @@
 }
 
 .modal_body {
+   width: 350px;
    .modal_bot_info {
       background: $bgBlock;
       padding: 5px;
       border-radius: 5px;
    }
+
    .modal_period {
       margin: 5px 0;
+
       .input_range {
          -webkit-appearance: none !important;
          background: $bgBlock;

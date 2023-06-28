@@ -1,4 +1,4 @@
-import { UserService } from '@/app/services/user';
+import { UserService } from '@/app/services/user.service';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 import { updateUser } from '@/app/store/slices/user';
 import { NextPage } from 'next';

@@ -19,34 +19,26 @@ const MainContainer: FC<PropsWithChildren<Props>> = ({ selectedId }) => {
 
    useEffect(() => {
       if (socket) {
-         socket.on('chat-message', (data) => {
+         socket.on('chat-message', (message) => {
             setDictionary((prev: any) => [
                ...prev,
                {
                   type: 'message',
-                  timestamp: new Date(data.timestamp).toLocaleTimeString(),
-                  text: data.message,
+                  extra: message.extra,
                },
             ]);
          });
 
-         socket.on(
-            'set-last-messages',
-            (messages: { message: string; timestamp: Date }[]) => {
-               const resultMessages: IMessage[] = [];
-               messages.map((message) => {
-                  resultMessages.push({
-                     type: 'message',
-                     timestamp: new Date(
-                        message.timestamp
-                     ).toLocaleTimeString(),
-                     text: message.message,
-                  });
+         socket.on('set-last-messages', (messages: { extra: [] }[]) => {
+            const resultMessages: IMessage[] = [];
+            messages.map((message) => {
+               resultMessages.push({
+                  type: 'message',
+                  extra: message.extra,
                });
-
-               setDictionary(resultMessages);
-            }
-         );
+            });
+            setDictionary(resultMessages);
+         });
       }
    }, [socket]);
 

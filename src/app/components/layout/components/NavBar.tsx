@@ -27,7 +27,10 @@ const NavBar: FC<
                      </>
                   )}
                   <div className={styles.link}>
-                     <Link href="/create-bot" onClick={() => setState(false)}>
+                     <Link
+                        href={routes.CREATE_BOT}
+                        onClick={() => setState(false)}
+                     >
                         <Image
                            src="/header/user-plus.svg"
                            alt=""
@@ -39,7 +42,7 @@ const NavBar: FC<
                   </div>
                   <div className={styles.link}>
                      <Link
-                        href="/control-panel/bots"
+                        href={routes.CONTROL_PANEL}
                         onClick={() => setState(false)}
                      >
                         <Image
@@ -71,7 +74,7 @@ const NavBar: FC<
                      <>
                         <div className={styles.link}>
                            <Link
-                              href="/replenish-balance"
+                              href={routes.REPLENISH_BALANCE}
                               onClick={() => setState(false)}
                            >
                               <Image

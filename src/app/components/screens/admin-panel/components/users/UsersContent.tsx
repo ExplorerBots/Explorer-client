@@ -1,4 +1,5 @@
 import BackButton from '@/app/components/ui/general/buttons/BackButton/BackButton';
+import { routes } from '@/app/constants';
 import { IFullUser } from '@/app/interfaces';
 import { PropsWithChildren, useEffect, useState } from 'react';
 import styles from '../../styles.module.scss';
@@ -43,7 +44,7 @@ const UsersFilter: React.FC<PropsWithChildren<{}>> = () => {
    return (
       <>
          <div className={styles.users_container}>
-            <BackButton href="/admin-panel" />
+            <BackButton href={routes.ADMIN_PANEL} />
 
             <div className={styles.search_filter}>
                <div className={styles.text_field}>

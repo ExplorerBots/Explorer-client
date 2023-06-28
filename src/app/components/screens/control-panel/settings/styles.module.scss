@@ -4,39 +4,103 @@
 .settings_container {
    margin: 0 auto;
    background: $bgBlock;
-   max-width: 600px;
+   max-width: 500px;
    border-radius: $borderRadius;
    padding: 30px;
 
-   .content {
-      display: flex;
-      gap: 30px;
+   .header {
+      background: $bgAverage;
+      padding: 12px;
+      border-radius: $borderRadius;
+      text-align: center;
 
-      .input_field {
-         .input {
-            background: $bgMain;
-            border: 1px solid $bgAverage;
-            width: 150px;
-            height: 30px;
-         }
+      .header_title {
+         color: $colorGray;
+         font-weight: bold;
       }
    }
+   .body {
+      display: flex;
+      margin-top: 15px;
+      flex-direction: column;
+      gap: 15px;
 
-   .divider {
-      width: 100%;
-      position: relative;
-      height: 1px;
-      background: #4c4d4f;
-      margin: 20px 0 10px;
+      .loading {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         flex-direction: column;
+         height: 100%;
+         gap: 10px;
 
-      .divider_text {
-         background: $bgBlock;
-         padding: 0 7px 2px;
-         color: $colorGray;
-         position: absolute;
-         left: 50%;
-         font-size: 14px;
-         transform: translate(-50%) translateY(-50%);
+         .loading_text {
+            color: $bgMax;
+         }
+      }
+
+      .block {
+         background: $bgAverage;
+         padding: 15px;
+         border-radius: $borderRadius;
+         font-weight: bold;
+
+         .block_title {
+            color: $colorGray;
+            padding: 0 0 10px;
+         }
+
+         .block_content {
+            .field {
+               display: flex;
+               gap: 5px;
+               align-items: center;
+
+               .submit_button {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  background: $bgAverage;
+                  border: 2px solid #00a912;
+                  color: black;
+                  border-radius: 5px;
+
+                  height: 32px;
+                  width: 32px;
+
+                  &:hover {
+                     background: #00a912;
+                     opacity: 1;
+                  }
+               }
+            }
+
+            .buttons {
+               display: flex;
+               justify-content: space-around;
+               gap: 10px;
+
+               .default_button {
+                  width: 100%;
+
+                  background: $colorGray;
+               }
+            }
+
+            .inner_block {
+               background: $bgMax;
+               padding: 5px;
+               border-radius: 5px;
+               display: flex;
+               align-items: center;
+               justify-content: space-between;
+
+               .bot_rank {
+                  font-size: 17px;
+                  color: $colorGray;
+                  font-weight: normal;
+               }
+            }
+         }
       }
    }
 }
