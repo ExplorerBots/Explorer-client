@@ -5,9 +5,11 @@ import {
    ChangeRoleDto,
    ChangeUsernameDto,
    GetUsersDto,
+   IChangeBot,
+   IFullUser,
 } from '../interfaces';
 
-const instance = axios.create({
+export const instance = axios.create({
    baseURL: links.BACKEND,
    headers: {
       options: {
@@ -26,23 +28,30 @@ instance.interceptors.request.use((config) => {
 
 export const adminService = {
    async giveBalance(dto: BalanceDifferenceDto) {
-      return instance.put('/admins/give-balance', dto);
+      return instance.patch('/admins/give-balance', dto);
    },
    async takeBalance(dto: BalanceDifferenceDto) {
-      return instance.put('/admins/take-balance', dto);
+      return instance.patch('/admins/take-balance', dto);
    },
    async changeRole(dto: ChangeRoleDto) {
-      return instance.put('/admins/change-role', dto);
+      return instance.patch('/admins/change-role', dto);
    },
    async changeUsername(dto: ChangeUsernameDto) {
-      return instance.put('/admins/change-username', dto);
+      return instance.patch('/admins/change-username', dto);
    },
    async getUsers(dto: GetUsersDto) {
-      const { data } = await instance.get(`/admins/get-users`, { params: dto });
+      const { data } = await instance.get<IFullUser[]>(`/admins/get-users`, {
+         params: dto,
+      });
+
       return data;
    },
    async getUserById(id: number) {
-      const { data } = await instance.get(`/admins/users/${id}`);
+      const { data } = await instance.get(`/admins/get-users/${id}`);
+      return data;
+   },
+   async changeBot(dto: IChangeBot) {
+      const { data } = await instance.patch('/admins/change-bot', dto);
       return data;
    },
 };

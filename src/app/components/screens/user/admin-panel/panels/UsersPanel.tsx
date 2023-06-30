@@ -1,7 +1,7 @@
 import { routes } from '@/app/constants';
-import { adminService } from '@/app/services/admin.service';
 import Link from 'next/link';
-import { FC, PropsWithChildren, useEffect, useState } from 'react';
+import { FC, PropsWithChildren, useState } from 'react';
+import { useUsers } from '../hooks/useUsers';
 import styles from '../styles.module.scss';
 
 interface IResponsedUser {
@@ -14,31 +14,16 @@ interface IResponsedUser {
 }
 
 const UsersPanel: FC<PropsWithChildren<unknown>> = () => {
-   const [usersList, setUsersList] = useState<IResponsedUser[] | null>(null);
    const [searchTerm, setSearchTerm] = useState({ username: '', email: '' });
    const [searchLimit, setSearchLimit] = useState<number>(10);
+   const [username, setUsername] = useState<string>('');
+   const [email, setEmail] = useState<string>('');
 
-   useEffect(() => {
-      adminService
-         .getUsers({
-            email: searchTerm.email,
-            username: searchTerm.username,
-            limit: searchLimit,
-         })
-         .then((res) => {
-            setUsersList(res);
-         });
-   }, [searchTerm]);
-
-   useEffect(() => {
-      adminService
-         .getUsers({
-            limit: searchLimit,
-         })
-         .then((res) => {
-            setUsersList(res);
-         });
-   }, []);
+   const { users, isLoading, error } = useUsers({
+      username: searchTerm.username,
+      email: searchTerm.email,
+      limit: searchLimit,
+   });
 
    return (
       <div className={styles.users_panel_container}>
@@ -76,8 +61,8 @@ const UsersPanel: FC<PropsWithChildren<unknown>> = () => {
             <div className={styles.block_title}>Пользователи</div>
 
             <div className={styles.users}>
-               {usersList &&
-                  usersList.map((user, i) => (
+               {users &&
+                  users.map((user, i) => (
                      <div className={styles.user} key={i}>
                         <div className={styles.line}>
                            <Link
@@ -105,7 +90,7 @@ const UsersPanel: FC<PropsWithChildren<unknown>> = () => {
 
                            <Link
                               className={styles.profile_link}
-                              href={`/admin-panel/users/${String(user.id)}`}
+                              href={routes.ADMIN_PANEL + `users/${user.id}`}
                            >
                               <button className={styles.enter_button}>
                                  Управление

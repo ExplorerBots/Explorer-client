@@ -101,7 +101,7 @@ const BotSettingsScreen: FC<PropsWithChildren<IBotSettingsScreenProps>> = ({
                               {currentBot?.isPremium ? 'Premium' : 'Classic'}
                            </div>
                            <button className={styles.default_button}>
-                              Улучшить
+                              {currentBot?.isPremium ? 'Ухудьшить' : 'Улучшить'}
                            </button>
                         </div>
                      </div>

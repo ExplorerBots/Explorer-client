@@ -5,8 +5,8 @@ export interface IFullUser {
    password: string;
    balance: number;
    role: 'ADMIN' | 'USER' | 'PARTNER';
-   bots: IBot;
-   // payments
+   bots: IBot[];
+   payments: IPayment[];
    partner: IPartner;
    promocodeActivations: IPromocodeActivation[];
    createdAt: string;
@@ -188,8 +188,26 @@ export interface IPartnerLink {
    service: string;
 }
 
+export interface IPayment {
+   id: number;
+   userId: number;
+   amount: number;
+   type: string;
+   date: string;
+   createdAt: string;
+}
+
 export interface GetUsersDto {
    username?: string;
    email?: string;
    limit: number;
+}
+
+export interface IChangeBot {
+   id: number;
+   username?: string;
+   type?: string;
+   server?: string;
+   termType: string;
+   termDays: number;
 }
