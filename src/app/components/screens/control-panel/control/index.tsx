@@ -1,7 +1,9 @@
-import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
+import { BotContext } from '@/app/context/BotContext';
+import { IBotTimer } from '@/app/interfaces';
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { TimersContext } from './components/addons/timers/context/TimersContext';
 import HotbarContainer from './components/hotbar/HotbarContainer';
 import MainContainer from './components/main/MainContainer';
 import Sidebar from './components/sidebar/Sidebar';
@@ -14,40 +16,38 @@ import { tabs } from './data';
 import styles from './styles.module.scss';
 
 const BotControlScreen = () => {
-   const botsSlice = useAppSelector((store) => store.bots);
-   const chatInputRef = useRef<HTMLInputElement>(null);
    const router = useRouter();
-   const dispatch = useAppDispatch();
 
    const { setCurrentBot } = useContext(CurrentBotContext);
    const { socket } = useContext(SocketContext);
-   const { currentBot } = useContext(CurrentBotContext);
    const { setItems } = useContext(ItemsContext);
    const { currentWindow, setCurrentWindow } = useContext(CurrentWinowContext);
    const { setSelectedItem } = useContext(SelectedItemContext);
+   const { setEnableTimers, enableTimers, timers } = useContext(TimersContext);
 
    const { botId } = router.query;
-   const bot = botsSlice.data.find((bot) => bot.id === Number(botId));
+   const { bot, setBot } = useContext(BotContext);
    const [selectedTabId, setSelectedTabId] = useState<number>(tabs[0].id);
    const [requested, setRequested] = useState<boolean>(false);
 
    useEffect(() => {
       if (!socket) return;
-      if (!currentBot) return;
+      if (!bot) return;
 
       socket.emit('get-last-messages', () => {});
       socket.emit('get-inventory-items', () => {});
       socket.emit('get-quick-bar-slot');
       socket.emit('get-info');
       socket.emit('get-current-window');
+      socket.emit('get-timers');
 
       if (requested) return;
       setRequested(true);
 
       socket.on('server-connected', (data) => {
          console.log('connected');
-         setCurrentBot({
-            ...currentBot,
+         setBot({
+            ...bot,
             status: 'online',
          });
          toast.success('Успешное подключение к серверу!');
@@ -55,8 +55,8 @@ const BotControlScreen = () => {
 
       socket.on('kicked', (data) => {
          console.log('kicked');
-         setCurrentBot({
-            ...currentBot,
+         setBot({
+            ...bot,
             status: 'offline',
          });
          toast.warning('Бот был кикнут с сервера!');
@@ -64,8 +64,8 @@ const BotControlScreen = () => {
 
       socket.on('logout', (data) => {
          console.log('logout');
-         setCurrentBot({
-            ...currentBot,
+         setBot({
+            ...bot,
             status: 'offline',
          });
          toast.success('Выход с сервера!');
@@ -92,7 +92,31 @@ const BotControlScreen = () => {
       socket.on('map-packet', (packet) => {
          console.log(packet);
       });
-   }, [socket, currentBot]);
+      socket.on('no-access', () => {
+         toast.success('errror');
+      });
+
+      socket.on('set-timers', (timers: IBotTimer[]) => {
+         console.log(timers);
+         setEnableTimers(timers);
+      });
+
+      socket?.on('timer-enabled', (data: { id: number }) => {
+         const foundedTimer = timers?.find((t) => t.id === data.id);
+         console.log(foundedTimer);
+         if (foundedTimer) {
+            setEnableTimers([...enableTimers, foundedTimer]);
+         } else {
+            setEnableTimers([...enableTimers]);
+         }
+         toast.success(`Таймер ${data.id} запущен`);
+      });
+
+      socket?.on('timer-disabled', (tId: number) => {
+         setEnableTimers([...enableTimers.filter((t) => t.id !== tId)]);
+         toast.success(`Таймер ${tId} Остановлен`);
+      });
+   }, [socket, bot]);
 
    return (
       <>

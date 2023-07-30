@@ -1,13 +1,13 @@
+import { BotContext } from '@/app/context/BotContext';
 import { FC, PropsWithChildren, useContext } from 'react';
-import { CurrentBotContext } from '../../context/CurrentBotContext';
 import styles from '../../styles.module.scss';
 
 const Blur: FC<PropsWithChildren> = () => {
-   const { currentBot } = useContext(CurrentBotContext);
+   const { bot } = useContext(BotContext);
 
    return (
       <>
-         {currentBot?.status === 'online' ? (
+         {bot?.status === 'online' ? (
             <></>
          ) : (
             <div className={styles.blur}></div>

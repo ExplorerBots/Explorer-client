@@ -1,4 +1,4 @@
-import { UserService } from '@/app/services/user.service';
+import { userService } from '@/app/services/user/user.service';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { RootState } from '..';
@@ -21,7 +21,7 @@ export const getOperations = createAsyncThunk(
    'user/getOperations',
    async (_, { rejectWithValue }) => {
       try {
-         return await UserService.getOperations();
+         return await userService.getOperations();
       } catch (err) {
          if (err instanceof AxiosError) {
             return rejectWithValue(err.response?.data);

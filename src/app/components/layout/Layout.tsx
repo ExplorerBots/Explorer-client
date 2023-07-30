@@ -1,8 +1,6 @@
-import { UserService } from '@/app/services/user.service';
-import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
-import { updateUser } from '@/app/store/slices/user';
+import { UserContext } from '@/app/context/UserContext';
 import { NextPage } from 'next';
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 import NavBar from './components/NavBar';
 import Footer from './footer/Footer';
 import Header from './header/Header';
@@ -12,20 +10,14 @@ export const NavBrContext = createContext(false);
 
 const Layout: NextPage<{ children: ReactNode }> = ({ children }) => {
    const [showNavBar, setShowNavBar] = useState(false);
-
-   const dispatch = useAppDispatch();
-   const userSlice = useAppSelector((state) => state.user);
-
-   useEffect(() => {
-      const authToken = window.localStorage.getItem('authToken');
-      if (authToken) {
-         const { email } = UserService.tokenDecode(authToken);
-         dispatch(updateUser({ email }));
-      }
-   }, []);
+   const { isLoading } = useContext(UserContext);
 
    return (
-      <div className={styles.wrapper} data-overflow={!showNavBar}>
+      <div
+         className={styles.wrapper}
+         data-overflow={!showNavBar}
+         data-blur={isLoading}
+      >
          <NavBar state={showNavBar} setState={setShowNavBar} />
          <Header state={showNavBar} setState={setShowNavBar} />
          <div className={styles.page}>{children}</div>

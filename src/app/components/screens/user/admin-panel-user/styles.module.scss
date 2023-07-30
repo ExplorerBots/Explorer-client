@@ -143,6 +143,11 @@
                .list_item {
                   display: flex;
                   border-right: 0px;
+                  cursor: pointer;
+
+                  &[data-selected='true'] {
+                     background: $bgMax;
+                  }
 
                   .item {
                      width: 100%;
@@ -165,7 +170,20 @@
                display: flex;
                gap: 10px;
 
-               .button {
+               .create_button {
+                  padding: 3px 12px;
+                  line-height: 19px;
+                  background: $--ep-color-success;
+               }
+
+               .delete_button {
+                  padding: 3px 12px;
+                  line-height: 19px;
+                  background: $--ep-color-danger;
+               }
+
+               .config_button {
+                  background: $--ep-color-warning;
                   padding: 3px 12px;
                   line-height: 19px;
                }
@@ -214,6 +232,10 @@
    flex-direction: column;
    gap: 10px;
 
+   .result {
+      word-break: keep-all;
+   }
+
    .modal_field {
       display: flex;
       flex-direction: column;
@@ -254,6 +276,33 @@
          top: 36px;
          height: 28px;
          line-height: 10px;
+      }
+   }
+
+   .modal_list {
+      display: flex;
+      flex-direction: column;
+      background: $bgBlock;
+      border: 1px solid $bgMax;
+      border-radius: 5px;
+      gap: 5px;
+      padding: 5px;
+      width: 350px;
+
+      .list_item {
+         padding: 5px;
+         display: flex;
+         gap: 5px;
+         border-radius: 5px;
+         background: $bgAverage;
+
+         .item_description {
+            color: gray;
+         }
+         .item_body {
+            overflow: hidden;
+            text-overflow: ellipsis;
+         }
       }
    }
 

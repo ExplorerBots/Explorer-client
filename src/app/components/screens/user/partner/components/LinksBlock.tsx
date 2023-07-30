@@ -1,6 +1,6 @@
 import DefaultModal from '@/app/components/ui/modals/defaultModal/DefaultModal';
 import { IPartnerLink } from '@/app/interfaces';
-import { partnerService } from '@/app/services/partner.service';
+import { partnerService } from '@/app/services/partner/partner.service';
 import Image from 'next/image';
 import { FC, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -64,7 +64,7 @@ const LinksBlock: FC = () => {
       <div className={styles.links_block}>
          <div className={styles.block_title}>Твои соцсети</div>
          <div className={styles.links}>
-            {partner?.links.length ? (
+            {partner?.links && partner?.links.length && (
                <>
                   {partner?.links.map((link, i) => (
                      <div className={styles.item} key={i}>
@@ -94,12 +94,6 @@ const LinksBlock: FC = () => {
                         </div>
                      </div>
                   ))}
-               </>
-            ) : (
-               <>
-                  <div className={styles.empty_links}>
-                     У тебя нету подключенных соцсетей, сделай это сейчас.
-                  </div>
                </>
             )}
          </div>

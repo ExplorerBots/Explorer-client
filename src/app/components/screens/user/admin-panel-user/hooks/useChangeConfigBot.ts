@@ -1,16 +1,15 @@
 import { IChangeBot } from '@/app/interfaces';
-import { adminService } from '@/app/services/admin.service';
+import { adminService } from '@/app/services/admin/admin.service';
 import { useMutation } from 'react-query';
 
 export const useChangeConfigBot = () => {
    const {
-      data: changedBot,
       isLoading,
       error,
-      mutateAsync,
-   } = useMutation('change bot', (data: IChangeBot) =>
+      mutateAsync: changeBot,
+   } = useMutation('admin:change bot', (data: IChangeBot) =>
       adminService.changeBot(data)
    );
 
-   return { changedBot, isLoading, error, mutateAsync };
+   return { changeBot, isLoading, error };
 };

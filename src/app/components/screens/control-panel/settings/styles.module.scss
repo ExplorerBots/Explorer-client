@@ -100,6 +100,25 @@
                   font-weight: normal;
                }
             }
+
+            .whitelist {
+               display: flex;
+               gap: 5px;
+               margin-top: 10px;
+               flex-wrap: wrap;
+
+               .whitelist_item {
+                  font-weight: normal;
+                  padding: 4px;
+                  border-radius: 5px;
+                  background: $bgBlock;
+
+                  &:hover {
+                     background: $--ep-color-danger;
+                     cursor: pointer;
+                  }
+               }
+            }
          }
       }
    }

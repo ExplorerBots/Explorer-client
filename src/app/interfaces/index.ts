@@ -7,7 +7,7 @@ export interface IFullUser {
    role: 'ADMIN' | 'USER' | 'PARTNER';
    bots: IBot[];
    payments: IPayment[];
-   partner: IPartner;
+   partner: IPartner | null;
    promocodeActivations: IPromocodeActivation[];
    createdAt: string;
 }
@@ -72,6 +72,16 @@ export interface IBot {
    server: string;
    status: 'online' | 'offline' | 'expired';
    endDate: number;
+   whitelist: IBotWhitelistUser[];
+   macroses: IBotMacros[];
+   timers: IBotTimer[];
+   activeMacrosId: number;
+}
+
+export interface IBotWhitelistUser {
+   id: number;
+   botId: number;
+   username: number;
 }
 
 export interface IOperation {
@@ -107,7 +117,7 @@ export interface IBuyBot {
    isPremium: boolean;
    username: string;
    server: string;
-   days: number;
+   period: number;
    promocode?: IPartnerPromocode;
 }
 
@@ -210,4 +220,92 @@ export interface IChangeBot {
    server?: string;
    termType: string;
    termDays: number;
+}
+
+export interface CreatePartnerDto {
+   userId: number;
+}
+
+export interface DeletePartnerDto {
+   userId: number;
+}
+
+export interface CreatePromocodeDto {
+   partnerId: number;
+   type: string;
+   value: number;
+   code: string;
+}
+
+export interface DeletePromocodeDto {}
+
+export interface CreateLinkDto {
+   partnerId: number;
+   link: string;
+   service: string;
+}
+
+export interface DeleteLinkDto {
+   id: number;
+}
+
+export interface IProxy {
+   host: string;
+   hostId: number;
+   id: number;
+   password: string;
+   port: number;
+   userId: number;
+   username: string;
+   createDate: string;
+   endDate: string;
+}
+
+export interface BuyProxyDto {
+   period: number;
+   country: string;
+}
+
+export interface IMacrosAction {
+   actionType: string;
+   text: string;
+}
+
+export interface IActiveMacrosAction {
+   actionType: string;
+   value: string | number;
+   secondValue: string | number | undefined;
+}
+
+export interface IBotMacros {
+   id: number;
+   botId: number;
+   title: string;
+   blocks: IBotMacrosBlock[];
+}
+
+export interface IBotMacrosBlock {
+   id: number;
+   macrosId: number;
+   blockType: string;
+   event?: string;
+   action?: string;
+   value: string;
+   secondValue?: string;
+}
+export interface IBotMacrosConstructorBlock {
+   blockType: string;
+   event?: string;
+   action?: string;
+   value: string;
+   secondValue?: string;
+   title: string;
+}
+
+export interface IBotTimer {
+   botId: number;
+   id: number;
+   message: string;
+   interval: number;
+   createdAt: string;
 }

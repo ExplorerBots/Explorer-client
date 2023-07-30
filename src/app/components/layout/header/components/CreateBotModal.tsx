@@ -1,14 +1,23 @@
+import { useGetProxies } from '@/app/components/screens/control-panel/initial/hooks/useGetProxies';
 import DefaultModal from '@/app/components/ui/modals/defaultModal/DefaultModal';
-import { ICreateBotFields, IPartnerPromocode } from '@/app/interfaces';
-import { botsService } from '@/app/services/bots.service';
-import { partnerService } from '@/app/services/partner.service';
-import { UserService } from '@/app/services/user.service';
+import { UserContext } from '@/app/context/UserContext';
+import { ICreateBotFields, IPartnerPromocode, IProxy } from '@/app/interfaces';
+import { userService } from '@/app/services/user/user.service';
 import { useAppDispatch } from '@/app/store/hooks';
 import { setUserData } from '@/app/store/slices/user';
 import Image from 'next/image';
-import { FC, PropsWithChildren, useId, useState } from 'react';
+import {
+   FC,
+   PropsWithChildren,
+   useContext,
+   useEffect,
+   useId,
+   useState,
+} from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { useBuyBot } from '../hooks/useBuyBot';
+import { useCheckPromo } from '../hooks/useCheckPromo';
 import styles from '../styles.module.scss';
 
 interface ICreateBotModalProps {
@@ -29,81 +38,93 @@ const CreateBotModal: FC<PropsWithChildren<ICreateBotModalProps>> = ({
    const formId = useId();
    const dispatch = useAppDispatch();
 
-   const [loading, setLoading] = useState<boolean>(false);
+   const [ownedProxies, setOwnedProxies] = useState<IProxy[]>([]);
+
    const [username, setUsername] = useState<string>('');
    const [server, setServer] = useState<string>('HolyWorld');
    const [type, setType] = useState<string>('Premium');
    const [days, setDays] = useState<number>(30);
-   const [totalPrice, setTotalPrice] = useState<number>(0);
    const [promo, setPromo] = useState<string>('');
+   const [proxyType, setProxyType] = useState<string>(
+      ownedProxies ? 'owned' : 'buy'
+   );
+   const [proxy, setProxy] = useState<string>(
+      ownedProxies[0]
+         ? `${ownedProxies[0].host}:${ownedProxies[0].port}:${ownedProxies[0].username}:${ownedProxies[0].password}`
+         : ''
+   );
+
+   useEffect(() => console.log(proxy), [proxy]);
+
    const [showCheckPromo, setShowCheckPromo] = useState<boolean>(false);
    const [promoError, setPromoError] = useState<string>('');
    const [promoSuccess, setPromoSuccess] = useState<string>('');
    const [readyPromo, setReadyPromo] = useState<IPartnerPromocode | null>(null);
+   const [totalPrice, setTotalPrice] = useState<number>(0);
+   const { isLoggedIn } = useContext(UserContext);
+   const { buyBot, isLoading: buyBotLoading } = useBuyBot();
+   const { checkPromo } = useCheckPromo();
+   const { getProxies, isLoading: getProxiesLoading } = useGetProxies();
 
-   const onCheckPromo = async () => {
-      await partnerService
-         .checkPromo(promo)
-         .then((res: IPartnerPromocode) => {
-            setReadyPromo(res);
-            setPromoSuccess(
-               res.type === 'discount'
-                  ? `Скидка ${res.value}%`
-                  : `+${res.value} дней`
-            );
-         })
-         .catch((error) => {
-            setPromoError(error?.response?.data?.message);
+   useEffect(() => {
+      handlePreload();
+   }, []);
+
+   const handlePreload = async () => {
+      // const response = await getProxies();
+      // setOwnedProxies(response);
+   };
+
+   const handleCheckPromo = async () => {
+      const response = await checkPromo(promo)
+         .catch((err) => {
+            setPromoError(err?.response?.data?.message);
+            return;
          })
          .finally(() => setShowCheckPromo(false));
-   };
-   const onSubmitModal: SubmitHandler<ICreateBotFields> = async (data) => {
-      setLoading(true);
-      let buyOptions;
 
-      if (!readyPromo) {
-         buyOptions = {
-            username,
-            isPremium: type === 'Premium' ? true : false,
-            server,
-            days,
-         };
-      } else {
-         buyOptions = {
-            username,
-            isPremium: type === 'Premium' ? true : false,
-            server,
-            days,
-            promocode: readyPromo,
-         };
-      }
+      if (!response) return;
 
-      await botsService
-         .buyBot(buyOptions)
-         .then((data) => {
-            window.localStorage.setItem('authToken', data.token);
-            dispatch(setUserData(UserService.tokenDecode(data.token)));
-            toast.success('Успешная покупка бота!', {});
-         })
-         .catch((err) => {
-            toast.error('Недостаточно денег на балансе!', {});
-         })
-         .finally(() => setLoading(false));
+      setReadyPromo(response);
+      setPromoSuccess(
+         response.type === 'discount'
+            ? `Скидка ${response.value}%`
+            : `+${response.value} дней`
+      );
    };
-   const onCloseModal = () => {
-      setActive(false);
+
+   const handleSubmitModal: SubmitHandler<ICreateBotFields> = async (data) => {
+      const response = await buyBot({
+         username,
+         isPremium: type === 'Premium' ? true : false,
+         server,
+         period: days,
+         promocode: readyPromo || undefined,
+      }).catch((err) => {
+         toast.error(err?.response?.data?.message);
+         return;
+      });
+
+      if (!response) return;
+
+      window.localStorage.setItem('authToken', response.token);
+      dispatch(setUserData(userService.tokenDecode(response.token)));
+      toast.success('Успешная покупка бота!', {});
    };
+
+   const handleCloseModal = () => setActive(false);
+
    return (
       <DefaultModal
          title="Покупка бота"
          active={active}
-         loading={loading}
-         onClose={onCloseModal}
+         loading={buyBotLoading || getProxiesLoading}
+         onClose={handleCloseModal}
          submitButtonId={formId}
       >
          <form
             className={styles.modal_body}
-            onSubmit={handleSubmit(onSubmitModal)}
+            onSubmit={handleSubmit(handleSubmitModal)}
             id={formId}
          >
             <div className={styles.modal_field}>
@@ -189,7 +210,7 @@ const CreateBotModal: FC<PropsWithChildren<ICreateBotModalProps>> = ({
                {showCheckPromo && (
                   <button
                      className={styles.check_promo}
-                     onClick={onCheckPromo}
+                     onClick={handleCheckPromo}
                      type="button"
                   >
                      <Image

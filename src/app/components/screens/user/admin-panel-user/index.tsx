@@ -1,13 +1,13 @@
 import { IFullUser } from '@/app/interfaces';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
-import BotsBlock from './components/BotsBlock';
-import ControlBlock from './components/ControlBlock';
-import PartnerBlock from './components/PartnerBlock';
-import PaymentsBlock from './components/PaymentsBlock';
-import UserBlock from './components/UserBlock';
+import BotsBlock from './components/blocks/bots/BotsBlock';
+import ControlBlock from './components/blocks/control/ControlBlock';
+import PartnerBlock from './components/blocks/partner/PartnerBlock';
+import PaymentsBlock from './components/blocks/payments/PaymentsBlock';
+import UserBlock from './components/blocks/user/UserBlock';
 import { UserContext } from './context/UserContext';
-import { useUser } from './hooks/useUser';
+import { useGetUser } from './hooks/useGetUser';
 import styles from './styles.module.scss';
 
 const AdminPanelUserScreen: FC = () => {
@@ -16,7 +16,7 @@ const AdminPanelUserScreen: FC = () => {
    const [user, setUser] = useState<IFullUser | null>(null);
    const [loading, setLoading] = useState<boolean>(true);
 
-   const { data, isLoading, error } = useUser(Number(query.id));
+   const { data, isLoading, error } = useGetUser(Number(query.id));
 
    useEffect(() => data && setUser(data), [data]);
 

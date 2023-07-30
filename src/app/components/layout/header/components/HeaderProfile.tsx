@@ -1,39 +1,24 @@
 import { routes } from '@/app/constants';
+import { UserContext } from '@/app/context/UserContext';
 import { useAuth } from '@/app/hooks/useAuth';
-import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
-import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import styles from '../styles.module.scss';
 import Dropdown from './Dropdown';
 
 const NavProfile: FC = () => {
    const [dropdown, setDropdown] = useState<boolean>(false);
 
-   const userSlice = useAppSelector((state) => state.user);
-   const router = useRouter();
-   const dispatch = useAppDispatch();
    const { logout } = useAuth();
+
+   const { user, isLoggedIn } = useContext(UserContext);
 
    return (
       <div className={styles.profile}>
-         {userSlice.isLoading ? (
-            <Image
-               src="/svg/preloader.svg"
-               width={40}
-               height={40}
-               alt=""
-               loading="eager"
-               priority={true}
-               fetchPriority="high"
-            />
-         ) : userSlice.data ? (
+         {isLoggedIn && user ? (
             <>
                <div className={styles.balance_container}>
-                  <span className={styles.balance}>
-                     {userSlice.data.balance}{' '}
-                  </span>
+                  <span className={styles.balance}>{user.balance} </span>
                   <Link
                      href={routes.REPLENISH_BALANCE}
                      className={styles.btn_replenish}
@@ -48,9 +33,7 @@ const NavProfile: FC = () => {
                   }}
                >
                   <div className={styles.info}>
-                     <p className={styles.username}>
-                        {userSlice.data.username}
-                     </p>
+                     <p className={styles.username}>{user.username}</p>
                   </div>
                </div>
             </>

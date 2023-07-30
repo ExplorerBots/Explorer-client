@@ -1,6 +1,8 @@
 import '@/app/assets/globals.scss';
 import Layout from '@/app/components/layout/Layout';
+import { UserContextProvider } from '@/app/context/UserContext';
 import store from '@/app/store';
+import { ClerkProvider } from '@clerk/nextjs';
 import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
@@ -19,23 +21,27 @@ const queryClient = new QueryClient({
 const App = ({ Component, pageProps }: AppProps) => {
    return (
       <QueryClientProvider client={queryClient}>
-         <Provider store={store}>
-            <div id="modal_portal" />
-            <Layout>
-               <ToastContainer
-                  position="top-right"
-                  autoClose={3000}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                  theme="dark"
-                  hideProgressBar={true}
-               />
-               <Component {...pageProps} />
-            </Layout>
-         </Provider>
+         <ClerkProvider>
+            <Provider store={store}>
+               <UserContextProvider>
+                  <div id="modal_portal" />
+                  <Layout>
+                     <ToastContainer
+                        position="top-right"
+                        autoClose={3000}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="dark"
+                        hideProgressBar={true}
+                     />
+                     <Component {...pageProps} />
+                  </Layout>
+               </UserContextProvider>
+            </Provider>
+         </ClerkProvider>
          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </QueryClientProvider>
    );

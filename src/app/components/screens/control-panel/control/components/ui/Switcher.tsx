@@ -17,11 +17,11 @@ const Switcher: FC<PropsWithChildren<Props>> = ({
    selected,
    setSelected,
 }) => {
-   console.log(selected, sides);
    return (
       <div className={styles.switcher}>
-         {sides.map((side) => (
+         {sides.map((side, i) => (
             <div
+               key={i}
                className={styles.side}
                data-active={selected.key === side.key && true}
                onClick={() => setSelected(side)}

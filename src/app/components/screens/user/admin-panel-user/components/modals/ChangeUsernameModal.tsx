@@ -1,8 +1,8 @@
 import DefaultModal from '@/app/components/ui/modals/defaultModal/DefaultModal';
-import { adminService } from '@/app/services/admin.service';
 import { FC, PropsWithChildren, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import { UserContext } from '../../context/UserContext';
+import { useChangeUsername } from '../../hooks/useChangeUsername';
 import styles from '../../styles.module.scss';
 
 interface Props {
@@ -14,36 +14,36 @@ const ChangeUsernameModal: FC<PropsWithChildren<Props>> = ({
    active,
    setActive,
 }) => {
-   const [loading, setLoading] = useState<boolean>(false);
    const [username, setUsername] = useState<string>('');
    const { user, setUser } = useContext(UserContext);
 
-   const onSubmit = () => {
-      if (!user) return;
-      setLoading(true);
+   const { changeUsername, isLoading, error } = useChangeUsername();
 
-      adminService
-         .changeUsername({ id: user?.id, username })
-         .then((res) => {
-            setUser({ ...user, username: res.data });
-            toast.success(`Смена ника аккаунту (id${user.id})`);
-         })
-         .catch((err) => {})
-         .finally(() => {
-            setLoading(false);
-            setActive(false);
-         });
+   const handleSubmit = async () => {
+      if (!user) return;
+
+      const response = await changeUsername({ id: user.id, username }).catch(
+         (err) => console.log(err)
+      );
+
+      if (!response) return;
+
+      toast.success(
+         `Вы сменили ник ${user.id}, с ${user.username} на ${response.data}`
+      );
+      setUser({ ...user, username: response.data });
+      setActive(false);
    };
-   const onClose = () => {
+   const handleClose = () => {
       setActive(false);
    };
    return (
       <DefaultModal
          active={active}
-         loading={false}
+         loading={isLoading}
          title="Смена ника"
-         onSubmit={onSubmit}
-         onClose={onClose}
+         onSubmit={handleSubmit}
+         onClose={handleClose}
       >
          <div className={styles.modal_body}>
             <div className={styles.modal_field}>

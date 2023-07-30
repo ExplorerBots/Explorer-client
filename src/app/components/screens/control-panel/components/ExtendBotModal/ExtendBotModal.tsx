@@ -1,8 +1,7 @@
 import DefaultModal from '@/app/components/ui/modals/defaultModal/DefaultModal';
-import { botPrice } from '@/app/constants';
 import { IBot } from '@/app/interfaces';
-import { botsService } from '@/app/services/bots.service';
-import { UserService } from '@/app/services/user.service';
+import { botsService } from '@/app/services/bots/bots.service';
+import { userService } from '@/app/services/user/user.service';
 import { useAppDispatch } from '@/app/store/hooks';
 import { getMyBots } from '@/app/store/slices/bots';
 import { setUserData } from '@/app/store/slices/user';
@@ -38,7 +37,7 @@ const ExtendBotModal: FC<PropsWithChildren<IExtendBotModalProps>> = ({
          })
          .then((data) => {
             window.localStorage.setItem('authToken', data.token);
-            dispatch(setUserData(UserService.tokenDecode(data.token)));
+            dispatch(setUserData(userService.tokenDecode(data.token)));
             dispatch(getMyBots());
             toast.success('Успешное продление бота!', {});
             setExtendSuccess(true);
@@ -57,11 +56,11 @@ const ExtendBotModal: FC<PropsWithChildren<IExtendBotModalProps>> = ({
    };
 
    useEffect(() => {
-      if (extendBot?.isPremium) {
-         setExtendTotalPrice(extendPeriod * botPrice.PREMIUM_BOT_PRICE_PER_DAY);
-      } else {
-         setExtendTotalPrice(extendPeriod * botPrice.CLASSIC_BOT_PRICE_PER_DAY);
-      }
+      // if (extendBot?.isPremium) {
+      //    setExtendTotalPrice(extendPeriod * botPrice.PREMIUM_BOT_PRICE_PER_DAY);
+      // } else {
+      //    setExtendTotalPrice(extendPeriod * botPrice.CLASSIC_BOT_PRICE_PER_DAY);
+      // }
    }, [extendPeriod, extendBot?.isPremium]);
 
    return (

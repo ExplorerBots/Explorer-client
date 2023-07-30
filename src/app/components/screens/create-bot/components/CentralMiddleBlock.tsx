@@ -1,16 +1,11 @@
 import Divider from '@/app/components/ui/general/divider/Divider';
 import Select from '@/app/components/ui/general/select/Select';
-import { botPrice } from '@/app/constants';
 import { ICreateBotFields, IPartnerPromocode } from '@/app/interfaces';
-import { botsService } from '@/app/services/bots.service';
-import { UserService } from '@/app/services/user.service';
 import { useAppDispatch } from '@/app/store/hooks';
-import { setUserData } from '@/app/store/slices/user';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
 import styles from '../styles.module.scss';
 import InputField from './InputField';
 import InputRange from './InputRange';
@@ -38,31 +33,31 @@ const CentralMiddleBlock = () => {
    );
 
    useEffect(() => {
-      if (type === 'Premium') {
-         setTotalPrice(days * botPrice.PREMIUM_BOT_PRICE_PER_DAY);
-      } else {
-         setTotalPrice(days * botPrice.CLASSIC_BOT_PRICE_PER_DAY);
-      }
+      // if (type === 'Premium') {
+      //    setTotalPrice(days * botPrice.PREMIUM_BOT_PRICE_PER_DAY);
+      // } else {
+      //    setTotalPrice(days * botPrice.CLASSIC_BOT_PRICE_PER_DAY);
+      // }
    }, [days, type]);
 
    const buyBot: SubmitHandler<ICreateBotFields> = async (data) => {
-      setLoading(true);
-      const res = await botsService
-         .buyBot({
-            username,
-            isPremium: type === 'Premium' ? true : false,
-            server,
-            days,
-         })
-         .then((data) => {
-            window.localStorage.setItem('authToken', data.token);
-            dispatch(setUserData(UserService.tokenDecode(data.token)));
-            toast.success('Успешная покупка бота!', {});
-         })
-         .catch((err) => {
-            toast.error('Недостаточно денег на балансе!', {});
-         })
-         .finally(() => setLoading(false));
+      // setLoading(true);
+      // const res = await botsService
+      //    .buyBot({
+      //       username,
+      //       isPremium: type === 'Premium' ? true : false,
+      //       server,
+      //       days,
+      //    })
+      //    .then((data) => {
+      //       window.localStorage.setItem('authToken', data.token);
+      //       dispatch(setUserData(userService.tokenDecode(data.token)));
+      //       toast.success('Успешная покупка бота!', {});
+      //    })
+      //    .catch((err) => {
+      //       toast.error('Недостаточно денег на балансе!', {});
+      //    })
+      //    .finally(() => setLoading(false));
    };
 
    return (

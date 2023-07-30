@@ -1,5 +1,5 @@
 import { IPartner } from '@/app/interfaces';
-import { partnerService } from '@/app/services/partner.service';
+import { partnerService } from '@/app/services/partner/partner.service';
 import { FC, useEffect, useState } from 'react';
 import { PartnerContext } from './components/context/PartnerContext';
 import LinksBlock from './components/LinksBlock';

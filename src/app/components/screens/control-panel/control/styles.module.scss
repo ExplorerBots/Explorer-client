@@ -1,42 +1,42 @@
 @import '@/app/assets/_vars';
 
-.control_container {
-   margin: 15px auto;
-   border-radius: $borderRadius;
-   background-color: $bgBlock;
-   max-width: 600px;
-   padding: 15px;
-   display: flex;
-   flex-direction: column;
+// .control_container {
+//    margin: 15px auto;
+//    border-radius: $borderRadius;
+//    background-color: $bgBlock;
+//    max-width: 600px;
+//    padding: 15px;
+//    display: flex;
+//    flex-direction: column;
 
-   .info {
-      display: flex;
-      width: 100%;
-      justify-content: space-around;
-      gap: 30px;
-   }
+//    .info {
+//       display: flex;
+//       width: 100%;
+//       justify-content: space-around;
+//       gap: 30px;
+//    }
 
-   .hotbar {
-      display: flex;
-      justify-content: center;
+//    .hotbar {
+//       display: flex;
+//       justify-content: center;
 
-      .slots {
-         cursor: pointer;
-         border: 2px solid black;
-         height: 58px;
-         display: flex;
-         flex-direction: row;
-         gap: 1px;
+//       .slots {
+//          cursor: pointer;
+//          border: 2px solid black;
+//          height: 58px;
+//          display: flex;
+//          flex-direction: row;
+//          gap: 1px;
 
-         .slot {
-            .slot_image {
-               user-select: none;
-               pointer-events: none;
-            }
-         }
-      }
-   }
-}
+//          .slot {
+//             .slot_image {
+//                user-select: none;
+//                pointer-events: none;
+//             }
+//          }
+//       }
+//    }
+// }
 
 .inner_container {
    display: flex;
@@ -64,6 +64,7 @@
          }
 
          .title_text {
+            color: gray;
             font-weight: bold;
          }
       }
@@ -282,6 +283,332 @@
             }
          }
       }
+      .activity_container {
+         position: relative;
+         padding-top: 15px;
+         width: 100%;
+
+         .block {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            background: $bgAverage;
+            border-radius: 5px;
+
+            .block_title {
+               font-weight: bold;
+            }
+         }
+
+         .macros_build {
+            .build_header {
+               display: flex;
+               gap: 10px;
+               justify-content: space-between;
+               padding-bottom: 15px;
+               align-items: center;
+
+               .side {
+                  display: flex;
+                  gap: 10px;
+                  align-items: center;
+                  .back_button {
+                     padding: 2px 5px;
+                  }
+                  .macros_title {
+                  }
+                  .switch_status {
+                     float: right;
+                     padding: 2px 5px;
+                  }
+               }
+            }
+
+            .content {
+               display: flex;
+               gap: 10px;
+            }
+
+            .blocks_editor {
+               border: 1px solid $bgMax;
+               width: 70%;
+               background: $bgAverage;
+               height: 400px;
+               border-radius: 5px;
+               display: flex;
+               flex-direction: column;
+               justify-content: space-between;
+
+               .blocks {
+                  padding: 15px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 5px;
+                  overflow: auto;
+
+                  .event_block,
+                  .action_block {
+                     user-select: none;
+                     background: $bgBlock;
+                     cursor: grab;
+                     padding: 5px;
+                     display: flex;
+                     align-items: center;
+                     justify-content: space-between;
+                     border: 1px solid $bgMax;
+                     border-radius: 3px;
+
+                     .side {
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                        .block_input {
+                           height: 25px;
+                           width: 105px;
+                           display: flex;
+                           align-items: center;
+                           padding-left: 5px;
+                           background: $bgAverage;
+                        }
+
+                        .block_select {
+                           width: 100px;
+                           height: 25px;
+                           padding: 0px;
+                           background: $bgAverage;
+                        }
+                     }
+
+                     .side {
+                        .delete_block {
+                           background: $bgBlock;
+                           color: #fff;
+                           width: 30px;
+                           align-items: center;
+                           justify-content: center;
+                           font-size: 17px;
+                           text-justify: center;
+
+                           &:hover {
+                              background: $bgAverage;
+                           }
+                        }
+                     }
+                  }
+               }
+               .editor_footer {
+                  .update_button {
+                     width: 100%;
+                     background: $--ep-color-success;
+                     user-select: none;
+                  }
+               }
+            }
+
+            .blocks_constructor {
+               border: 1px solid $bgMax;
+               width: 30%;
+               background: $bgAverage;
+               border-radius: 5px;
+               padding: 5px;
+               display: flex;
+               flex-direction: column;
+               gap: 5px;
+
+               .constructor_block {
+                  user-select: none;
+                  background: $bgBlock;
+                  cursor: grab;
+                  padding: 5px;
+               }
+            }
+         }
+
+         .macroses_list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            background: $bgAverage;
+            padding: 15px;
+            border-radius: 5px;
+
+            .list_header {
+               display: flex;
+               justify-content: space-between;
+               padding: 0 5px;
+            }
+
+            .list {
+               display: flex;
+               flex-direction: column;
+               gap: 5px;
+
+               .list_item {
+                  padding: 5px 5px 5px 10px;
+                  background: $bgBlock;
+                  border-radius: 5px;
+                  cursor: pointer;
+                  transition: 0.1s;
+                  border: 1px solid $bgMax;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+
+                  &:hover {
+                     background: $bgMax;
+                  }
+
+                  .edit_input {
+                  }
+                  .item_title {
+                  }
+
+                  .right_side {
+                     display: flex;
+                     gap: 10px;
+
+                     .item_delete {
+                        width: 30px;
+                        height: 30px;
+                        display: flex;
+                        align-items: center;
+                        border-radius: 5px;
+                        justify-content: center;
+
+                        &:hover {
+                           background: $bgAverage;
+                        }
+
+                        .delete_button {
+                           padding-bottom: 3px;
+                        }
+                     }
+
+                     .item_status {
+                        font-weight: bold;
+                        background: $bgAverage;
+                        border-radius: 5px;
+                        padding: 5px;
+
+                        &[data-color='green'] {
+                           color: $--ep-color-success;
+                        }
+                        &[data-color='red'] {
+                           color: $--ep-color-danger;
+                        }
+                     }
+                  }
+               }
+            }
+         }
+
+         .timers_list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: $bgAverage;
+            padding: 15px;
+            border-radius: 5px;
+            overflow: auto;
+            max-height: 365px;
+
+            .list_header {
+               display: flex;
+               justify-content: space-between;
+            }
+
+            .create_timer_button {
+               width: 100%;
+               height: 30px;
+            }
+
+            .timer_card {
+               background: $bgBlock;
+               border: 1px solid $bgMax;
+               padding: 10px;
+               border-radius: 5px;
+               display: flex;
+               flex-direction: column;
+               gap: 5px;
+
+               .layer {
+                  display: flex;
+                  align-items: center;
+                  gap: 5px;
+                  justify-content: space-between;
+
+                  .id {
+                     display: flex;
+                     gap: 5px;
+                  }
+
+                  .card_description {
+                     font-weight: bold;
+                     color: gray;
+                  }
+
+                  .field {
+                     width: 100%;
+                     gap: 5px;
+                     display: flex;
+                     gap: 7px;
+                     position: relative;
+                     align-items: center;
+
+                     input {
+                        background: $bgAverage;
+                        height: 30px;
+                        font-size: 16px;
+                     }
+
+                     .confirm_button {
+                        position: absolute;
+                        right: 3px;
+                        bottom: 3px;
+                        font-size: 13px;
+                        line-height: 1px;
+
+                        height: 18px;
+                        background: $--ep-color-success;
+
+                        &:hover {
+                           opacity: 1;
+                           background: $--ep-color-success-light-3;
+                        }
+                     }
+
+                     .field_description {
+                        color: gray;
+                        font-weight: bold;
+                        font-size: 15px;
+
+                        display: flex;
+                        align-items: center;
+                     }
+                  }
+               }
+
+               .card_delete_button {
+                  height: 25px;
+                  width: 25px;
+                  line-height: 7px;
+                  background: $bgBlock;
+                  color: #fff;
+
+                  &:hover {
+                     background: $bgAverage;
+                  }
+               }
+
+               .card_button {
+                  height: 25px;
+                  line-height: 10px;
+               }
+            }
+         }
+      }
+
       .footer {
          display: flex;
          border-top: 1px solid $bgMax;
@@ -355,6 +682,59 @@
                      opacity: 0.5;
                      cursor: default;
                   }
+               }
+            }
+         }
+      }
+
+      .autoleave_container {
+         position: relative;
+         padding-top: 15px;
+         display: flex;
+         flex-direction: column;
+         width: 100%;
+         gap: 10px;
+
+         .block {
+            background: $bgAverage;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            border-radius: 5px;
+            gap: 10px;
+
+            .title {
+               color: $colorGray;
+               font-weight: bold;
+            }
+
+            .input_block {
+               display: flex;
+               align-items: center;
+               gap: 5px;
+
+               .value {
+                  position: relative;
+                  bottom: 1px;
+                  font-weight: bold;
+               }
+            }
+
+            .whitelist {
+               display: flex;
+               gap: 5px;
+
+               .whitelist_item {
+                  background: $bgBlock;
+                  border-radius: 5px;
+                  padding: 5px;
+               }
+            }
+
+            .power_button {
+               &[data-disabled='true'] {
+                  opacity: 0.5;
+                  cursor: default;
                }
             }
          }

@@ -1,4 +1,4 @@
-import { adminService } from '@/app/services/admin.service';
+import { adminService } from '@/app/services/admin/admin.service';
 import { FC, PropsWithChildren, useEffect, useRef, useState } from 'react';
 import CrossButton from '../../buttons/CrossButton/CrossButton';
 import styles from './ChangeRoleModal.module.scss';

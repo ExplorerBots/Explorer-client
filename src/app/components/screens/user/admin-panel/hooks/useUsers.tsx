@@ -1,5 +1,5 @@
 import { GetUsersDto, IFullUser } from '@/app/interfaces';
-import { adminService } from '@/app/services/admin.service';
+import { adminService } from '@/app/services/admin/admin.service';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 

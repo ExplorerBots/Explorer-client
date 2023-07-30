@@ -1,5 +1,5 @@
 import { IBot } from '@/app/interfaces';
-import { botsService } from '@/app/services/bots.service';
+import { botsService } from '@/app/services/bots/bots.service';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { RootState } from '..';

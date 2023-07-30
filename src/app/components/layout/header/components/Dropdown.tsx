@@ -1,9 +1,9 @@
 import { routes } from '@/app/constants';
+import { UserContext } from '@/app/context/UserContext';
 import { useAuth } from '@/app/hooks/useAuth';
 import { useOutsideClick } from '@/app/hooks/useOutsideClick';
-import { useAppSelector } from '@/app/store/hooks';
 import { AnimatePresence, motion } from 'framer-motion';
-import { FC, PropsWithChildren, useRef } from 'react';
+import { FC, PropsWithChildren, useContext, useRef } from 'react';
 import styles from '../styles.module.scss';
 import DropdownItem from './DropdownItem';
 
@@ -12,7 +12,7 @@ const Dropdown: FC<
 > = ({ dropdown, setDropdown }) => {
    const dropdownRef = useRef(null);
 
-   const userSlice = useAppSelector((state) => state.user);
+   const { user } = useContext(UserContext);
    const { logout } = useAuth();
 
    useOutsideClick(dropdownRef, setDropdown);
@@ -28,7 +28,7 @@ const Dropdown: FC<
                exit={{ y: -20, opacity: 0 }}
                ref={dropdownRef}
             >
-               {userSlice.data?.role === 'ADMIN' && (
+               {user?.role === 'ADMIN' && (
                   <>
                      <DropdownItem
                         href={routes.ADMIN_PANEL + '?act=statistics'}
@@ -44,7 +44,7 @@ const Dropdown: FC<
                      />
                   </>
                )}
-               {userSlice.data?.role === 'PARTNER' && (
+               {user?.role === 'PARTNER' && (
                   <DropdownItem
                      href={routes.PARTNER}
                      title="Партнерка"

@@ -1,17 +1,17 @@
 import BotControlScreen from '@/app/components/screens/control-panel/control';
+import { TimersContext } from '@/app/components/screens/control-panel/control/components/addons/timers/context/TimersContext';
 import { ConnectLoadingContext } from '@/app/components/screens/control-panel/control/context/ConnectLoadingContext';
-import { CurrentBotContext } from '@/app/components/screens/control-panel/control/context/CurrentBotContext';
 import { CurrentWinowContext } from '@/app/components/screens/control-panel/control/context/CurrentWindowContext';
 import { ItemsContext } from '@/app/components/screens/control-panel/control/context/ItemsContext';
 import { SelectedItemContext } from '@/app/components/screens/control-panel/control/context/SelectedItemContext';
 import { SocketContext } from '@/app/components/screens/control-panel/control/context/SocketContext';
 import { links } from '@/app/constants';
+import { BotContext, BotProvider } from '@/app/context/BotContext';
 import { withAuth } from '@/app/hoc/withAuth';
-import { IBot, ICurrentWindow, IItem } from '@/app/interfaces';
-import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
-import { getMyBots } from '@/app/store/slices/bots';
+import { IBot, IBotTimer, ICurrentWindow, IItem } from '@/app/interfaces';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { io, Socket } from 'socket.io-client';
 
 const BotControlPage = () => {
@@ -24,12 +24,13 @@ const BotControlPage = () => {
    const [selectedItem, setSelectedItem] = useState<IItem | null>(null);
    const [connectLoading, setConnectLoading] = useState<boolean>(false);
    const [initComplete, setInitComplete] = useState<boolean>(false);
+   const [timers, setTimers] = useState<IBotTimer[] | null>(null);
+   const [enableTimers, setEnableTimers] = useState<IBotTimer[]>([]);
 
    const router = useRouter();
    const { botId } = router.query;
-   const botsSlice = useAppSelector((state) => state.bots);
-   const bot = botsSlice.data.find((bot) => bot.id === Number(botId));
-   const dispatch = useAppDispatch();
+
+   const { bot } = useContext(BotContext);
 
    useEffect(() => {
       if (!socket) {
@@ -48,35 +49,36 @@ const BotControlPage = () => {
             }
          }
       }
-
-      if (socket && !currentBot) {
-         if (bot) {
-            setCurrentBot(bot);
-         } else {
-            dispatch(getMyBots());
-         }
+      if (socket) {
+         socket.on('no-access', () => {
+            toast.error('Нет доступа');
+         });
       }
-   }, [socket, botsSlice, botId]);
+   }, [socket, botId]);
 
    return (
       <SocketContext.Provider value={{ socket, setSocket }}>
-         <ConnectLoadingContext.Provider
-            value={{ connectLoading, setConnectLoading }}
-         >
-            <CurrentBotContext.Provider value={{ currentBot, setCurrentBot }}>
-               <CurrentWinowContext.Provider
-                  value={{ currentWindow, setCurrentWindow }}
+         <BotProvider botId={Number(botId)}>
+            <TimersContext.Provider
+               value={{ timers, setTimers, enableTimers, setEnableTimers }}
+            >
+               <ConnectLoadingContext.Provider
+                  value={{ connectLoading, setConnectLoading }}
                >
-                  <ItemsContext.Provider value={{ items, setItems }}>
-                     <SelectedItemContext.Provider
-                        value={{ selectedItem, setSelectedItem }}
-                     >
-                        <BotControlScreen />
-                     </SelectedItemContext.Provider>
-                  </ItemsContext.Provider>
-               </CurrentWinowContext.Provider>
-            </CurrentBotContext.Provider>
-         </ConnectLoadingContext.Provider>
+                  <CurrentWinowContext.Provider
+                     value={{ currentWindow, setCurrentWindow }}
+                  >
+                     <ItemsContext.Provider value={{ items, setItems }}>
+                        <SelectedItemContext.Provider
+                           value={{ selectedItem, setSelectedItem }}
+                        >
+                           <BotControlScreen />
+                        </SelectedItemContext.Provider>
+                     </ItemsContext.Provider>
+                  </CurrentWinowContext.Provider>
+               </ConnectLoadingContext.Provider>
+            </TimersContext.Provider>
+         </BotProvider>
       </SocketContext.Provider>
    );
 };

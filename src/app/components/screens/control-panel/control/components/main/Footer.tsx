@@ -1,6 +1,6 @@
+import { BotContext } from '@/app/context/BotContext';
 import Image from 'next/image';
 import { FC, PropsWithChildren, useContext, useState } from 'react';
-import { CurrentBotContext } from '../../context/CurrentBotContext';
 import { SocketContext } from '../../context/SocketContext';
 import styles from '../../styles.module.scss';
 
@@ -10,7 +10,7 @@ interface Props {
 
 const Footer: FC<PropsWithChildren<Props>> = ({ selectedId }) => {
    const { socket } = useContext(SocketContext);
-   const { currentBot } = useContext(CurrentBotContext);
+   const { bot } = useContext(BotContext);
    const [chatText, setChatText] = useState('');
    const [connectButtonLoaderActive, setConnectButtonLoaderActive] =
       useState<boolean>(false);
@@ -18,7 +18,7 @@ const Footer: FC<PropsWithChildren<Props>> = ({ selectedId }) => {
    const ConnectButtonHandler = () => {
       if (socket) {
          socket.emit('connect-to-server', {
-            botId: currentBot?.id,
+            botId: bot?.id,
          });
          setConnectButtonLoaderActive(true);
          socket.on('server-connected', () => {
@@ -29,7 +29,7 @@ const Footer: FC<PropsWithChildren<Props>> = ({ selectedId }) => {
    const DisconnectButtonHandler = () => {
       if (socket) {
          socket.emit('logout', {
-            botId: currentBot?.id,
+            botId: bot?.id,
          });
       }
    };
@@ -46,7 +46,7 @@ const Footer: FC<PropsWithChildren<Props>> = ({ selectedId }) => {
       <>
          {selectedId === 1 ? (
             <div className={styles.footer}>
-               {currentBot?.status !== 'online' ? (
+               {bot?.status !== 'online' ? (
                   <>
                      {connectButtonLoaderActive ? (
                         <button className={styles.connect_button_loader}>

@@ -4,8 +4,7 @@ import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import { RootState } from '..';
 import { AuthorizeUserDto, IUser, RegistrationUserDto } from '../../interfaces';
-import { UserService } from '../../services/user.service';
-import { UpdateUserDto } from './../../interfaces/index';
+import { userService } from '../../services/user/user.service';
 
 interface UserState {
    data: IUser | null;
@@ -27,7 +26,7 @@ export const registrationUser = createAsyncThunk<IUser, RegistrationUserDto>(
    'user/registrationUser',
    async (dto: RegistrationUserDto, { rejectWithValue }) => {
       try {
-         const response = await UserService.registration(dto);
+         const response = await userService.registration(dto);
          toast.success('Успешная регистрация!');
          return response;
       } catch (err) {
@@ -44,7 +43,7 @@ export const authorizeUser = createAsyncThunk<IUser, AuthorizeUserDto>(
    'user/authorizeUser',
    async (dto: AuthorizeUserDto, { rejectWithValue }) => {
       try {
-         const response = await UserService.authorize(dto);
+         const response = await userService.authorize(dto);
          toast.success('Успешная авторизация!');
          return response;
       } catch (err) {
@@ -57,12 +56,9 @@ export const authorizeUser = createAsyncThunk<IUser, AuthorizeUserDto>(
    }
 );
 
-export const updateUser = createAsyncThunk(
-   'user/updateUser',
-   async (dto: UpdateUserDto) => {
-      return await UserService.update(dto);
-   }
-);
+export const updateUser = createAsyncThunk('user/updateUser', async () => {
+   return await userService.update();
+});
 
 const userSlice = createSlice({
    name: 'user',

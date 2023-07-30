@@ -49,8 +49,27 @@ button {
    transition: 0.2s;
    font-size: 15px;
 
+   &[data-color='green'] {
+      background: $--ep-color-success-light-8;
+      border: 2px solid $--ep-color-success-light-7;
+      color: $colorGray;
+   }
+   &[data-color='red'] {
+      background: $--ep-color-error-light-8;
+      border: 2px solid $--ep-color-error-light-7;
+      color: $colorGray;
+   }
+
    &:hover {
       opacity: 0.6;
+   }
+
+   &[disabled] {
+      opacity: 0.6;
+
+      &:hover {
+         opacity: 0.6;
+      }
    }
 }
 

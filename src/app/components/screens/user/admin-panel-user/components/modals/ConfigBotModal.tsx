@@ -1,6 +1,7 @@
 import DefaultModal from '@/app/components/ui/modals/defaultModal/DefaultModal';
 import { IBot } from '@/app/interfaces';
 import { FC, PropsWithChildren, useContext, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { UserContext } from '../../context/UserContext';
 import { useChangeConfigBot } from '../../hooks/useChangeConfigBot';
 import styles from '../../styles.module.scss';
@@ -19,7 +20,7 @@ const ConfigBotModal: FC<PropsWithChildren<Props>> = ({ bot, setBot }) => {
    const [showSubmit, setShowSubmit] = useState<boolean>(false);
 
    const { user, setUser } = useContext(UserContext);
-   const { changedBot, isLoading, error, mutateAsync } = useChangeConfigBot();
+   const { changeBot, isLoading, error } = useChangeConfigBot();
 
    useEffect(() => {
       if (!bot) return;
@@ -30,8 +31,8 @@ const ConfigBotModal: FC<PropsWithChildren<Props>> = ({ bot, setBot }) => {
    }, [bot]);
 
    const handleSubmit = async () => {
-      if (!bot) return;
-      await mutateAsync({
+      if (!bot || !user || !user.bots) return;
+      const response = await changeBot({
          id: bot.id,
          server,
          termType,
@@ -39,6 +40,20 @@ const ConfigBotModal: FC<PropsWithChildren<Props>> = ({ bot, setBot }) => {
          type: rang,
          username,
       });
+
+      if (!response) return;
+
+      const spreadUserBots = [...user.bots];
+      spreadUserBots.forEach((item, i) => {
+         if (item.id === response.id) {
+            console.log(item, response);
+            item = response;
+         }
+      });
+      setUser({ ...user, bots: spreadUserBots });
+
+      toast.success('Вы изменили бота');
+      setBot(null);
       setShowSubmit(false);
    };
    const handleClose = () => {
@@ -48,7 +63,7 @@ const ConfigBotModal: FC<PropsWithChildren<Props>> = ({ bot, setBot }) => {
    return (
       <DefaultModal
          active={!!bot}
-         loading={false}
+         loading={isLoading}
          title="Конфигурация бота"
          onSubmit={handleSubmit}
          onClose={handleClose}

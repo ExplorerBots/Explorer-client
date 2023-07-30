@@ -17,8 +17,12 @@
       background: $bgMain;
       padding: 15px;
       color: $colorGray;
-
       border-radius: 5px;
+
+      &[data-loading='true'] {
+         pointer-events: none;
+         filter: blur(2px);
+      }
 
       .modal_header {
          .modal_title {

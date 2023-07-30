@@ -2,16 +2,18 @@ import { IChatNotify, IMessage } from '@/app/interfaces';
 import { FC, PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { SocketContext } from '../../context/SocketContext';
 import styles from '../../styles.module.scss';
-import AutoclickerContainer from '../autoclicker/AutoclickerContainer';
-import ChatContainer from '../chat/ChatContainer';
-import InventoryContainer from '../inventory/InventoryContainer';
+import { AutoLeave } from '../addons/auto-leave/AutoLeave';
+import AutoclickerContainer from '../addons/autoclicker/AutoclickerContainer';
+import ChatContainer from '../addons/chat/ChatContainer';
+import InventoryContainer from '../addons/inventory/InventoryContainer';
+import { Macros } from '../addons/macros/Macros';
+import { Timers } from '../addons/timers/Timers';
 import Footer from './Footer';
 import Header from './Header';
 
 interface Props {
    selectedId: number;
 }
-
 const MainContainer: FC<PropsWithChildren<Props>> = ({ selectedId }) => {
    const [dictionary, setDictionary] = useState<(IMessage | IChatNotify)[]>([]);
 
@@ -45,18 +47,23 @@ const MainContainer: FC<PropsWithChildren<Props>> = ({ selectedId }) => {
    return (
       <div className={styles.main_container}>
          <Header />
-         {selectedId === 1 ? (
-            <ChatContainer
-               dictionary={dictionary}
-               setDictionary={setDictionary}
-            />
-         ) : selectedId === 2 ? (
-            <InventoryContainer />
-         ) : selectedId === 3 ? (
-            <AutoclickerContainer />
-         ) : (
-            <></>
-         )}
+         <div className={styles.activity}>
+            {
+               {
+                  1: (
+                     <ChatContainer
+                        dictionary={dictionary}
+                        setDictionary={setDictionary}
+                     />
+                  ),
+                  2: <InventoryContainer />,
+                  3: <Macros />,
+                  4: <Timers />,
+                  5: <AutoLeave />,
+                  6: <AutoclickerContainer />,
+               }[selectedId]
+            }
+         </div>
 
          <Footer selectedId={selectedId} />
       </div>
