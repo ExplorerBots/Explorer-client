@@ -28,6 +28,7 @@ export type UpdateUserDto = {
 };
 
 export interface IUser {
+   partner: any;
    id: number;
    email: string;
    username: string;

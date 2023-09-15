@@ -27,6 +27,9 @@ export default function RootLayout({
 }) {
    return (
       <html lang="en">
+         <head>
+            <title>ExplorerBots</title>
+         </head>
          <body>
             <ToastContainer
                position="top-right"

@@ -9,7 +9,7 @@ import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import styles from './_styles.module.scss';
 
-const BotSettingsScreen = ({ params }: { params: any }) => {
+const BotSettingsPage = ({ params }: { params: any }) => {
    const [username, setUsername] = useState('');
    const [extendBot, setExtendBot] = useState<IBot | null>(null);
    const [showUsernameButton, setShowUsernameButton] = useState<boolean>(false);
@@ -236,4 +236,4 @@ const BotSettingsScreen = ({ params }: { params: any }) => {
    );
 };
 
-export default BotSettingsScreen;
+export default BotSettingsPage;
