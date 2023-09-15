@@ -1,0 +1,18 @@
+.container {
+   text-align: center;
+   padding-top: 10vh;
+}
+
+.svg {
+   animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+   100% {
+      transform: rotate(360deg);
+   }
+}
+
+.title {
+   color: gray
+}

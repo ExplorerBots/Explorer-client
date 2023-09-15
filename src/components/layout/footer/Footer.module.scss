@@ -1,0 +1,115 @@
+@import '@/assets/_vars.scss';
+@import '@/assets/_mixins.scss';
+
+.footer {
+   background: $bgMain;
+   justify-content: center;
+   display: flex;
+   margin: 0 15px;
+
+   .container {
+      border-top: 1px solid $bgAverage;
+      display: flex;
+      justify-content: space-around;
+      padding: 30px;
+      width: 1200px;
+      gap: 25px;
+
+      .content_comment {
+         align-items: center;
+         p {
+            opacity: 0.5;
+            font-size: 13px;
+         }
+      }
+
+      .content_links {
+         display: flex;
+         align-items: center;
+         gap: 30px;
+
+         a {
+            color: gray;
+            font-weight: bolder;
+
+            &:hover {
+               color: $colorOrange;
+               opacity: 1;
+            }
+         }
+      }
+
+      .content_email {
+         display: flex;
+         align-items: center;
+         color: $colorGray;
+         opacity: 0.7;
+      }
+
+      .content_socials {
+         display: flex;
+         align-items: center;
+         gap: 15px;
+         border-left: 1px solid $bgAverage;
+         padding-left: 30px;
+
+         svg {
+            cursor: pointer;
+            fill: gray;
+         }
+
+         .vk {
+            &:hover {
+               fill: #4c75a3;
+            }
+         }
+
+         .discord {
+            &:hover {
+               fill: #7289da;
+            }
+         }
+
+         .telegram {
+            &:hover {
+               fill: #2aabee;
+            }
+         }
+
+         .youtube {
+            &:hover {
+               fill: #ff0000;
+            }
+         }
+      }
+   }
+}
+
+@include xxl() {
+   .footer {
+      .container {
+         padding: 30px 100px;
+         justify-content: space-evenly;
+         gap: 10px;
+
+         .content_comment {
+            display: none;
+         }
+
+         .content_links {
+            display: none;
+         }
+
+         .content_socials {
+            border: none;
+            padding-left: 0;
+         }
+      }
+   }
+}
+
+@include lg() {
+   .footer {
+      display: none;
+   }
+}

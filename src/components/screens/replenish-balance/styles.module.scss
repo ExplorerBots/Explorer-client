@@ -1,0 +1,178 @@
+@import '@/assets/_vars';
+
+.bonus_block {
+   padding: 20px 30px;
+   background: $bgAverage;
+   border-radius: $borderRadius;
+   color: $colorGray;
+   margin-bottom: 10px;
+   width: 100%;
+
+   .bonus_title {
+      font-weight: bold;
+      margin-bottom: 5px;
+   }
+
+   .bonus_description {
+      opacity: 0.8;
+   }
+}
+
+.internal_container {
+   padding: 20px 30px;
+   background: $bgAverage;
+   border-radius: $borderRadius;
+   color: $colorGray;
+   margin-bottom: 10px;
+   width: 100%;
+
+   .title {
+      font-weight: bold;
+   }
+   .text {
+      margin-top: 5px;
+      opacity: 0.8;
+   }
+   .enter_button {
+      margin-top: 10px;
+      width: 100%;
+   }
+
+   .input_field {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 3px;
+      width: 100%;
+
+      .input_label {
+         margin-top: 10px;
+         margin-bottom: 2px;
+      }
+
+      .input {
+         background: $bgInput;
+         border-radius: 3px;
+         height: 35px;
+         font-size: 17px;
+      }
+
+      .input[type='number'] {
+         margin-top: 10px;
+      }
+
+      .input[type='text'] {
+         margin: 5px 0 5px 0;
+      }
+   }
+
+   .input_result {
+      font-size: 15px;
+      margin-bottom: 10px;
+   }
+
+   .submit_container {
+      .submit_btn {
+         width: 100%;
+         transition: 0.2s;
+      }
+   }
+}
+
+.bonus_container {
+   margin: 0 auto;
+   background: $bgBlock;
+   max-width: 1200px;
+   border-radius: $borderRadius;
+   padding: 30px;
+
+   .content {
+      display: flex;
+      gap: 30px;
+   }
+
+   @media (max-width: 425px) {
+      .content {
+         flex-direction: column;
+      }
+   }
+}
+
+.last_container {
+   margin: 30px auto 0;
+   background: $bgBlock;
+   max-width: 1200px;
+   border-radius: $borderRadius;
+   padding: 30px;
+
+   .content {
+      ul {
+         display: flex;
+         width: 100%;
+         display: flex;
+
+         li {
+            width: 100%;
+            opacity: 0.8;
+            border: 1px solid $bgAverage;
+            padding: 10px;
+         }
+      }
+
+      .operations_history {
+         display: flex;
+
+         ul {
+            display: block;
+
+            li {
+               padding: 0;
+
+               display: flex;
+               .operation_item {
+                  padding: 10px;
+                  width: 100%;
+               }
+               .operation_item[data-type='true'] {
+                  border-left: 2px solid $bgAverage;
+                  border-right: 2px solid $bgAverage;
+               }
+            }
+         }
+
+         p {
+            width: 100%;
+            text-align: center;
+            padding-top: 30px;
+            opacity: 0.6;
+         }
+      }
+   }
+}
+
+.central_container {
+   margin: 30px auto;
+   background: $bgBlock;
+   max-width: 1200px;
+   border-radius: $borderRadius;
+   padding: 30px;
+
+   .content {
+      display: flex;
+      gap: 30px;
+   }
+
+   @media (max-width: 767px) {
+      .content {
+         flex-direction: column;
+         .internal_container {
+            display: none;
+         }
+         .internal_container[data-side='middle'] {
+            display: block;
+         }
+         .internal_container[data-side='right'] {
+            display: block;
+         }
+      }
+   }
+}

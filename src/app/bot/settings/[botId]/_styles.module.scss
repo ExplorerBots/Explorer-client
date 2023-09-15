@@ -1,0 +1,125 @@
+@import '@/assets/_vars';
+@import '@/assets/_mixins';
+
+.settings_container {
+   margin: 0 auto;
+   background: $bgBlock;
+   max-width: 500px;
+   border-radius: $borderRadius;
+   padding: 30px;
+
+   .header {
+      background: $bgAverage;
+      padding: 12px;
+      border-radius: $borderRadius;
+      text-align: center;
+
+      .header_title {
+         color: $colorGray;
+         font-weight: bold;
+      }
+   }
+   .body {
+      display: flex;
+      margin-top: 15px;
+      flex-direction: column;
+      gap: 15px;
+
+      .loading {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         flex-direction: column;
+         height: 100%;
+         gap: 10px;
+
+         .loading_text {
+            color: $colorGray;
+         }
+      }
+
+      .block {
+         background: $bgAverage;
+         padding: 15px;
+         border-radius: $borderRadius;
+         font-weight: bold;
+
+         .block_title {
+            color: $colorGray;
+            padding: 0 0 10px;
+         }
+
+         .block_content {
+            .field {
+               display: flex;
+               gap: 5px;
+               align-items: center;
+
+               .submit_button {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  background: $bgAverage;
+                  border: 2px solid #00a912;
+                  color: black;
+                  border-radius: 5px;
+
+                  height: 32px;
+                  width: 32px;
+
+                  &:hover {
+                     background: #00a912;
+                     opacity: 1;
+                  }
+               }
+            }
+
+            .buttons {
+               display: flex;
+               justify-content: space-around;
+               gap: 10px;
+
+               .default_button {
+                  width: 100%;
+
+                  background: $colorGray;
+               }
+            }
+
+            .inner_block {
+               background: $bgMax;
+               padding: 5px;
+               border-radius: 5px;
+               display: flex;
+               align-items: center;
+               justify-content: space-between;
+
+               .bot_rank {
+                  font-size: 17px;
+                  color: $colorGray;
+                  font-weight: normal;
+               }
+            }
+
+            .whitelist {
+               display: flex;
+               gap: 5px;
+               margin-top: 10px;
+               flex-wrap: wrap;
+
+               .whitelist_item {
+                  font-weight: normal;
+                  padding: 4px;
+                  border-radius: 5px;
+                  background: $bgBlock;
+
+                  &:hover {
+                     background: $--ep-color-danger;
+                     cursor: pointer;
+                  }
+               }
+            }
+         }
+      }
+   }
+}

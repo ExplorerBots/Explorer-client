@@ -1,0 +1,10 @@
+@import '@/assets/_vars';
+
+.input_error {
+   font-size: 14px;
+   color: #f75c48;
+   border-radius: $borderRadius;
+   height: 5px;
+   position: relative;
+   bottom: 10px;
+}

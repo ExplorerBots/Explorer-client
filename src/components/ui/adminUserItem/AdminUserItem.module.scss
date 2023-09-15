@@ -1,0 +1,49 @@
+@import '@/app/assets/_vars';
+
+.user {
+   border-radius: 4px;
+   margin: 0 auto;
+   width: 95%;
+   background: $bgMain;
+   display: block;
+   list-style-type: none;
+   color: rgb(152, 152, 152);
+   display: flex;
+   justify-content: space-between;
+   border: 1px solid $bgAverage;
+   padding: 5px;
+
+   .left_cont {
+      display: flex;
+      flex-direction: column;
+
+      .username {
+         font-weight: 800;
+         font-size: 18px;
+         color: #afafaf;
+
+         &:hover {
+            opacity: 1;
+            color: $colorOrange;
+         }
+      }
+   }
+
+   .right_cont {
+      display: flex;
+      flex-direction: column;
+      text-align: right;
+
+      .profile_link {
+         &:hover {
+            right: 2px;
+         }
+      }
+      .enter_button {
+         height: 20px;
+         line-height: 10px;
+         font-size: 14px;
+         width: 100px;
+      }
+   }
+}

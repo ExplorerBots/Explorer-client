@@ -1,0 +1,10 @@
+@import '@/app/assets/_vars';
+@import '@/app/assets/_mixins';
+
+.select {
+   color: $colorGray;
+
+   option {
+      color: gray;
+   }
+}

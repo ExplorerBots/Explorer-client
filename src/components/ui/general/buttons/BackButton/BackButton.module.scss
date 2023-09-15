@@ -1,0 +1,21 @@
+.button {
+   position: absolute;
+   color: gray;
+   cursor: pointer;
+   display: inline;
+   margin-top: 3px;
+   margin-left: 5px;
+   transition: .2s;
+
+   &:hover {
+      margin-left: 0;
+      color: rgb(255, 109, 13)
+   }
+
+   // .arrow {}
+
+   .text {
+      padding: 0;
+      vertical-align: top;
+   }
+}

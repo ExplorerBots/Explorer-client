@@ -1,0 +1,54 @@
+@import '@/app/assets/_vars';
+@import '@/app/assets/_mixins';
+
+.modal {
+   height: 100vh;
+   width: 100vw;
+   background: rgba(0, 0, 0, 0.4);
+   // position: fixed;
+   top: 0;
+   left: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: absolute;
+}
+
+.modal_content {
+   position: relative;
+   border-radius: $borderRadius;
+   padding: 10px;
+   background: rgb(20, 20, 20);
+   color: #fff;
+   text-align: center;
+
+   .title {
+      // margin-top: 20px;
+      font-size: 17px;
+   }
+
+   .select {
+      border: none;
+      outline: none;
+      margin-right: 10px;
+      height: 25px;
+      border-radius: $borderRadius;
+      background: #101010;
+      color: #fff;
+      font-size: 17px;
+   }
+
+   .submit_button {
+      margin-top: 10px;
+      width: 100px;
+      height: 20px;
+      background: rgb(152, 152, 152);
+      border: none;
+      border-radius: $borderRadius;
+      cursor: pointer;
+
+      &:hover {
+         opacity: 0.7;
+      }
+   }
+}

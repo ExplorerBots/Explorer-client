@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&display=swap'); */
+@import '@/assets/_vars.scss';
+
+:root {
+   --max-width: 1100px;
+}
+
+* {
+   box-sizing: border-box;
+   padding: 0;
+   margin: 0;
+   font-family: 'Exo 2', sans-serif;
+}
+
+::selection {
+   background: $colorGray;
+}
+
+html,
+body {
+   max-width: 100vw;
+   overflow-x: hidden;
+}
+
+body {
+   color: rgb(var(--foreground-rgb));
+   background: $bgMain;
+   font-family: 'Exo 2', sans-serif;
+}
+
+label {
+   color: $colorGray;
+   opacity: 0.8;
+   font-size: 15px;
+}
+
+p {
+   color: $colorGray;
+}
+
+button {
+   cursor: pointer;
+   background: $colorGray;
+   border: none;
+   outline: none;
+   color: 0;
+   padding: 5px;
+   border-radius: 3px;
+   transition: 0.2s;
+   font-size: 15px;
+
+   &[data-color='green'] {
+      background: $--ep-color-success-light-8;
+      border: 2px solid $--ep-color-success-light-7;
+      color: $colorGray;
+   }
+   &[data-color='red'] {
+      background: $--ep-color-error-light-8;
+      border: 2px solid $--ep-color-error-light-7;
+      color: $colorGray;
+   }
+
+   &:hover {
+      opacity: 0.6;
+   }
+
+   &[disabled] {
+      opacity: 0.6;
+
+      &:hover {
+         opacity: 0.6;
+      }
+   }
+}
+
+li {
+   list-style: none;
+   color: $colorGray;
+}
+
+select {
+   outline: none;
+   transition: 0.2s;
+   color: $colorGray;
+   padding: 4px 0;
+   background: $bgInput;
+   width: 100%;
+   font-size: 17px;
+   border-radius: 5px;
+   border: 2px solid $bgBlock;
+   font-size: 17px;
+   border-radius: 5px;
+
+   &:focus {
+      border: 2px solid $bgMax;
+   }
+
+   option {
+      color: gray;
+   }
+}
+
+input {
+   outline: none;
+   transition: 0.2s;
+   color: $colorGray;
+   padding: 5px;
+   background: $bgInput;
+   width: 100%;
+   border-radius: 5px;
+   border: 2px solid $bgBlock;
+   font-size: 17px;
+   border-radius: 5px;
+
+   &[disabled] {
+      opacity: 0.8;
+   }
+
+   &:focus {
+      border: 2px solid $bgMax;
+   }
+
+   &[type='range'] {
+      -webkit-appearance: none !important;
+      background: $bgBlock;
+      height: 7px;
+      border: none;
+   }
+   &[type='range']::-webkit-slider-thumb {
+      -webkit-appearance: none !important;
+      background: gray;
+      height: 15px;
+      border-radius: 3px;
+      width: 20px;
+   }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+}
+
+a {
+   color: inherit;
+   text-decoration: none;
+}
+
+div {
+   color: $colorGray;
+}
+
+::-webkit-scrollbar {
+   width: 3px;
+   position: absolute;
+   right: 0;
+}
+body::-webkit-scrollbar-thumb {
+   background-color: $bgAverage;
+}
+body::-webkit-scrollbar-track {
+   background-color: $bgMain;
+}
